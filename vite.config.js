@@ -4,6 +4,6 @@ import jsx from "@vitejs/plugin-vue-jsx";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  build: {},
+  base: "/survey",
   plugins: [vue(), jsx()],
 });
