@@ -1,0 +1,61 @@
+<template>
+  <div class="h-full flex">
+    <div class="flex flex-col flex-1">
+      <div
+        class="h-[52px] flex-shrink-0 bg-white border-b border-neutral-300 flex survey-top-bar"
+      >
+        <NTabs type="bar" size="large" v-model:value="tabValue">
+          <NTabPane name="designer" tab="Designer" />
+          <NTabPane name="json" tab="JSON" />
+        </NTabs>
+      </div>
+      <div class="flex-1 min-h-0">
+        <template v-if="isMounted">
+          <Creator v-if="tabValue === 'designer'" />
+          <JSONPreview v-if="tabValue === 'json'" />
+        </template>
+      </div>
+    </div>
+    <div
+      id="sideBar"
+      v-show="tabValue === 'designer'"
+      class="w-[450px] flex-shrink-0 box-border border-l border-neutral-300"
+    />
+  </div>
+</template>
+
+<script setup>
+import { useMounted } from "@vueuse/core";
+import { NTabs, NTabPane } from "naive-ui";
+import { onMounted, provide, ref } from "vue";
+import Creator from "./Createtor/index.vue";
+import JSONPreview from "./JSON/index.vue";
+import useCreator from "./Createtor/hooks/useCreator";
+
+const creator = useCreator();
+provide("creator", creator);
+const isMounted = useMounted();
+onMounted(() => {
+  creator.addQuestion("radiogroup");
+});
+
+const tabValue = ref("designer");
+</script>
+
+<style>
+.survey-top-bar .ntabs,
+.survey-top-bar .n-tabs-nav,
+.survey-top-bar .n-tabs-nav-scroll-wrapper,
+.survey-top-bar .v-x-scroll,
+.survey-top-bar .n-tabs-nav-scroll-content {
+  height: 100%;
+}
+
+.survey-top-bar .n-tabs-tab__label {
+  font-weight: bold;
+  padding: 0px 1.5rem;
+}
+.survey-top-bar .n-tabs-tab-pad {
+  display: none;
+}
+</style>
