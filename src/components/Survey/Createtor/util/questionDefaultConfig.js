@@ -35,6 +35,10 @@ const getQuestionDefaultConfig = (questionType) => {
     case "checkbox":
     case "dropdown":
       return getSelectTypeDefault();
+    case "file":
+      return {
+        ...commonDefault,
+      };
   }
 };
 

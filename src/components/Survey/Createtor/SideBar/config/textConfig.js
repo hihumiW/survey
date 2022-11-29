@@ -23,8 +23,10 @@ export const MinimumLengthEditor = generateValueBinder(
     title: "Minimum length",
     bindName: "minLength",
     type: "number",
-    min: 0,
-    max: 500,
+    inputProps: {
+      min: 0,
+      max: 500,
+    },
   },
   "MinimumLengthEditor",
   ({ currentActiveItem }) =>
@@ -38,8 +40,10 @@ export const MaximumLengthEditor = generateValueBinder(
     title: "Maximum length",
     bindName: "maxLength",
     type: "number",
-    min: 0,
-    max: 500,
+    inputProps: {
+      min: 0,
+      max: 500,
+    },
   },
   "MaximumLengthEditor",
   ({ currentActiveItem }) =>

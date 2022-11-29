@@ -1,20 +1,12 @@
 <template>
   <Vertical :title="props.title">
-    <NInput
-      v-if="['text', 'textarea'].includes(props.type)"
-      :placeholder="placeholder"
+    <component
+      :is="RenderComponent"
+      :value="binderValue"
       :type="props.type"
-      :value="binderValue"
+      :placeholder="placeholder"
       @update:value="handleValueChange"
-      size="large"
-    />
-    <NInputNumber
-      v-if="props.type === 'number'"
-      :value="binderValue"
-      :min="props.min"
-      :max="props.max"
-      @update:value="handleValueChange"
-      size="large"
+      v-bind="inputProps"
     />
   </Vertical>
 </template>
@@ -35,12 +27,17 @@ const props = defineProps({
     type: String,
     default: "text",
   },
-  // only works when type is number
-  min: Number,
-  max: Number,
+  inputProps: {
+    type: Object,
+    default: () => ({}),
+  },
 });
 
 const { binderValue, handleValueChange } = useBinder(props.bindName);
 
 const placeholder = computed(() => `Please input ${props.title.toLowerCase()}`);
+
+const RenderComponent = computed(() =>
+  props.type === "number" ? NInputNumber : NInput
+);
 </script>

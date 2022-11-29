@@ -30,7 +30,7 @@ const { currentActiveItem } = inject("creator");
 const haveActiveItem = computed(() => !!unref(currentActiveItem));
 const sideBarTitle = computed(() => {
   const item = unref(currentActiveItem);
-  return item ? item.name : "No Question selected";
+  return item ? item.name : "No question selected";
 });
 
 const activeConfig = computed(() => {

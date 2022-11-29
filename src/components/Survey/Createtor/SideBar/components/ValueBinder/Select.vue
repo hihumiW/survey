@@ -6,6 +6,8 @@
       :options="props.options"
       @update:value="handleValueChange"
       size="large"
+      :multiple="props.multiple"
+      v-bind="selectProps"
     />
   </Vertical>
 </template>
@@ -24,6 +26,10 @@ const props = defineProps({
   options: {
     type: Array,
     default: () => [],
+  },
+  selectProps: {
+    type: Object,
+    default: () => ({}),
   },
 });
 

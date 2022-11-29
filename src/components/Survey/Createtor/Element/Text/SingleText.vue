@@ -31,7 +31,10 @@ import QuestionLayout from "../QuestionLayout.vue";
 import ElementHead from "../ElementHead.vue";
 
 const props = defineProps({
-  question: Object,
+  question: {
+    type: Object,
+    required: true,
+  },
   showTitle: {
     type: Boolean,
     default: true,

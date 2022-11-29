@@ -29,6 +29,12 @@ import {
   ChoicesEditor,
 } from "./selectConfig";
 
+import {
+  FileAcceptedTypesEditor,
+  FileMaxSizeEditor,
+  MaxFileCount,
+} from "./fileConfig";
+
 const SelectConfig = [
   {
     categoryName: "General",
@@ -108,6 +114,30 @@ const sideBarConfig = {
   radiogroup: SelectConfig,
   checkbox: SelectConfig,
   dropdown: SelectConfig,
+  file: [
+    {
+      categoryName: "General",
+      categoryTitle: "General",
+      components: [
+        NameEditor,
+        TitleEditor,
+        IsRequiredEditor,
+        MaxFileCount,
+        FileAcceptedTypesEditor,
+        FileMaxSizeEditor,
+      ],
+    },
+    {
+      categoryName: "Layout",
+      categoryTitle: "Layout",
+      components: [TitleLocatioEditor, IndentEditor, ShowQuestionNumberEditor],
+    },
+    {
+      categoryName: "Logic",
+      categoryTitle: "Logic",
+      components: [VisibleIfEditor, RequiredIfEditor],
+    },
+  ],
 };
 
 export default sideBarConfig;

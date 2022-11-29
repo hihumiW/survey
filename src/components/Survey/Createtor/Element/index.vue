@@ -19,6 +19,11 @@
         :question="props.question"
         :path="props.path"
       />
+      <File
+        v-else-if="props.question.type === 'file'"
+        :question="props.question"
+        :path="props.path"
+      />
     </div>
     <div class="survey-question_footer mt-4">
       <div class="flex justify-between items-center">
@@ -42,6 +47,7 @@
 <script setup>
 import SingleText from "./Text/SingleText.vue";
 import SelectBase from "./SelectBase/index.jsx";
+import File from "./File/index.vue";
 import questionTypes from "../ToolBox/questionTypes";
 import { NButton } from "naive-ui";
 import useBase from "../hooks/useBase";
@@ -57,8 +63,9 @@ const props = defineProps({
   },
 });
 
-const { questionName, removeItem, currentActiveItem, onQuestionItemClick } =
-  useBase(props.path);
+const { removeItem, currentActiveItem, onQuestionItemClick } = useBase(
+  props.path
+);
 
 const isActive = computed(() => unref(currentActiveItem) === props.question);
 

@@ -15,4 +15,8 @@ export default [
     name: "Dropdown",
     type: "dropdown",
   },
+  {
+    name: "File",
+    type: "file",
+  },
 ];
