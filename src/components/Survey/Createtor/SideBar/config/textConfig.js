@@ -3,9 +3,22 @@ import generateValueBinder from "./generateValueBinder";
 import InputBinder from "../components/ValueBinder/Input.vue";
 import SelectBinder from "../components/ValueBinder/Select.vue";
 import RadioBinder from "../components/ValueBinder/Radio.vue";
+import {
+  NameEditor,
+  TitleEditor,
+  IsRequiredEditor,
+  ReadOnlyEditor,
+  ShowQuestionNumberEditor,
+  TitleLocatioEditor,
+  IndentEditor,
+  VisibleIfEditor,
+  EditableIfEditor,
+  RequiredIfEditor,
+  DefaultValueExpressionEditor,
+} from "./common";
 
 //文本Placeholder的组件
-export const PlaceHolderEditor = generateValueBinder(
+const PlaceHolderEditor = generateValueBinder(
   InputBinder,
   {
     title: "Input area placeholder",
@@ -17,7 +30,7 @@ export const PlaceHolderEditor = generateValueBinder(
     ["text", "number"].includes(unref(currentActiveItem).inputType)
 );
 
-export const MinimumLengthEditor = generateValueBinder(
+const MinimumLengthEditor = generateValueBinder(
   InputBinder,
   {
     title: "Minimum length",
@@ -34,7 +47,7 @@ export const MinimumLengthEditor = generateValueBinder(
 );
 
 //文本输入长度限制
-export const MaximumLengthEditor = generateValueBinder(
+const MaximumLengthEditor = generateValueBinder(
   InputBinder,
   {
     title: "Maximum length",
@@ -51,7 +64,7 @@ export const MaximumLengthEditor = generateValueBinder(
 );
 
 //文本类型
-export const InputTypeEditor = generateValueBinder(
+const InputTypeEditor = generateValueBinder(
   SelectBinder,
   {
     title: "Input type",
@@ -82,7 +95,7 @@ export const InputTypeEditor = generateValueBinder(
   "InputTypeEditor"
 );
 
-export const InputVariantEditor = generateValueBinder(RadioBinder, {
+const InputVariantEditor = generateValueBinder(RadioBinder, {
   title: "Input variant",
   bindName: "inputVariant",
   options: [
@@ -97,7 +110,7 @@ export const InputVariantEditor = generateValueBinder(RadioBinder, {
   ],
 });
 
-export const NumberPrecisionEditor = generateValueBinder(
+const NumberPrecisionEditor = generateValueBinder(
   RadioBinder,
   {
     title: "Precision of input value",
@@ -129,3 +142,41 @@ export const NumberPrecisionEditor = generateValueBinder(
   ({ currentActiveItem }) =>
     ["number"].includes(unref(currentActiveItem).inputType)
 );
+
+export default [
+  {
+    categoryName: "General",
+    categoryTitle: "General",
+    components: [
+      NameEditor,
+      TitleEditor,
+      IsRequiredEditor,
+      ReadOnlyEditor,
+      PlaceHolderEditor,
+      InputTypeEditor,
+      NumberPrecisionEditor,
+      MinimumLengthEditor,
+      MaximumLengthEditor,
+    ],
+  },
+  {
+    categoryName: "Layout",
+    categoryTitle: "Layout",
+    components: [
+      TitleLocatioEditor,
+      IndentEditor,
+      InputVariantEditor,
+      ShowQuestionNumberEditor,
+    ],
+  },
+  {
+    categoryName: "Logic",
+    categoryTitle: "Logic",
+    components: [
+      VisibleIfEditor,
+      EditableIfEditor,
+      RequiredIfEditor,
+      DefaultValueExpressionEditor,
+    ],
+  },
+];

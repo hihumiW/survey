@@ -3,6 +3,7 @@ import InputBinder from "../components/ValueBinder/Input.vue";
 import SelectBinder from "../components/ValueBinder/Select.vue";
 import BooleanBinder from "../components/ValueBinder/Boolean.vue";
 import RadioBinder from "../components/ValueBinder/Radio.vue";
+import { unref } from "vue";
 export { default as NameEditor } from "../components/Name/index.vue";
 
 //编辑Title的组件
@@ -59,10 +60,9 @@ export const ShowQuestionNumberEditor = generateValueBinder(
 // 标题的位置
 export const TitleLocatioEditor = generateValueBinder(
   SelectBinder,
-  {
-    title: "Title location",
-    bindName: "titleLocation",
-    options: [
+  ({ currentActivePath }) => {
+    const isSubNode = unref(currentActivePath).split(".")?.length > 1;
+    const options = [
       {
         label: "Top",
         value: "top",
@@ -71,7 +71,18 @@ export const TitleLocatioEditor = generateValueBinder(
         label: "Left",
         value: "left",
       },
-    ],
+    ];
+    if (isSubNode) {
+      options.unshift({
+        label: "Inherit",
+        value: "inherit",
+      });
+    }
+    return {
+      title: "Title location",
+      bindName: "titleLocation",
+      options,
+    };
   },
   "TitleLocationEditor"
 );

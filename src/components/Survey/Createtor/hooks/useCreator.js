@@ -8,7 +8,16 @@ const useCreator = () => {
   const surveyQuestionsNameSet = new Set();
 
   const surveyQuestionSequence = computed(() =>
-    unref(surveyQuestions).filter((item) => item.showQuestionNumber)
+    unref(surveyQuestions).reduce((lookup, current) => {
+      current.showQuestionNumber && lookup.push(current);
+      if (current.type === "panel") {
+        // 查看panel的子节点是否需要显示题目号
+        current.questions?.forEach((item) => {
+          item.showQuestionNumber && lookup.push(item);
+        });
+      }
+      return lookup;
+    }, [])
   );
 
   const surveyDef = ref({
@@ -47,10 +56,11 @@ const useCreator = () => {
       console.log("update path value--------->", path, "-------->", value);
       questionModel.set(path, value);
     },
-    getNewQuestionName: () => {
+    getNewQuestionName: (questionType) => {
+      const questionBaseName = questionType === "panel" ? "panel" : "question";
       let startIndex = unref(surveyQuestions).length;
       const getNew = () => {
-        return `question${++startIndex}`;
+        return `${questionBaseName}${++startIndex}`;
       };
       let questionName = null;
       while (!questionName) {
@@ -60,9 +70,9 @@ const useCreator = () => {
       return questionName;
     },
     addQuestion: (questionType, insertPath) => {
-      console.log("add question ------>", questionType);
-      const newQuesName = creator.getNewQuestionName();
-      const defaultConfig = getQuestionDefaultConfig(questionType) || {};
+      const newQuesName = creator.getNewQuestionName(questionType);
+      const defaultConfig =
+        getQuestionDefaultConfig(questionType, !!insertPath) || {};
       const questionJSON = {
         title: newQuesName,
         type: questionType,

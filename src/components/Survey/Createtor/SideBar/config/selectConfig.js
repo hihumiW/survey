@@ -2,10 +2,23 @@ import generateValueBinder from "./generateValueBinder";
 import InputBinder from "../components/ValueBinder/Input.vue";
 import RadioBinder from "../components/ValueBinder/Radio.vue";
 import BooleanBinder from "../components/ValueBinder/Boolean.vue";
-export { default as ChoicesEditor } from "../components/ChoicesEditor/index.vue";
+import ChoicesEditor from "../components/ChoicesEditor/index.vue";
 import { unref } from "vue";
+import {
+  NameEditor,
+  TitleEditor,
+  IsRequiredEditor,
+  ReadOnlyEditor,
+  ShowQuestionNumberEditor,
+  TitleLocatioEditor,
+  IndentEditor,
+  VisibleIfEditor,
+  EditableIfEditor,
+  RequiredIfEditor,
+  DefaultValueExpressionEditor,
+} from "./common";
 
-export const ChoicesOrientationEditor = generateValueBinder(
+const ChoicesOrientationEditor = generateValueBinder(
   RadioBinder,
   {
     title: "Choice orientation",
@@ -24,7 +37,7 @@ export const ChoicesOrientationEditor = generateValueBinder(
   "ChoicesOrientationEditor"
 );
 
-export const EnableOtherOptionEditor = generateValueBinder(
+const EnableOtherOptionEditor = generateValueBinder(
   BooleanBinder,
   {
     title: "Enable other option (describe)",
@@ -33,7 +46,7 @@ export const EnableOtherOptionEditor = generateValueBinder(
   "EnableOtherOptionEditor"
 );
 
-export const OtherOptionTextEditor = generateValueBinder(
+const OtherOptionTextEditor = generateValueBinder(
   InputBinder,
   {
     title: "Other option text",
@@ -43,7 +56,7 @@ export const OtherOptionTextEditor = generateValueBinder(
   ({ currentActiveItem }) => unref(currentActiveItem).showOtherItem
 );
 
-export const OtherOptionPlaceholder = generateValueBinder(
+const OtherOptionPlaceholder = generateValueBinder(
   InputBinder,
   {
     title: "Other placeholder",
@@ -52,3 +65,41 @@ export const OtherOptionPlaceholder = generateValueBinder(
   "OtherOptionPlaceholder",
   ({ currentActiveItem }) => unref(currentActiveItem).showOtherItem
 );
+
+export default [
+  {
+    categoryName: "General",
+    categoryTitle: "General",
+    components: [NameEditor, TitleEditor, IsRequiredEditor, ReadOnlyEditor],
+  },
+  {
+    categoryName: "Choices",
+    categoryTitle: "Choices",
+    components: [
+      ChoicesEditor,
+      EnableOtherOptionEditor,
+      OtherOptionTextEditor,
+      OtherOptionPlaceholder,
+    ],
+  },
+  {
+    categoryName: "Layout",
+    categoryTitle: "Layout",
+    components: [
+      TitleLocatioEditor,
+      IndentEditor,
+      ChoicesOrientationEditor,
+      ShowQuestionNumberEditor,
+    ],
+  },
+  {
+    categoryName: "Logic",
+    categoryTitle: "Logic",
+    components: [
+      VisibleIfEditor,
+      EditableIfEditor,
+      RequiredIfEditor,
+      DefaultValueExpressionEditor,
+    ],
+  },
+];

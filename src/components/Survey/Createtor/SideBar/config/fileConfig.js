@@ -1,10 +1,20 @@
 import generateValueBinder from "./generateValueBinder";
 import SelectBinder from "../components/ValueBinder/Select.vue";
 import InputBinder from "../components/ValueBinder/Input.vue";
-
 import fileTypeOptions from "../../util/fileTypeOptions";
+import {
+  NameEditor,
+  TitleEditor,
+  IsRequiredEditor,
+  ShowQuestionNumberEditor,
+  TitleLocatioEditor,
+  IndentEditor,
+  VisibleIfEditor,
+  EditableIfEditor,
+  RequiredIfEditor,
+} from "./common";
 
-export const FileAcceptedTypesEditor = generateValueBinder(
+const FileAcceptedTypesEditor = generateValueBinder(
   SelectBinder,
   {
     title: "Accepted file types",
@@ -18,7 +28,7 @@ export const FileAcceptedTypesEditor = generateValueBinder(
   "FileAcceptedTypesEditor"
 );
 
-export const MaxFileCount = generateValueBinder(SelectBinder, {
+const MaxFileCount = generateValueBinder(SelectBinder, {
   title: "Maximum number of file",
   bindName: "maxNumber",
   options: Array(10)
@@ -32,7 +42,7 @@ export const MaxFileCount = generateValueBinder(SelectBinder, {
   },
 });
 
-export const FileMaxSizeEditor = generateValueBinder(
+const FileMaxSizeEditor = generateValueBinder(
   InputBinder,
   {
     title: "Maximum file size (in bytes)",
@@ -44,3 +54,28 @@ export const FileMaxSizeEditor = generateValueBinder(
   },
   "FileMaxSizeEditor"
 );
+
+export default [
+  {
+    categoryName: "General",
+    categoryTitle: "General",
+    components: [
+      NameEditor,
+      TitleEditor,
+      IsRequiredEditor,
+      MaxFileCount,
+      FileAcceptedTypesEditor,
+      FileMaxSizeEditor,
+    ],
+  },
+  {
+    categoryName: "Layout",
+    categoryTitle: "Layout",
+    components: [TitleLocatioEditor, IndentEditor, ShowQuestionNumberEditor],
+  },
+  {
+    categoryName: "Logic",
+    categoryTitle: "Logic",
+    components: [VisibleIfEditor, RequiredIfEditor, EditableIfEditor],
+  },
+];

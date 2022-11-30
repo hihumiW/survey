@@ -1,11 +1,18 @@
-const commonDefault = {
-  indent: 0,
-  titleLocation: "top",
-  showQuestionNumber: true,
+const getCommonDefault = (isSubNode) => {
+  const config = {
+    indent: 0,
+    titleLocation: "top",
+    showQuestionNumber: true,
+  };
+  //如果是subNode（Panel下的节点，titleLocation 默认跟随Panel的布局）
+  if (isSubNode) {
+    config.titleLocation = "inherit";
+  }
+  return config;
 };
 
-const getSelectTypeDefault = () => ({
-  ...commonDefault,
+const getSelectTypeDefault = (isSubNode) => ({
+  ...getCommonDefault(isSubNode),
   orientation: "vertical",
   choices: [
     {
@@ -22,22 +29,27 @@ const getSelectTypeDefault = () => ({
     },
   ],
 });
-const getQuestionDefaultConfig = (questionType) => {
+const getQuestionDefaultConfig = (questionType, isSubNode) => {
   switch (questionType) {
     case "text":
       return {
         inputType: "text",
         inputVariant: "outlined",
         precision: "",
-        ...commonDefault,
+        ...getCommonDefault(isSubNode),
       };
     case "radiogroup":
     case "checkbox":
     case "dropdown":
-      return getSelectTypeDefault();
+      return getSelectTypeDefault(isSubNode);
     case "file":
+      return getCommonDefault(isSubNode);
+    case "panel":
       return {
-        ...commonDefault,
+        ...getCommonDefault(),
+        showQuestionNumber: false,
+        title: "",
+        innerIndent: 0,
       };
   }
 };

@@ -15,9 +15,17 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, unref, inject } from "vue";
 const props = defineProps({
   question: Object,
 });
-const isInline = computed(() => props.question.titleLocation === "left");
+const parentConfig = inject("parentConfig") || {};
+
+const titleLocation = computed(
+  () =>
+    (props.question.titleLocation === "inherit" &&
+      unref(parentConfig)?.titleLocation) ||
+    props.question.titleLocation
+);
+const isInline = computed(() => unref(titleLocation) === "left");
 </script>

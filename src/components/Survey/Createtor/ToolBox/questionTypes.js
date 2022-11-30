@@ -19,4 +19,8 @@ export default [
     name: "File",
     type: "file",
   },
+  {
+    name: "Panel",
+    type: "panel",
+  },
 ];

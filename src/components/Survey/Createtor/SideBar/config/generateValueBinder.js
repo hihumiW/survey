@@ -1,4 +1,4 @@
-import { computed, defineComponent, h, inject } from "vue";
+import { computed, defineComponent, h, inject, unref } from "vue";
 const generateValueBinder = (
   component,
   props,
@@ -15,7 +15,15 @@ const generateValueBinder = (
         }
         return true;
       });
-      return () => (shouldRenderItem.value ? h(component, props) : null);
+
+      const passProps = computed(() => {
+        if (typeof props === "function") {
+          return props(creator);
+        }
+        return props;
+      });
+      return () =>
+        unref(shouldRenderItem) ? h(component, unref(passProps)) : null;
     },
   });
 
