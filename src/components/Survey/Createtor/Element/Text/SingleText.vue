@@ -1,22 +1,16 @@
 <template>
-  <QuestionLayout
+  <QuestionHeader
+    v-bind="props"
+    editable
     :class="['survey-question_text', isStandardVariant && 'variant-standard']"
-    :question="props.question"
   >
-    <template #title>
-      <ElementHead
-        :question="props.question"
-        :path="props.path"
-        v-if="props.showTitle"
-      />
-    </template>
     <component
       :is="InputComponent"
       disabled
       :placeholder="placeholder"
       size="large"
     />
-  </QuestionLayout>
+  </QuestionHeader>
 </template>
 <script setup>
 import { computed } from "vue";
@@ -27,23 +21,10 @@ import {
   NDatePicker,
   NSelect,
 } from "naive-ui";
-import QuestionLayout from "../QuestionLayout.vue";
-import ElementHead from "../ElementHead.vue";
+import QuestionHeader from "@survey/components/QuestionHeader/index.vue";
+import questionCommonProps from "@survey/hooks/questionCommonProps";
 
-const props = defineProps({
-  question: {
-    type: Object,
-    required: true,
-  },
-  showTitle: {
-    type: Boolean,
-    default: true,
-  },
-  path: {
-    type: String,
-    required: true,
-  },
-});
+const props = defineProps(questionCommonProps);
 
 const placeholder = computed(() => {
   switch (props.question.inputType) {

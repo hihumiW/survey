@@ -16,10 +16,16 @@
 
 <script setup>
 import { computed, unref, inject } from "vue";
+import questionCommonProps from "../../hooks/questionCommonProps";
+
 const props = defineProps({
-  question: Object,
+  question: {
+    type: Object,
+    required: true,
+  },
 });
-const parentConfig = inject("parentConfig") || {};
+
+const parentConfig = inject("parentConfig", () => ({}));
 
 const titleLocation = computed(
   () =>

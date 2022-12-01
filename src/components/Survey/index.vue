@@ -27,16 +27,17 @@
 <script setup>
 import { useMounted } from "@vueuse/core";
 import { NTabs, NTabPane } from "naive-ui";
-import { onMounted, provide, ref } from "vue";
+import { onMounted, ref } from "vue";
 import Creator from "./Createtor/index.vue";
 import JSONPreview from "./JSON/index.vue";
-import useCreator from "./Createtor/hooks/useCreator";
+import useCreator from "./hooks/useCreator";
+import { useQuestionSequenceInit } from "./hooks/useQuestionIndex";
 
 const creator = useCreator();
-provide("creator", creator);
+useQuestionSequenceInit(creator.surveyQuestions);
 const isMounted = useMounted();
 onMounted(() => {
-  creator.addQuestion("radiogroup");
+  creator.addQuestion("file");
 });
 
 const tabValue = ref("designer");

@@ -1,7 +1,7 @@
 <template>
   <span
     class="survey-title rounded-md cursor-text inline-block px-1.5 break-all"
-    contenteditable
+    :contenteditable="props.editable"
     role="textbox"
     spellcheck="true"
     :aria-placeholder="props.placeholder"
@@ -15,6 +15,7 @@
 const props = defineProps({
   placeholder: String,
   value: String,
+  editable: Boolean,
 });
 
 const emit = defineEmits(["update:value"]);

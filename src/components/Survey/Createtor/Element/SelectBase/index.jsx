@@ -1,22 +1,14 @@
-import QuestionLayout from "../QuestionLayout.vue";
+import QuestionHeader from "@survey/components/QuestionHeader/index.vue";
+import questionCommonProps from "@survey/hooks/questionCommonProps";
+
 import OptionItem from "./OptionItem.vue";
-import ElementHead from "../ElementHead.vue";
+
 import { NInput, NRadioGroup, NCheckboxGroup, NSelect } from "naive-ui";
 import { inject, defineComponent } from "vue";
 import useChoice from "../../hooks/useChoice";
 
 const SelectBase = defineComponent({
-  props: {
-    question: Object,
-    showTitle: {
-      type: Boolean,
-      default: true,
-    },
-    path: {
-      type: String,
-      required: true,
-    },
-  },
+  props: questionCommonProps,
   setup(props) {
     const { updateQuestionFieldValueByPath } = inject("creator");
 
@@ -89,12 +81,6 @@ const SelectBase = defineComponent({
       );
     };
 
-    const renderHeader = () => {
-      return props.showTitle ? (
-        <ElementHead question={props.question} path={props.path} />
-      ) : null;
-    };
-
     const renderSelect = () => {
       return props.question.type === "dropdown" ? (
         <NSelect placeholder="Select..." disabled size="large" />
@@ -106,12 +92,11 @@ const SelectBase = defineComponent({
       const { type } = question;
       const isDropDown = type === "dropdown";
       const slots = {
-        title: renderHeader,
         default: isDropDown ? renderSelect : renderOptions,
       };
       return (
         <div class="survey-question-wrapper flex flex-col gap-y-4">
-          <QuestionLayout question={question} v-slots={slots} />
+          <QuestionHeader {...props} v-slots={slots} editable />
           {isDropDown ? renderOptions() : null}
         </div>
       );

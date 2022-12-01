@@ -7,25 +7,8 @@
     @click="handleQuestionContainerClick"
   >
     <div :class="['ml-0', 'ml-6', 'ml-8', 'ml-10'][question.indent]">
-      <SingleText
-        v-if="props.question.type === 'text'"
-        :question="props.question"
-        :path="props.path"
-      />
-      <SelectBase
-        v-else-if="
-          ['radiogroup', 'checkbox', 'dropdown'].includes(props.question.type)
-        "
-        :question="props.question"
-        :path="props.path"
-      />
-      <File
-        v-else-if="props.question.type === 'file'"
-        :question="props.question"
-        :path="props.path"
-      />
-      <Panel
-        v-else-if="props.question.type === 'panel'"
+      <component
+        :is="RenderComponent"
         :question="props.question"
         :path="props.path"
       />
@@ -54,20 +37,14 @@ import SingleText from "./Text/SingleText.vue";
 import SelectBase from "./SelectBase/index.jsx";
 import File from "./File/index.vue";
 import Panel from "./Panel/index.vue";
+import Matrix from "./Matrix/index.vue";
 import questionTypes from "../ToolBox/questionTypes";
 import { NButton } from "naive-ui";
 import useBase from "../hooks/useBase";
 import { computed, unref } from "vue";
+import questionCommonProps from "@survey/hooks/questionCommonProps";
 
-const props = defineProps({
-  question: {
-    type: Object,
-  },
-  path: {
-    type: String,
-    required: true,
-  },
-});
+const props = defineProps(questionCommonProps);
 
 const { removeItem, currentActiveItem, onQuestionItemClick } = useBase(
   props.path
@@ -84,6 +61,23 @@ const handleDeleteItemClick = () => removeItem(props.path);
 const questionTypeName = computed(
   () => questionTypes.find((item) => item.type === props.question.type)?.name
 );
+
+const RenderComponent = computed(() => {
+  switch (props.question.type) {
+    case "text":
+      return SingleText;
+    case "radiogroup":
+    case "checkbox":
+    case "dropdown":
+      return SelectBase;
+    case "file":
+      return File;
+    case "panel":
+      return Panel;
+    case "matrix":
+      return Matrix;
+  }
+});
 </script>
 
 <style>

@@ -1,24 +1,14 @@
-import getQuestionDefaultConfig from "../util/questionDefaultConfig";
-import { ref, computed, unref } from "vue";
+import getQuestionDefaultConfig from "./questionDefaultConfig";
+import { ref, computed, unref, provide, inject } from "vue";
 import objectPath from "object-path";
-const useCreator = () => {
-  const surveyQuestions = ref([]);
+
+export const CREATOR_KEY = Symbol("creator");
+
+const useCreator = (surveyQuestionsRef) => {
+  const surveyQuestions = surveyQuestionsRef || ref([]);
   const questionModel = objectPath(surveyQuestions.value);
 
   const surveyQuestionsNameSet = new Set();
-
-  const surveyQuestionSequence = computed(() =>
-    unref(surveyQuestions).reduce((lookup, current) => {
-      current.showQuestionNumber && lookup.push(current);
-      if (current.type === "panel") {
-        // 查看panel的子节点是否需要显示题目号
-        current.questions?.forEach((item) => {
-          item.showQuestionNumber && lookup.push(item);
-        });
-      }
-      return lookup;
-    }, [])
-  );
 
   const surveyDef = ref({
     title: "",
@@ -123,7 +113,7 @@ const useCreator = () => {
       };
     },
     survey: surveyDef,
-    surveyQuestionSequence,
+    surveyQuestions,
     currentActiveItem,
     currentActivePath,
     JSON() {
@@ -137,7 +127,11 @@ const useCreator = () => {
     },
   };
 
+  provide("creator", creator);
+
   return creator;
 };
 
 export default useCreator;
+
+export const useInjectCreator = () => inject("creator") || {};

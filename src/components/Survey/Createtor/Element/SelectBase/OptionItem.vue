@@ -30,7 +30,7 @@
 import { NRadio, NCheckbox, NIcon, NButton } from "naive-ui";
 import { AddCircleOutline, RemoveCircleOutline } from "@vicons/ionicons5";
 import { computed } from "vue";
-import Title from "../../Title/index.vue";
+import Title from "../../../components/Title/index.vue";
 
 const emit = defineEmits(["titleChange", "remove", "addItem"]);
 const props = defineProps({

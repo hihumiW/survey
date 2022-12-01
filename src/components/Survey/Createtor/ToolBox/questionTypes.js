@@ -23,4 +23,8 @@ export default [
     name: "Panel",
     type: "panel",
   },
+  {
+    name: "Matrix",
+    type: "matrix",
+  },
 ];

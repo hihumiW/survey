@@ -1,11 +1,10 @@
 <template>
-  <QuestionLayout :question="props.question" @click="stopPropagation">
-    <ElementHead
-      :question="props.question"
-      :path="props.path"
-      v-if="props.question.title"
-      class="mb-6"
-    />
+  <QuestionHeader
+    v-bind="props"
+    editable
+    @click="stopPropagation"
+    hideTitleWhenEmpty
+  >
     <div
       class="flex flex-col gap-y-6"
       :class="['ml-0', 'ml-6', 'ml-8', 'ml-10'][props.question.innerIndent]"
@@ -31,26 +30,17 @@
         >
       </NDropdown>
     </div>
-  </QuestionLayout>
+  </QuestionHeader>
 </template>
 
 <script setup>
-import QuestionLayout from "../QuestionLayout.vue";
-import ElementHead from "../ElementHead.vue";
+import QuestionHeader from "@survey/components/QuestionHeader/index.vue";
+import questionCommonProps from "@survey/hooks/questionCommonProps";
 import QuestionTypeDispatch from "../index.vue";
 import { NDropdown, NButton } from "naive-ui";
 import questionTypes from "../../ToolBox/questionTypes";
 import { computed, inject, provide } from "vue";
-const props = defineProps({
-  question: {
-    type: Object,
-    required: true,
-  },
-  path: {
-    type: String,
-    required: true,
-  },
-});
+const props = defineProps(questionCommonProps);
 
 const { addQuestion } = inject("creator");
 

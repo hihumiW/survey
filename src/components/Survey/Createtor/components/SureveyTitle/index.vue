@@ -27,8 +27,8 @@
 
 <script setup>
 import { inject } from "vue";
-import Title from "./index.vue";
 import { NSelect } from "naive-ui";
+import Title from "../../../components/Title/index.vue";
 const creator = inject("creator");
 
 const { updateSurveyTitle, updateSurveyDescription, survey } = creator;
