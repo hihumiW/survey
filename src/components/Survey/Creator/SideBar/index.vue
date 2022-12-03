@@ -23,7 +23,7 @@
 <script setup>
 import { computed, unref } from "vue";
 import { NEmpty } from "naive-ui";
-import Category from "./components/Category/index.vue";
+import Category from "./components/Category";
 import sideBarConfig from "./config/index.js";
 import { useInjectCreator } from "@survey/hooks/useCreator";
 

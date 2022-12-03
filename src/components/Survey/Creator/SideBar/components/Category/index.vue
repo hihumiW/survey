@@ -31,13 +31,21 @@
   </div>
 </template>
 
-<script setup>
+<script>
 import { NCollapse, NCollapseItem, NEmpty } from "naive-ui";
 
-const props = defineProps({
-  questionType: String,
-  categoryConfig: Array,
-});
+export default {
+  name: "SideBarCategory",
+  props: {
+    questionType: String,
+    categoryConfig: Array,
+  },
+  components: {
+    NCollapse,
+    NCollapseItem,
+    NEmpty,
+  },
+};
 </script>
 
 <style>

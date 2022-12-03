@@ -1,12 +1,12 @@
+import { defineComponent } from "vue";
+import { NInput, NRadioGroup, NCheckboxGroup, NSelect } from "naive-ui";
+
 import QuestionContainer from "@survey/components/QuestionContainer/index.vue";
 import questionCommonProps from "@survey/util/questionCommonProps";
-
 import OptionItem from "./OptionItem.vue";
-import { useInjectCreator } from "@survey/hooks/useCreator";
 
-import { NInput, NRadioGroup, NCheckboxGroup, NSelect } from "naive-ui";
-import { defineComponent } from "vue";
-import useChoice from "../../hooks/useChoice";
+import { useInjectCreator } from "@survey/hooks/useCreator";
+import useChoices from "@survey/Creator/hooks/useChoices";
 
 const SelectBase = defineComponent({
   props: questionCommonProps,
@@ -16,8 +16,9 @@ const SelectBase = defineComponent({
 
     const getIsInline = () => props.question.orientation === "horizontal";
 
-    const { handleChoiceTitleChange, handleChoiceRemove, handleChoiceAdd } =
-      useChoice(props.path);
+    const { handleTitleChange, handleItemRemove, handleItemAdd } = useChoices(
+      props.path
+    );
 
     const getOhterOptionText = () =>
       props.question.otherText || "Other (describe)";
@@ -46,8 +47,8 @@ const SelectBase = defineComponent({
                 chioceText={choice.text}
                 chioceIndex={index}
                 questionType={props.question.type}
-                onTitleChange={handleChoiceTitleChange}
-                onRemove={handleChoiceRemove}
+                onTitleChange={handleTitleChange}
+                onRemove={handleItemRemove}
               />
             ))}
           </div>
@@ -56,7 +57,7 @@ const SelectBase = defineComponent({
               type="add"
               chioceText="New item"
               questionType={props.question.type}
-              onAddItem={handleChoiceAdd}
+              onAddItem={handleItemAdd}
             />
             {props.question.showOtherItem && (
               <div class="flex flex-col gap-y-2">

@@ -33,23 +33,23 @@
   </div>
 </template>
 <script setup>
+import { computed, unref } from "vue";
 import SingleText from "./Text/SingleText.vue";
-import SelectBase from "./SelectBase/index.jsx";
+import SelectBase from "./SelectBase";
 import File from "./File/index.vue";
 import Panel from "./Panel/index.vue";
 import Matrix from "./Matrix";
 import questionTypes from "../ToolBox/questionTypes";
 import { NButton } from "naive-ui";
-import useBase from "../hooks/useBase";
-import { computed, unref } from "vue";
+import { useInjectCreator } from "@survey/hooks/useCreator";
+
 import questionCommonProps from "@survey/util/questionCommonProps";
 import QuestionTypeEnum from "@survey/util/questionTypeEnum";
 
 const props = defineProps(questionCommonProps);
 
-const { removeItem, currentActiveItem, onQuestionItemClick } = useBase(
-  props.path
-);
+const { removeItem, currentActiveItem, onQuestionItemClick } =
+  useInjectCreator();
 
 const isActive = computed(() => unref(currentActiveItem) === props.question);
 
