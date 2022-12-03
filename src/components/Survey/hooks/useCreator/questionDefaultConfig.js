@@ -21,7 +21,9 @@ const getQuestionDefaultConfig = (questionType, isSubNode) => {
         innerIndent: 0,
         title: "",
       };
-    case "matrix":
+    case "matrixradio":
+    case "matrixcheckbox":
+    case "matrixinput":
       return getMartixDefault();
   }
 };

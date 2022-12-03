@@ -1,5 +1,5 @@
 import getQuestionDefaultConfig from "./questionDefaultConfig";
-import { ref, computed, unref, provide, inject } from "vue";
+import { ref, unref, provide, inject } from "vue";
 import objectPath from "object-path";
 
 export const CREATOR_KEY = Symbol("creator");
@@ -45,6 +45,9 @@ const useCreator = (surveyQuestionsRef) => {
     updateQuestionFieldValueByPath: (path, value) => {
       console.log("update path value--------->", path, "-------->", value);
       questionModel.set(path, value);
+    },
+    generateFieldPathBinder: (bindFieldRef) => (value) => {
+      creator.updateQuestionFieldValueByPath(unref(bindFieldRef), value);
     },
     getNewQuestionName: (questionType) => {
       const questionBaseName = questionType === "panel" ? "panel" : "question";
@@ -134,4 +137,4 @@ const useCreator = (surveyQuestionsRef) => {
 
 export default useCreator;
 
-export const useInjectCreator = () => inject("creator") || {};
+export const useInjectCreator = () => inject("creator", () => ({}));

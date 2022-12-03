@@ -1,6 +1,6 @@
 <template>
   <div class="h-full flex">
-    <div class="flex flex-col flex-1">
+    <div class="flex flex-col flex-1 min-w-0">
       <div
         class="h-[52px] flex-shrink-0 bg-white border-b border-neutral-300 flex survey-top-bar"
       >
@@ -28,7 +28,7 @@
 import { useMounted } from "@vueuse/core";
 import { NTabs, NTabPane } from "naive-ui";
 import { onMounted, ref } from "vue";
-import Creator from "./Createtor/index.vue";
+import Creator from "./Creator/index.vue";
 import JSONPreview from "./JSON/index.vue";
 import useCreator from "./hooks/useCreator";
 import { useQuestionSequenceInit } from "./hooks/useQuestionIndex";
@@ -37,10 +37,16 @@ const creator = useCreator();
 useQuestionSequenceInit(creator.surveyQuestions);
 const isMounted = useMounted();
 onMounted(() => {
-  creator.addQuestion("file");
+  creator.addQuestion("matrixradio");
 });
 
 const tabValue = ref("designer");
+</script>
+
+<script>
+export default {
+  name: "Survey",
+};
 </script>
 
 <style>
