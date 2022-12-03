@@ -1,20 +1,21 @@
 <template>
   <ItemsEditor
-    :title="TitleName"
+    :title="titleName"
     :bindName="props.type"
     :items="items"
-    :onItemAdd="handleChoiceAdd"
-    :onItemRemove="handleChoiceRemove"
-    :onItemTitleChange="handleTitleChangeWrapper"
+    :onItemAdd="handleItemAdd"
+    :onItemRemove="handleItemRemove"
+    :onItemTitleChange="handleTitleChange"
     :onItemValueChange="handleItemValueChange"
   />
 </template>
 
 <script setup>
 import { computed, unref } from "vue";
+import { capitalize } from "lodash-es";
 import ItemsEditor from "../ItemsEditor";
 import { useInjectCreator } from "@survey/hooks/useCreator";
-import useMatrixEdit from "@survey/Creator/hooks/useMatrixEdit";
+import useItemEdit from "@survey/Creator/hooks/useItemEdit";
 
 const props = defineProps({
   type: {
@@ -23,15 +24,17 @@ const props = defineProps({
   },
 });
 
-const TitleName = props.type === "columns" ? "Columns" : "Rows";
+const titleName = capitalize(props.type);
+const templateName = props.type === "columns" ? "column" : "row";
 const { currentActiveItem, currentActivePath } = useInjectCreator();
 const items = computed(() => unref(currentActiveItem)?.[props.type] || []);
-
-const { handleTitleChange } = useMatrixEdit(currentActivePath);
-
-const handleChoiceAdd = () => {};
-const handleChoiceRemove = () => {};
-const handleTitleChangeWrapper = (index, text) =>
-  handleTitleChange(props.type, index, text);
-const handleItemValueChange = () => {};
+const {
+  handleTitleChange,
+  handleItemValueChange,
+  handleItemAdd,
+  handleItemRemove,
+} = useItemEdit({
+  itemsPathRef: `${unref(currentActivePath)}.${props.type}`,
+  itemValueTemplate: templateName,
+});
 </script>

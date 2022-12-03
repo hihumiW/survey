@@ -1,9 +1,10 @@
-import { computed, defineComponent, toRef } from "vue";
+import { defineComponent, toRef } from "vue";
 import { NRadio, NCheckbox, NInput, NTable } from "naive-ui";
 import Title from "@survey/components/Title/index.vue";
 import QuestionContainer from "@survey/components/QuestionContainer/index.vue";
 import questionCommonProps from "@survey/util/questionCommonProps";
-import useMatrixEdit from "../../hooks/useMatrixEdit";
+
+import useMatrixEdit from "./useMatrixEdit";
 import QuestionTypeEnum from "@survey/util/questionTypeEnum";
 
 import "./index.css";
@@ -13,7 +14,8 @@ const Matrix = defineComponent({
   name: "MatrixElement",
   setup(props) {
     const pathRef = toRef(props, "path");
-    const { handleTitleChange } = useMatrixEdit(pathRef);
+    const { handleColumnTitleChange, handleRowTitleChange } =
+      useMatrixEdit(pathRef);
 
     const renderHeader = () => {
       const { columns } = props.question;
@@ -25,9 +27,7 @@ const Matrix = defineComponent({
               <Title
                 value={column.text}
                 editable
-                onUpdate:value={(text) =>
-                  handleTitleChange("columns", index, text)
-                }
+                onUpdate:value={(text) => handleColumnTitleChange(index, text)}
               />
             </th>
           ))}
@@ -44,9 +44,7 @@ const Matrix = defineComponent({
             <Title
               value={row.text}
               editable
-              onUpdate:value={(text) =>
-                handleTitleChange("rows", rowIndex, text)
-              }
+              onUpdate:value={(text) => handleRowTitleChange(rowIndex, text)}
             />
           </td>
           {columns?.map((column, columnIndex) => (
@@ -60,15 +58,25 @@ const Matrix = defineComponent({
       const {
         question: { type },
       } = props;
+      let element = null;
+      const commonProps = {
+        disabled: true,
+        size: "large",
+      };
       if (type === QuestionTypeEnum.matrixradio) {
-        return <NRadio disabled />;
+        element = <NRadio {...commonProps} />;
       }
       if (type === QuestionTypeEnum.matrixcheckbox) {
-        return <NCheckbox disabled />;
+        element = <NCheckbox {...commonProps} />;
       }
       if (type === QuestionTypeEnum.matrixinput) {
-        return <NInput disabled placeholder="" />;
+        element = <NInput placeholder="" {...commonProps} />;
       }
+      return (
+        <div className="min-h-[40px] flex items-center justify-center">
+          {element}
+        </div>
+      );
     };
 
     return () => {

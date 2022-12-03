@@ -1,30 +1,37 @@
-import { inject, unref } from "vue";
+import { unref } from "vue";
+import { useInjectCreator } from "@survey/hooks/useCreator";
+
 const useChoice = (questionPath) => {
-  const getPath = () => unref(questionPath);
+  const getItemsPath = () => `${unref(questionPath)}.choices`;
   const {
     updateQuestionFieldValueByPath,
-    addQuestionChoice,
+    addNewItem,
     removeItem,
-    updateChoiceItemValue,
-  } = inject("creator");
+    updateItemValue,
+  } = useInjectCreator();
+
+  if (!updateQuestionFieldValueByPath) return {};
 
   const handleChoiceTitleChange = (chioceIndex, newTitle) => {
     updateQuestionFieldValueByPath(
-      `${getPath()}.choices.${chioceIndex}.text`,
+      `${getPathItems()}.${chioceIndex}.text`,
       newTitle
     );
   };
 
   const handleChoiceRemove = (chioceIndex) =>
-    removeItem(`${getPath()}.choices.${chioceIndex}`);
+    removeItem(`${getPathItems()}.${chioceIndex}`);
 
-  const handleChoiceAdd = () => addQuestionChoice(getPath());
+  const handleChoiceAdd = () => addNewItem(getItemsPath(), "item");
+
+  const handleItemValueChange = (itemIndex, newValue) =>
+    updateItemValue(getItemsPath(), itemIndex, newValue);
 
   return {
     handleChoiceTitleChange,
     handleChoiceRemove,
     handleChoiceAdd,
-    updateChoiceItemValue,
+    handleItemValueChange,
   };
 };
 

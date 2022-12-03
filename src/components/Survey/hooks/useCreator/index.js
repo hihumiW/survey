@@ -1,4 +1,4 @@
-import getQuestionDefaultConfig from "./questionDefaultConfig";
+import getQuestionDefaultConfig, { getItem } from "./questionDefaultConfig";
 import { ref, unref, provide, inject } from "vue";
 import objectPath from "object-path";
 
@@ -75,45 +75,39 @@ const useCreator = (surveyQuestionsRef) => {
       questionModel.push(insertPath, questionJSON);
       surveyQuestionsNameSet.add(newQuesName);
     },
+    addNewItem: (itemsPath, itemNameTemplate) => {
+      const newItem = creator.generateNewItem(itemsPath, itemNameTemplate);
+      console.log(
+        "add new item ------------>",
+        itemsPath,
+        "-------->",
+        newItem
+      );
+      questionModel.push(itemsPath, newItem);
+    },
     removeItem: (removeItemPath) => {
       console.log("remove item path -------------->", removeItemPath);
       questionModel.del(removeItemPath);
     },
-    // choice
-    addQuestionChoice: (questionPath) => {
-      console.log("add choice ------------>", questionPath);
-      const newChoice = creator.generateNewChoice(questionPath);
-      questionModel.push(`${questionPath}.choices`, newChoice);
-    },
-    updateChoiceItemValue: (questionPath, choiceIndex, newValue) => {
+    updateItemValue: (itemsPath, itemIndex, newValue) => {
       if (!newValue) return;
-      const choicesPath = `${questionPath}.choices`;
-      const choices = questionModel.get(choicesPath);
-      if (!choices.length) return;
+      const items = questionModel.get(itemsPath);
+      if (!items.length) return;
       const isDuplicate =
-        choices.findIndex((choice) => choice.value === newValue) !== -1;
+        items.findIndex((item) => item.value === newValue) !== -1;
       if (isDuplicate) return;
-      questionModel.set(`${choicesPath}.${choiceIndex}.value`, newValue);
+      questionModel.set(`${itemsPath}.${itemIndex}.value`, newValue);
     },
-    removeQuestionChoice: (questionPath, choiceIndex) => {
-      questionModel.del(`${questionPath}.choices.${choiceIndex}`);
-    },
-    generateNewChoice: (questionPath) => {
-      const questionChoices =
-        questionModel.get(`${questionPath}.choices`) || [];
-      const choicesValueSet = new Set(
-        questionChoices.map((choice) => choice.value)
-      );
-      let startIndex = questionChoices.length;
+    generateNewItem: (itemsPath, itemNameTemplate) => {
+      const items = questionModel.get(`${itemsPath}`) || [];
+      const itemValueSet = new Set(items.map((i) => i.value));
+      let startIndex = items.length;
       let newValue = null;
       while (!newValue) {
-        const temp = `item${++startIndex}`;
-        if (!unref(choicesValueSet).has(temp)) newValue = temp;
+        const temp = `${itemNameTemplate}${++startIndex}`;
+        if (!itemValueSet.has(temp)) newValue = temp;
       }
-      return {
-        text: newValue,
-        value: newValue,
-      };
+      return getItem(newValue);
     },
     survey: surveyDef,
     surveyQuestions,

@@ -56,8 +56,9 @@ const getMartixDefault = () => ({
   columns: getItemsByValues(["column1", "column2"]),
 });
 
-const getItemsByValues = (values) =>
-  values.map((value) => ({
-    text: capitalize(value),
-    value,
-  }));
+const getItemsByValues = (values) => values.map((value) => getItem(value));
+
+export const getItem = (value) => ({
+  text: capitalize(value),
+  value,
+});

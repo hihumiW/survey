@@ -10,3 +10,9 @@ import "vue-json-pretty/lib/styles.css";
 const { JSON } = inject("creator");
 const jsonData = JSON();
 </script>
+
+<script>
+export default {
+  name: "JSON",
+};
+</script>

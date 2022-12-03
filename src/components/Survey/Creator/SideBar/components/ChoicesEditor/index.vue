@@ -11,7 +11,6 @@
 </template>
 
 <script setup>
-import { unref } from "vue";
 import ItemsEditor from "../ItemsEditor";
 import useChoice from "@survey/Creator/hooks/useChoice";
 import { useInjectCreator } from "@survey/hooks/useCreator";
@@ -22,9 +21,6 @@ const {
   handleChoiceTitleChange,
   handleChoiceRemove,
   handleChoiceAdd,
-  updateChoiceItemValue,
+  handleItemValueChange,
 } = useChoice(currentActivePath);
-
-const handleItemValueChange = (choiceIndex, newValue) =>
-  updateChoiceItemValue(unref(currentActivePath), choiceIndex, newValue);
 </script>
