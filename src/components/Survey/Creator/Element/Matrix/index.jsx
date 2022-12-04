@@ -1,13 +1,11 @@
-import { defineComponent, toRef } from "vue";
+import { computed, defineComponent, toRef } from "vue";
 import { NRadio, NCheckbox, NInput, NTable } from "naive-ui";
 import Title from "@survey/components/Title/index.vue";
+import Table from "@survey/components/Table";
 import QuestionContainer from "@survey/components/QuestionContainer/index.vue";
 import questionCommonProps from "@survey/util/questionCommonProps";
-
 import useMatrixEdit from "./useMatrixEdit";
 import QuestionTypeEnum from "@survey/util/questionTypeEnum";
-
-import "./index.css";
 
 const Matrix = defineComponent({
   props: questionCommonProps,
@@ -17,44 +15,63 @@ const Matrix = defineComponent({
     const { handleColumnTitleChange, handleRowTitleChange } =
       useMatrixEdit(pathRef);
 
-    const renderHeader = () => {
-      const { columns } = props.question;
-      return (
-        <tr>
-          <th className="survey-matrix_cell"></th>
-          {columns?.map((column, index) => (
-            <th className="survey-matrix_cell">
-              <Title
-                value={column.text}
-                editable
-                onUpdate:value={(text) => handleColumnTitleChange(index, text)}
-              />
-            </th>
-          ))}
-        </tr>
+    const datas = computed(() => {
+      const {
+        question: { rows },
+      } = props;
+      return rows.map(({ value, text }) => {
+        return {
+          key: value,
+          _title: text,
+        };
+      });
+    });
+
+    const columnsDef = computed(() => {
+      const {
+        question: { columns },
+      } = props;
+      return [
+        {
+          id: "RowTitle",
+          isPlaceholder: true,
+          minWidth: 250,
+          maxWidth: 400,
+          className: "survey-table-cell survey-table-cell-rowTitle ",
+          cell: renderRowTitle,
+        },
+      ].concat(
+        columns.map((column) => ({
+          id: column.value,
+          className: "survey-table-cell ",
+          minWidth: 200,
+          maxWidth: 350,
+          originalColumn: column,
+          header: renderColumnHeader,
+          cell: renderCell,
+        }))
       );
-    };
+    });
 
-    const renderRows = () => {
-      const { rows, columns } = props.question;
+    const renderRowTitle = ({ rowData, rowIndex }) => (
+      <Title
+        value={rowData._title}
+        editable
+        onUpdate:value={(text) => handleRowTitleChange(rowIndex, text)}
+      />
+    );
 
-      return rows?.map((row, rowIndex) => (
-        <tr>
-          <td className="survey-matrix_cell">
-            <Title
-              value={row.text}
-              editable
-              onUpdate:value={(text) => handleRowTitleChange(rowIndex, text)}
-            />
-          </td>
-          {columns?.map((column, columnIndex) => (
-            <td className="survey-matrix_cell">{renderCell()}</td>
-          ))}
-        </tr>
-      ));
-    };
+    const renderColumnHeader = ({ column, columnIndex }) => (
+      <Title
+        value={column.originalColumn.text}
+        editable
+        onUpdate:value={(text) =>
+          handleColumnTitleChange(columnIndex - 1, text)
+        }
+      />
+    );
 
-    const renderCell = (columnValue) => {
+    const renderCell = (ctx) => {
       const {
         question: { type },
       } = props;
@@ -83,12 +100,11 @@ const Matrix = defineComponent({
       return (
         <QuestionContainer {...props}>
           <div className="overflow-auto relative">
-            <NTable size="large" bordered={false} class="survey-matrix_table">
-              <thead className="survey-matrix_table_header">
-                {renderHeader()}
-              </thead>
-              <tbody>{renderRows()}</tbody>
-            </NTable>
+            <Table
+              class="survey-table"
+              columns={columnsDef.value}
+              data={datas.value}
+            />
           </div>
         </QuestionContainer>
       );

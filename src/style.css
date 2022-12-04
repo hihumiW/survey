@@ -69,3 +69,25 @@ h1 {
     background-color: #f9f9f9;
   }
 }
+
+.survey-table.n-table {
+  overflow: visible !important;
+}
+.survey-table thead .survey-title {
+  width: 100%;
+  padding: 6px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.survey-table-cell {
+  white-space: normal !important;
+  text-align: center;
+  font-weight: 600;
+}
+.survey-table-cell-rowTitle {
+  position: sticky;
+  left: 0px;
+  z-index: 99;
+  text-align: left;
+}
