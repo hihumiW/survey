@@ -53,13 +53,16 @@ const Matrix = defineComponent({
       );
     });
 
-    const renderRowTitle = ({ rowData, rowIndex }) => (
-      <Title
-        value={rowData._title}
-        editable
-        onUpdate:value={(text) => handleRowTitleChange(rowIndex, text)}
-      />
-    );
+    const renderRowTitle = ({ rowData, rowIndex }) => {
+      console.log("title,change");
+      return (
+        <Title
+          value={rowData._title}
+          editable
+          onUpdate:value={(text) => handleRowTitleChange(rowIndex, text)}
+        />
+      );
+    };
 
     const renderColumnHeader = ({ column, columnIndex }) => (
       <Title

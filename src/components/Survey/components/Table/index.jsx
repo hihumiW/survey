@@ -24,7 +24,11 @@ const Table = defineComponent({
       return (
         <tr>
           {columns.map((column, columnIndex) => (
-            <th {...getColumnProps(column)} class={column.className}>
+            <th
+              {...getColumnProps(column)}
+              class={column.className}
+              key={column.id}
+            >
               {columns.isPlaceholder
                 ? null
                 : renderCell(column.header, {
@@ -45,7 +49,11 @@ const Table = defineComponent({
           <tr key={rowData.key}>
             {columns.map((column, columnIndex) => {
               return (
-                <td {...getColumnProps(column)} class={column.className}>
+                <td
+                  {...getColumnProps(column)}
+                  class={column.className}
+                  key={column.id}
+                >
                   {renderCell(column.cell, {
                     data,
                     rowData,
@@ -62,12 +70,14 @@ const Table = defineComponent({
       });
     };
 
-    return () => (
-      <NTable {...props.nTableProps}>
-        <thead>{renderHeader()}</thead>
-        <tbody>{renderRows()}</tbody>
-      </NTable>
-    );
+    return () => {
+      return (
+        <NTable {...props.nTableProps}>
+          <thead>{renderHeader()}</thead>
+          <tbody>{renderRows()}</tbody>
+        </NTable>
+      );
+    };
   },
 });
 
