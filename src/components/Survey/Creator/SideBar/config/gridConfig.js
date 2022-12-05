@@ -1,6 +1,5 @@
-import generateValueBinder from "./generateValueBinder";
-import MatrixItemEditor from "../components/MatrixItemEditor/index.vue";
-
+import GridColumnEditor from "../components/GridColumnEditor/index.vue";
+import GridRowEditor from "../components/GridRowEditor/index.vue";
 import {
   NameEditor,
   TitleEditor,
@@ -13,22 +12,6 @@ import {
   RequiredIfEditor,
 } from "./common";
 
-export const ColumnsEditor = generateValueBinder(
-  MatrixItemEditor,
-  {
-    type: "columns",
-  },
-  "ColumnsEditor"
-);
-
-const RowsEditor = generateValueBinder(
-  MatrixItemEditor,
-  {
-    type: "rows",
-  },
-  "RowsEditor"
-);
-
 export default [
   {
     categoryName: "General",
@@ -38,12 +21,12 @@ export default [
   {
     categoryName: "Columns",
     categoryTitle: "Columns",
-    components: [ColumnsEditor],
+    components: [GridColumnEditor],
   },
   {
     categoryName: "Rows",
     categoryTitle: "Rows",
-    components: [RowsEditor],
+    components: [GridRowEditor],
   },
   {
     categoryName: "Layout",

@@ -1,30 +1,54 @@
 import { capitalize } from "lodash-es";
+import QuestionTypeEnum from "@survey/util/questionTypeEnum";
+
 const getQuestionDefaultConfig = (questionType, isSubNode) => {
   switch (questionType) {
-    case "text":
+    case QuestionTypeEnum.text:
       return {
         inputType: "text",
         inputVariant: "outlined",
         precision: "",
         ...getCommonDefault(isSubNode),
       };
-    case "radiogroup":
-    case "checkbox":
-    case "dropdown":
+    case QuestionTypeEnum.radiogroup:
+    case QuestionTypeEnum.checkbox:
+    case QuestionTypeEnum.dropdown:
       return getSelectTypeDefault(isSubNode);
-    case "file":
+    case QuestionTypeEnum.file:
       return getCommonDefault(isSubNode);
-    case "panel":
+    case QuestionTypeEnum.panel:
       return {
         indent: 0,
         showQuestionNumber: false,
         innerIndent: 0,
         title: "",
       };
-    case "matrixradio":
-    case "matrixcheckbox":
-    case "matrixinput":
+    case QuestionTypeEnum.matrixradio:
+    case QuestionTypeEnum.matrixcheckbox:
+    case QuestionTypeEnum.matrixinput:
       return getMartixDefault();
+    case QuestionTypeEnum.grid:
+      return {
+        indent: 0,
+        showQuestionNumber: true,
+        rows: ["row1", "row2", "row3"],
+        columns: getItemsByValues(["column1", "column2"], GridColumnGenerator),
+        cells: {
+          row1: {
+            column1: {
+              cellType: "text",
+            },
+            column2: {
+              cellType: "input",
+            },
+          },
+          row2: {
+            column1: {
+              cellType: "any",
+            },
+          },
+        },
+      };
   }
 };
 
@@ -56,9 +80,16 @@ const getMartixDefault = () => ({
   columns: getItemsByValues(["column1", "column2"]),
 });
 
-const getItemsByValues = (values) => values.map((value) => getItem(value));
+const getItemsByValues = (values, generator = getItem) =>
+  values.map((value) => generator(value));
 
 export const getItem = (value) => ({
   text: capitalize(value),
   value,
+});
+
+export const GridColumnGenerator = (value) => ({
+  value,
+  text: capitalize(value),
+  cellType: "text",
 });

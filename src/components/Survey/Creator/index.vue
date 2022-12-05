@@ -33,12 +33,19 @@ import SureveyTitle from "./components/SureveyTitle/index.vue";
 import SurveyElement from "./Element/index.vue";
 import SideBar from "./SideBar/index.vue";
 import { Teleport, inject, computed, unref } from "vue";
+import QuestionTypeEnum from "@survey/util/questionTypeEnum";
+
 const { surveyQuestions } = inject("creator");
 
 const shouldFullWidth = computed(() =>
   Boolean(
     unref(surveyQuestions).find((question) =>
-      ["matrixradio", "matrixcheckbox", "matrixinput"].includes(question.type)
+      [
+        QuestionTypeEnum.matrixradio,
+        QuestionTypeEnum.matrixcheckbox,
+        QuestionTypeEnum.matrixinput,
+        QuestionTypeEnum.grid,
+      ].includes(question.type)
     )
   )
 );

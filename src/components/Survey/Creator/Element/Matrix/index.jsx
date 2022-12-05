@@ -100,19 +100,17 @@ const Matrix = defineComponent({
       );
     };
 
-    return () => {
-      return (
-        <QuestionContainer {...props}>
-          <div className="overflow-auto relative">
-            <Table
-              class="survey-table"
-              columns={columnsDef.value}
-              data={datas.value}
-            />
-          </div>
-        </QuestionContainer>
-      );
-    };
+    return () => (
+      <QuestionContainer {...props}>
+        <div className="overflow-auto relative">
+          <Table
+            class="survey-table"
+            columns={columnsDef.value}
+            data={datas.value}
+          />
+        </div>
+      </QuestionContainer>
+    );
   },
 });
 

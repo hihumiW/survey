@@ -39,6 +39,7 @@ import SelectBase from "./SelectBase";
 import File from "./File/index.vue";
 import Panel from "./Panel/index.vue";
 import Matrix from "./Matrix";
+import Grid from "./Grid";
 import questionTypes from "../ToolBox/questionTypes";
 import { NButton } from "naive-ui";
 import { useInjectCreator } from "@survey/hooks/useCreator";
@@ -79,6 +80,8 @@ const RenderComponent = computed(() => {
     case QuestionTypeEnum.matrixcheckbox:
     case QuestionTypeEnum.matrixinput:
       return Matrix;
+    case QuestionTypeEnum.grid:
+      return Grid;
   }
 });
 </script>

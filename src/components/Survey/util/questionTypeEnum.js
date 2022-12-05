@@ -8,4 +8,5 @@ export default {
   matrixradio: "matrixradio",
   matrixcheckbox: "matrixcheckbox",
   matrixinput: "matrixinput",
+  grid: "grid",
 };

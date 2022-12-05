@@ -37,4 +37,8 @@ export default [
     name: "MatrixInput",
     type: QuestionTypeEnum.matrixinput,
   },
+  {
+    name: "Grid",
+    type: QuestionTypeEnum.grid,
+  },
 ];

@@ -37,7 +37,7 @@ const creator = useCreator();
 useQuestionSequenceInit(creator.surveyQuestions);
 const isMounted = useMounted();
 onMounted(() => {
-  creator.addQuestion("matrixradio");
+  creator.addQuestion("grid");
 });
 
 const tabValue = ref("designer");

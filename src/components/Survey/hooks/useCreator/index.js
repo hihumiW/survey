@@ -75,8 +75,12 @@ const useCreator = (surveyQuestionsRef) => {
       questionModel.push(insertPath, questionJSON);
       surveyQuestionsNameSet.add(newQuesName);
     },
-    addNewItem: (itemsPath, itemNameTemplate) => {
-      const newItem = creator.generateNewItem(itemsPath, itemNameTemplate);
+    addNewItem: (itemsPath, itemNameTemplate, itemGenerator) => {
+      const newItem = creator.generateNewItem(
+        itemsPath,
+        itemNameTemplate,
+        itemGenerator
+      );
       console.log(
         "add new item ------------>",
         itemsPath,
@@ -89,16 +93,18 @@ const useCreator = (surveyQuestionsRef) => {
       console.log("remove item path -------------->", removeItemPath);
       questionModel.del(removeItemPath);
     },
-    updateItemValue: (itemsPath, itemIndex, newValue) => {
+    updateItemValue: (itemsPath, itemIndex, newValue, cb) => {
       if (!newValue) return;
       const items = questionModel.get(itemsPath);
       if (!items.length) return;
       const isDuplicate =
         items.findIndex((item) => item.value === newValue) !== -1;
       if (isDuplicate) return;
+      const oldValue = items[itemIndex].value;
       questionModel.set(`${itemsPath}.${itemIndex}.value`, newValue);
+      cb && cb(oldValue, items[itemIndex].value);
     },
-    generateNewItem: (itemsPath, itemNameTemplate) => {
+    generateNewItem: (itemsPath, itemNameTemplate, itemGenerator = getItem) => {
       const items = questionModel.get(`${itemsPath}`) || [];
       const itemValueSet = new Set(items.map((i) => i.value));
       let startIndex = items.length;
@@ -107,7 +113,36 @@ const useCreator = (surveyQuestionsRef) => {
         const temp = `${itemNameTemplate}${++startIndex}`;
         if (!itemValueSet.has(temp)) newValue = temp;
       }
-      return getItem(newValue);
+      return itemGenerator(newValue);
+    },
+    forEachCellRows: (cells, rowFn) => {
+      if (!cells) return;
+      for (const rowKey in cells) {
+        if (Object.hasOwnProperty.call(cells, rowKey)) {
+          const rowInfo = cells[rowKey];
+          if (!rowInfo) continue;
+          rowFn **
+            rowFn({
+              rowKey,
+              rowInfo,
+            });
+        }
+      }
+    },
+    syncCellColumnPathChange: (cellPath, prevColumnValue, nowColumnValue) => {
+      creator.forEachCellRows(questionModel.get(cellPath), ({ rowInfo }) => {
+        if (prevColumnValue in rowInfo) {
+          rowInfo[nowColumnValue] = rowInfo[prevColumnValue];
+          delete rowInfo[prevColumnValue];
+        }
+      });
+    },
+    syncCellColumnPathRemove: (cellPath, removeColumnValue) => {
+      creator.forEachCellRows(questionModel.get(cellPath), ({ rowInfo }) => {
+        if (removeColumnValue in rowInfo) {
+          delete rowInfo[removeColumnValue];
+        }
+      });
     },
     survey: surveyDef,
     surveyQuestions,

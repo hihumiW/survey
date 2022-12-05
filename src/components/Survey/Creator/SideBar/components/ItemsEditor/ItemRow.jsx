@@ -1,7 +1,6 @@
-import { NIcon, NButton } from "naive-ui";
-import { EllipsisVertical, RemoveCircleOutline } from "@vicons/ionicons5";
 import { nextTick } from "vue";
-import "./ItemRow.css";
+import ItemLayout from "./Layout/ItemLayout";
+
 const ItemRow = (props) => {
   const handleValueInputBlur = (e) => {
     if (!props.onItemValueChange) return;
@@ -22,23 +21,11 @@ const ItemRow = (props) => {
     });
   };
 
-  const handleItemRemove = () => props.onItemRemove(props.itemIndex);
-
-  const buttonSlot = {
-    icon: () => (
-      <NIcon size="20px">
-        <RemoveCircleOutline />
-      </NIcon>
-    ),
-  };
+  const handleItemRemove = () =>
+    props.onItemRemove(props.itemIndex, props.item);
 
   return (
-    <div class="flex items-center">
-      <div class="p-3 flex items-center cursor-move">
-        <NIcon size="20px" color="#909090">
-          <EllipsisVertical />
-        </NIcon>
-      </div>
+    <ItemLayout onRemoveClick={handleItemRemove}>
       <input
         class="survey-sideBar-itemRow_input textbase"
         placeholder="Choice value"
@@ -51,15 +38,7 @@ const ItemRow = (props) => {
         value={props.item.text}
         onInput={handleTextChange}
       />
-      {props.onItemRemove && (
-        <NButton
-          text
-          class="p-3"
-          onClick={handleItemRemove}
-          v-slots={buttonSlot}
-        />
-      )}
-    </div>
+    </ItemLayout>
   );
 };
 
