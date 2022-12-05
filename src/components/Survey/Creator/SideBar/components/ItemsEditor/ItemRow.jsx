@@ -22,9 +22,12 @@ const ItemRow = (props) => {
   };
 
   const handleItemRemove = () =>
-    props.onItemRemove(props.itemIndex, props.item);
-
-  const handleEditClick = () => props.onEditClick(props.itemIndex, props.item);
+    props.onItemRemove
+      ? props.onItemRemove(props.itemIndex, props.item)
+      : undefined;
+  const handleEditClick = props.onEditClick
+    ? () => props.onEditClick(props.itemIndex, props.item)
+    : undefined;
 
   return (
     <ItemLayout onRemoveClick={handleItemRemove} onEditClick={handleEditClick}>
