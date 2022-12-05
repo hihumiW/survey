@@ -38,7 +38,7 @@ import SingleText from "./Text/SingleText.vue";
 import SelectBase from "./SelectBase";
 import File from "./File/index.vue";
 import Panel from "./Panel/index.vue";
-import Matrix from "./Matrix";
+import Matrix from "./Matrix/indexN.jsx";
 import questionTypes from "../ToolBox/questionTypes";
 import { NButton } from "naive-ui";
 import { useInjectCreator } from "@survey/hooks/useCreator";

@@ -1,5 +1,5 @@
 import { computed, defineComponent, toRef } from "vue";
-import { NRadio, NCheckbox, NInput, NTable } from "naive-ui";
+import { NRadio, NCheckbox, NInput } from "naive-ui";
 import Title from "@survey/components/Title/index.vue";
 import Table from "@survey/components/Table";
 import QuestionContainer from "@survey/components/QuestionContainer/index.vue";
@@ -38,7 +38,7 @@ const Matrix = defineComponent({
           minWidth: 250,
           maxWidth: 400,
           className: "survey-table-cell survey-table-cell-rowTitle ",
-          cell: renderRowTitle,
+          cell: renderRowTitleCell,
         },
       ].concat(
         columns.map((column) => ({
@@ -53,8 +53,7 @@ const Matrix = defineComponent({
       );
     });
 
-    const renderRowTitle = ({ rowData, rowIndex }) => {
-      console.log("title,change");
+    const renderRowTitleCell = ({ rowData, rowIndex }) => {
       return (
         <Title
           value={rowData._title}
@@ -64,15 +63,17 @@ const Matrix = defineComponent({
       );
     };
 
-    const renderColumnHeader = ({ column, columnIndex }) => (
-      <Title
-        value={column.originalColumn.text}
-        editable
-        onUpdate:value={(text) =>
-          handleColumnTitleChange(columnIndex - 1, text)
-        }
-      />
-    );
+    const renderColumnHeader = ({ column, columnIndex }) => {
+      return (
+        <Title
+          value={column.originalColumn.text}
+          editable
+          onUpdate:value={(text) =>
+            handleColumnTitleChange(columnIndex - 1, text)
+          }
+        />
+      );
+    };
 
     const renderCell = (ctx) => {
       const {

@@ -13,6 +13,7 @@
     "@vicons/ionicons5": "^0.12.0",
     "@vueuse/core": "^9.6.0",
     "lodash-es": "^4.17.21",
+    "memoizerific": "^1.11.3",
     "object-path": "^0.11.8",
     "vue": "^3.2.41",
     "vue-json-pretty": "^2.2.3"

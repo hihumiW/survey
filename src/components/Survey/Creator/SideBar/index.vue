@@ -7,7 +7,12 @@
         {{ sideBarTitle }}
       </p>
     </div>
-    <div :class="['flex h-full', activeConfig ? 'flex-col' : 'justify-center']">
+    <div
+      :class="[
+        'flex h-full min-h-0 overflow-y-auto',
+        activeConfig ? 'flex-col' : 'justify-center',
+      ]"
+    >
       <div class="self-center" v-if="!activeConfig">
         <NEmpty size="huge" />
       </div>
