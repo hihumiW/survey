@@ -1,8 +1,12 @@
 import { NIcon, NButton } from "naive-ui";
-import { EllipsisVertical, RemoveCircleOutline } from "@vicons/ionicons5";
+import {
+  EllipsisVertical,
+  RemoveCircleOutline,
+  PencilOutline,
+} from "@vicons/ionicons5";
 
 const ItemLayout = (props, { slots }) => {
-  const buttonSlot = {
+  const revemoButtonSlot = {
     icon: () => (
       <NIcon size="20px">
         <RemoveCircleOutline />
@@ -10,20 +14,36 @@ const ItemLayout = (props, { slots }) => {
     ),
   };
 
+  const editButtonSlot = {
+    icon: () => (
+      <NIcon size="20px">
+        <PencilOutline />
+      </NIcon>
+    ),
+  };
+
   return (
     <div class="flex items-center">
-      <div class="p-3 flex items-center cursor-move">
+      <div class="p-3 flex items-center cursor-move mr-1">
         <NIcon size="20px" color="#909090">
           <EllipsisVertical />
         </NIcon>
       </div>
       {slots.default()}
+      {props.onEditClick && (
+        <NButton
+          text
+          class="p-3 mx-1"
+          onClick={props.onEditClick}
+          v-slots={editButtonSlot}
+        />
+      )}
       {props.onRemoveClick && (
         <NButton
           text
-          class="p-3"
+          class="p-3 mx-1"
           onClick={props.onRemoveClick}
-          v-slots={buttonSlot}
+          v-slots={revemoButtonSlot}
         />
       )}
     </div>
@@ -33,6 +53,9 @@ const ItemLayout = (props, { slots }) => {
 export default ItemLayout;
 ItemLayout.props = {
   onRemoveClick: {
+    type: Function,
+  },
+  onEditClick: {
     type: Function,
   },
 };

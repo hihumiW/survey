@@ -1,10 +1,11 @@
 <template>
-  <EditorLayout title="Rows" :onItemAdd="handleColumnAdd">
+  <EditorLayout title="Rows" :onItemAdd="handleRowAdd">
     <RowItem
       v-for="(row, index) in items"
       :key="row"
       :rowValue="row"
       :rowIndex="index"
+      :onItemRemove="handleRowRemove"
     />
   </EditorLayout>
 </template>
@@ -20,10 +21,5 @@ import useGridEdit from "@survey/Creator/hooks/useGridEdit";
 const { currentActiveItem, currentActivePath } = useInjectCreator();
 
 const items = computed(() => unref(currentActiveItem)?.rows || []);
-const {
-  handleColumnTitleChange,
-  handleColumnValueChange,
-  handleColumnRemove,
-  handleColumnAdd,
-} = useGridEdit(currentActivePath);
+const { handleRowAdd, handleRowRemove } = useGridEdit(currentActivePath);
 </script>

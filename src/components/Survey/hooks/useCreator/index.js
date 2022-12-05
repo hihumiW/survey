@@ -75,11 +75,12 @@ const useCreator = (surveyQuestionsRef) => {
       questionModel.push(insertPath, questionJSON);
       surveyQuestionsNameSet.add(newQuesName);
     },
-    addNewItem: (itemsPath, itemNameTemplate, itemGenerator) => {
+    addNewItem: (itemsPath, itemNameTemplate, itemGenerator, getItemKey) => {
       const newItem = creator.generateNewItem(
         itemsPath,
         itemNameTemplate,
-        itemGenerator
+        itemGenerator,
+        getItemKey
       );
       console.log(
         "add new item ------------>",
@@ -104,9 +105,14 @@ const useCreator = (surveyQuestionsRef) => {
       questionModel.set(`${itemsPath}.${itemIndex}.value`, newValue);
       cb && cb(oldValue, items[itemIndex].value);
     },
-    generateNewItem: (itemsPath, itemNameTemplate, itemGenerator = getItem) => {
+    generateNewItem: (
+      itemsPath,
+      itemNameTemplate,
+      itemGenerator = getItem,
+      getItemKey = (i) => i.value
+    ) => {
       const items = questionModel.get(`${itemsPath}`) || [];
-      const itemValueSet = new Set(items.map((i) => i.value));
+      const itemValueSet = new Set(items.map(getItemKey));
       let startIndex = items.length;
       let newValue = null;
       while (!newValue) {
@@ -143,6 +149,12 @@ const useCreator = (surveyQuestionsRef) => {
           delete rowInfo[removeColumnValue];
         }
       });
+    },
+    syncCellRowPathRemove: (cellPath, removeRowValue) => {
+      const cells = questionModel.get(cellPath);
+      if (removeRowValue in cells) {
+        delete cells[removeRowValue];
+      }
     },
     survey: surveyDef,
     surveyQuestions,

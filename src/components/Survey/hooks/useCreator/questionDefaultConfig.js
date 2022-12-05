@@ -91,5 +91,6 @@ export const getItem = (value) => ({
 export const GridColumnGenerator = (value) => ({
   value,
   text: capitalize(value),
+  type: "gridColumn",
   cellType: "text",
 });

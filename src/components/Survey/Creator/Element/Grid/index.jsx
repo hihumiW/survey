@@ -1,5 +1,6 @@
-import { computed, defineComponent, toRef } from "vue";
+import { computed, defineComponent, toRef, unref } from "vue";
 import Title from "@survey/components/Title/index.vue";
+import CellWrapper from "./CellWrapper";
 import Table from "@survey/components/Table";
 import useGridEdit from "./useGridEdit";
 import questionCommonProps from "@survey/util/questionCommonProps";
@@ -9,6 +10,9 @@ const Grid = defineComponent({
   props: questionCommonProps,
   setup(props) {
     const pathRef = toRef(props, "path");
+    const getColumnPath = (columnIndex) =>
+      `${unref(pathRef)}.columns.${columnIndex}`;
+    const getCellPath = () => {};
     const { handleColumnTitleChange } = useGridEdit(pathRef);
     const datas = computed(() => {
       const {
@@ -30,12 +34,7 @@ const Grid = defineComponent({
         minWidth: 250,
         header: ({ column, columnIndex }) => {
           return (
-            <div
-              className="wrapper"
-              onClick={() => {
-                console.log("ccc");
-              }}
-            >
+            <CellWrapper cellPath={getColumnPath(columnIndex)}>
               <Title
                 value={column.originalColumn.text}
                 editable
@@ -43,7 +42,7 @@ const Grid = defineComponent({
                   handleColumnTitleChange(columnIndex, text)
                 }
               />
-            </div>
+            </CellWrapper>
           );
         },
         cell: () => {

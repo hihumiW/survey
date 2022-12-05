@@ -73,11 +73,13 @@ h1 {
 .survey-table.n-table {
   overflow: visible !important;
 }
-.survey-table thead .survey-title {
-  width: 100%;
-  padding: 6px;
+.survey-table thead .survey-table-cell {
+  padding: 12px;
   text-align: center;
   font-weight: 600;
+}
+.survey-table thead .survey-title {
+  margin: 6px;
 }
 
 .survey-table-cell {

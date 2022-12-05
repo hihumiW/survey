@@ -24,8 +24,10 @@ const ItemRow = (props) => {
   const handleItemRemove = () =>
     props.onItemRemove(props.itemIndex, props.item);
 
+  const handleEditClick = () => props.onEditClick(props.itemIndex, props.item);
+
   return (
-    <ItemLayout onRemoveClick={handleItemRemove}>
+    <ItemLayout onRemoveClick={handleItemRemove} onEditClick={handleEditClick}>
       <input
         class="survey-sideBar-itemRow_input textbase"
         placeholder="Choice value"
@@ -50,6 +52,9 @@ export const ItemRowEventProps = {
     type: Function,
   },
   onItemRemove: {
+    type: Function,
+  },
+  onEditClick: {
     type: Function,
   },
 };

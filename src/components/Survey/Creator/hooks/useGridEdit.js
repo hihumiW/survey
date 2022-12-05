@@ -9,6 +9,7 @@ const useGridEdit = (gridPathRef) => {
     removeItem,
     syncCellColumnPathChange,
     syncCellColumnPathRemove,
+    syncCellRowPathRemove,
   } = useInjectCreator();
   if (!updateQuestionFieldValueByPath || !unref(gridPathRef)) return {};
 
@@ -16,6 +17,8 @@ const useGridEdit = (gridPathRef) => {
   const cellPath = () => `${p()}.cells`;
   const columnPath = (index = -1) =>
     index === -1 ? `${p()}.columns` : `${p()}.columns.${index}`;
+  const rowPath = (index = -1) =>
+    index === -1 ? `${p()}.rows` : `${p()}.rows.${index}`;
 
   const handleColumnTitleChange = (index, text) => {
     const path = `${columnPath(index)}.text`;
@@ -38,11 +41,20 @@ const useGridEdit = (gridPathRef) => {
     syncCellColumnPathRemove(cellPath(), item.value);
   };
   const handleColumnAdd = () =>
-    addNewItem(`${p()}.columns`, "column", GridColumnGenerator);
+    addNewItem(`${columnPath()}`, "column", GridColumnGenerator);
 
-  const handleRowRemove = () => {};
+  const handleRowRemove = (columnIndex, rowValue) => {
+    removeItem(rowPath(columnIndex));
+    syncCellRowPathRemove(cellPath(), rowValue);
+  };
 
-  const handleRowAdd = () => {};
+  const handleRowAdd = () =>
+    addNewItem(
+      `${rowPath()}`,
+      "row",
+      (value) => value,
+      (value) => value
+    );
 
   return {
     handleColumnTitleChange,

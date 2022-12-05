@@ -36,7 +36,7 @@ const { currentActiveItem } = useInjectCreator();
 const haveActiveItem = computed(() => !!unref(currentActiveItem));
 const sideBarTitle = computed(() => {
   const item = unref(currentActiveItem);
-  return item ? item.name : "No question selected";
+  return item?.name || item?.value || "No question selected";
 });
 
 const activeConfig = computed(() => {

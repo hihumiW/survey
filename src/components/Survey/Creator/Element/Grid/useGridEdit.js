@@ -9,16 +9,8 @@ const useGridEdit = (questionPathRef) => {
     itemValueTemplate: "column",
   });
 
-  //   const rowsPath = computed(() => `${unref(questionPathRef)}.rows`);
-
-  //   const { handleTitleChange: handleRowTitleChange } = useItemEdit({
-  //     itemsPathRef: rowsPath,
-  //     itemValueTemplate: "row",
-  //   });
-
   return {
     handleColumnTitleChange,
-    // handleRowTitleChange,
   };
 };
 

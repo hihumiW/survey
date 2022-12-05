@@ -1,7 +1,8 @@
 import ItemLayout from "../ItemsEditor/Layout/ItemLayout";
 
 const RowItem = (props) => {
-  const handleRemoveClick = () => {};
+  const handleRemoveClick = () =>
+    props.onItemRemove && props.onItemRemove(props.rowIndex, props.rowValue);
 
   return (
     <ItemLayout onRemoveClick={handleRemoveClick}>
@@ -9,6 +10,7 @@ const RowItem = (props) => {
         type="text"
         class="survey-sideBar-itemRow_input"
         value={props.rowValue}
+        disabled
       />
     </ItemLayout>
   );
@@ -23,6 +25,7 @@ RowItem.props = {
     type: Number,
     required: true,
   },
+  onItemRemove: Function,
 };
 
 export default RowItem;
