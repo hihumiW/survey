@@ -1,5 +1,5 @@
 import { computed, defineComponent, h, inject, unref } from "vue";
-const generateValueBinder = (
+const generateConditionComp = (
   component,
   props,
   componentName,
@@ -12,6 +12,11 @@ const generateValueBinder = (
       const shouldRenderItem = computed(() => {
         if (typeof shouldRenderItemFn === "function") {
           return shouldRenderItemFn(creator);
+        }
+        if (Array.isArray(shouldRenderItemFn)) {
+          return shouldRenderItemFn.every(
+            (fn) => typeof fn === "function" && fn(creator)
+          );
         }
         return true;
       });
@@ -27,4 +32,4 @@ const generateValueBinder = (
     },
   });
 
-export default generateValueBinder;
+export default generateConditionComp;

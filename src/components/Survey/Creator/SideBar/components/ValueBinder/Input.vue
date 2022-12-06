@@ -7,6 +7,7 @@
       :placeholder="placeholder"
       @update:value="handleValueChange"
       v-bind="inputProps"
+      size="large"
     />
   </Vertical>
 </template>

@@ -32,7 +32,8 @@ import Category from "./components/Category";
 import sideBarConfig from "./config/index.js";
 import { useInjectCreator } from "@survey/hooks/useCreator";
 
-const { currentActiveItem } = useInjectCreator();
+const creator = useInjectCreator();
+const { currentActiveItem, currentActiveItemType } = creator;
 const haveActiveItem = computed(() => !!unref(currentActiveItem));
 const sideBarTitle = computed(() => {
   const item = unref(currentActiveItem);
@@ -40,8 +41,9 @@ const sideBarTitle = computed(() => {
 });
 
 const activeConfig = computed(() => {
-  const { type } = unref(currentActiveItem) || {};
-  return sideBarConfig[type];
+  const type = unref(currentActiveItemType);
+  const config = sideBarConfig[type];
+  return typeof config === "function" ? config(creator) : config;
 });
 </script>
 

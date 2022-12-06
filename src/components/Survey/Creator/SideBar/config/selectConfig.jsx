@@ -2,7 +2,9 @@ import generateValueBinder from "./generateValueBinder";
 import InputBinder from "../components/ValueBinder/Input.vue";
 import RadioBinder from "../components/ValueBinder/Radio.vue";
 import BooleanBinder from "../components/ValueBinder/Boolean.vue";
+import generateConditionComp from "./generateValueBinder";
 import ChoicesEditor from "../components/ChoicesEditor/index.vue";
+import questionTypeEnum from "@survey/util/questionTypeEnum";
 import { unref } from "vue";
 import {
   NameEditor,
@@ -18,32 +20,32 @@ import {
   DefaultValueExpressionEditor,
 } from "./common";
 
-const ChoicesOrientationEditor = generateValueBinder(
-  RadioBinder,
-  {
-    title: "Choice orientation",
-    bindName: "orientation",
-    options: [
-      {
-        label: "Vertical",
-        value: "vertical",
-      },
-      {
-        label: "Horizontal",
-        value: "horizontal",
-      },
-    ],
-  },
-  "ChoicesOrientationEditor"
+const ChoicesOrientationEditor = () => (
+  <RadioBinder
+    {...{
+      title: "Choice orientation",
+      bindName: "orientation",
+      options: [
+        {
+          label: "Vertical",
+          value: "vertical",
+        },
+        {
+          label: "Horizontal",
+          value: "horizontal",
+        },
+      ],
+    }}
+  />
 );
 
-const EnableOtherOptionEditor = generateValueBinder(
-  BooleanBinder,
-  {
-    title: "Enable other option (describe)",
-    bindName: "showOtherItem",
-  },
-  "EnableOtherOptionEditor"
+const EnableOtherOptionEditor = () => (
+  <BooleanBinder
+    {...{
+      title: "Enable other option (describe)",
+      bindName: "showOtherItem",
+    }}
+  />
 );
 
 const OtherOptionTextEditor = generateValueBinder(
@@ -66,6 +68,20 @@ const OtherOptionPlaceholder = generateValueBinder(
   ({ currentActiveItem }) => unref(currentActiveItem).showOtherItem
 );
 
+const isDropDownType = ({ currentActiveItem }) =>
+  unref(currentActiveItem).type === questionTypeEnum.dropdown;
+
+export const DropdownPlaceholder = () => (
+  <InputBinder title="Dropdown placeholder" bindName="dropdownPlaceholder" />
+);
+
+const DropDownPlaceholderEditor = generateConditionComp(
+  DropdownPlaceholder,
+  {},
+  "DropDownPlaceholderEditor",
+  isDropDownType
+);
+
 export default [
   {
     categoryName: "General",
@@ -77,6 +93,7 @@ export default [
     categoryTitle: "Choices",
     components: [
       ChoicesEditor,
+      DropDownPlaceholderEditor,
       EnableOtherOptionEditor,
       OtherOptionTextEditor,
       OtherOptionPlaceholder,

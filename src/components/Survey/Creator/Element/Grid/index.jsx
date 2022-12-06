@@ -5,6 +5,7 @@ import Table from "@survey/components/Table";
 import useGridEdit from "./useGridEdit";
 import questionCommonProps from "@survey/util/questionCommonProps";
 import QuestionContainer from "@survey/components/QuestionContainer/index.vue";
+import questionTypeEnum from "@survey/util/questionTypeEnum";
 
 const Grid = defineComponent({
   props: questionCommonProps,
@@ -34,7 +35,10 @@ const Grid = defineComponent({
         minWidth: 250,
         header: ({ column, columnIndex }) => {
           return (
-            <CellWrapper cellPath={getColumnPath(columnIndex)}>
+            <CellWrapper
+              cellPath={getColumnPath(columnIndex)}
+              cellType={questionTypeEnum.gridColumn}
+            >
               <Title
                 value={column.originalColumn.text}
                 editable

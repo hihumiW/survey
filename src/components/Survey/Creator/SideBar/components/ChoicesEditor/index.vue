@@ -2,7 +2,7 @@
   <ItemsEditor
     title="Choices"
     bindName="choices"
-    :items="currentActiveItem.choices"
+    :items="currentActiveItem.choices || []"
     :onItemAdd="handleItemAdd"
     :onItemRemove="handleItemRemove"
     :onItemTitleChange="handleTitleChange"

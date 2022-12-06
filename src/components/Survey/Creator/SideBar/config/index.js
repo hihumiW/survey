@@ -4,7 +4,7 @@ import SelectConfig from "./selectConfig";
 import fileConfig from "./fileConfig";
 import panelConfig from "./panelConfig";
 import matrixConfig from "./matrixConfig";
-import gridConfig from "./gridConfig";
+import { gridConfig, gridColumnConfig, gridCellConfig } from "./gridConfig";
 
 const sideBarConfig = {
   [questionTypeEnum.text]: textConfig,
@@ -17,6 +17,8 @@ const sideBarConfig = {
   [questionTypeEnum.matrixcheckbox]: matrixConfig,
   [questionTypeEnum.matrixinput]: matrixConfig,
   [questionTypeEnum.grid]: gridConfig,
+  [questionTypeEnum.gridColumn]: gridColumnConfig,
+  [questionTypeEnum.gridCell]: gridCellConfig,
 };
 
 export default sideBarConfig;

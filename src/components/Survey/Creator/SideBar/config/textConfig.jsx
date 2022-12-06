@@ -1,8 +1,9 @@
 import { unref } from "vue";
-import generateValueBinder from "./generateValueBinder";
+import generateConditionComp from "./generateValueBinder";
 import InputBinder from "../components/ValueBinder/Input.vue";
 import SelectBinder from "../components/ValueBinder/Select.vue";
 import RadioBinder from "../components/ValueBinder/Radio.vue";
+import { textTypeEnum } from "@survey/util/questionTypeEnum";
 import {
   NameEditor,
   TitleEditor,
@@ -17,8 +18,25 @@ import {
   DefaultValueExpressionEditor,
 } from "./common";
 
+const generateVisibleInputConditon =
+  (inputTypes) =>
+  ({ currentActiveItem }) =>
+    inputTypes.includes(unref(currentActiveItem).inputType);
+
+const isTextInputType = generateVisibleInputConditon([
+  undefined,
+  textTypeEnum.text,
+]);
+const isNumberInputType = generateVisibleInputConditon([textTypeEnum.number]);
+
+const isTextOrNumberInputType = generateVisibleInputConditon([
+  undefined,
+  textTypeEnum.text,
+  textTypeEnum.number,
+]);
+
 //文本Placeholder的组件
-const PlaceHolderEditor = generateValueBinder(
+export const PlaceHolderEditor = generateConditionComp(
   InputBinder,
   {
     title: "Input area placeholder",
@@ -26,11 +44,10 @@ const PlaceHolderEditor = generateValueBinder(
   },
   "PlaceHolderEditor",
   // 只会在inputType 为默认值(text) 和 number时显示
-  ({ currentActiveItem }) =>
-    ["text", "number"].includes(unref(currentActiveItem).inputType)
+  isTextOrNumberInputType
 );
 
-const MinimumLengthEditor = generateValueBinder(
+const MinimumLengthEditor = generateConditionComp(
   InputBinder,
   {
     title: "Minimum length",
@@ -42,12 +59,11 @@ const MinimumLengthEditor = generateValueBinder(
     },
   },
   "MinimumLengthEditor",
-  ({ currentActiveItem }) =>
-    ["text"].includes(unref(currentActiveItem).inputType)
+  isTextInputType
 );
 
 //文本输入长度限制
-const MaximumLengthEditor = generateValueBinder(
+export const MaximumLengthEditor = generateConditionComp(
   InputBinder,
   {
     title: "Maximum length",
@@ -59,58 +75,62 @@ const MaximumLengthEditor = generateValueBinder(
     },
   },
   "MaximumLengthEditor",
-  ({ currentActiveItem }) =>
-    ["text"].includes(unref(currentActiveItem).inputType)
+  isTextInputType
 );
 
 //文本类型
-const InputTypeEditor = generateValueBinder(
-  SelectBinder,
-  {
-    title: "Input type",
-    bindName: "inputType",
-    options: [
-      {
-        label: "text",
-        value: "text",
-      },
-      {
-        label: "number",
-        value: "number",
-      },
-      {
-        label: "date",
-        value: "date",
-      },
-      {
-        label: "time",
-        value: "time",
-      },
-      {
-        label: "provinceCity",
-        value: "provinceCity",
-      },
-    ],
-  },
-  "InputTypeEditor"
+export const InputTypeEditor = (
+  <SelectBinder
+    {...{
+      title: "Input type",
+      bindName: "inputType",
+      emptySelectedValue: "text",
+      options: [
+        {
+          label: "text",
+          value: textTypeEnum.text,
+        },
+        {
+          label: "number",
+          value: textTypeEnum.number,
+        },
+        {
+          label: "date",
+          value: textTypeEnum.date,
+        },
+        {
+          label: "time",
+          value: textTypeEnum.time,
+        },
+        {
+          label: "provinceCity",
+          value: textTypeEnum.provinceCity,
+        },
+      ],
+    }}
+  />
 );
 
-const InputVariantEditor = generateValueBinder(RadioBinder, {
-  title: "Input variant",
-  bindName: "inputVariant",
-  options: [
-    {
-      label: "Outlined",
-      value: "outlined",
-    },
-    {
-      label: "Standard",
-      value: "standard",
-    },
-  ],
-});
+const InputVariantEditor = (
+  <RadioBinder
+    {...{
+      title: "Input variant",
+      bindName: "inputVariant",
+      options: [
+        {
+          label: "Outlined",
+          value: "outlined",
+        },
+        {
+          label: "Standard",
+          value: "standard",
+        },
+      ],
+    }}
+  />
+);
 
-const NumberPrecisionEditor = generateValueBinder(
+export const NumberPrecisionEditor = generateConditionComp(
   RadioBinder,
   {
     title: "Precision of input value",
@@ -139,8 +159,7 @@ const NumberPrecisionEditor = generateValueBinder(
     ],
   },
   "NumberPrecisonEditor",
-  ({ currentActiveItem }) =>
-    ["number"].includes(unref(currentActiveItem).inputType)
+  isNumberInputType
 );
 
 export default [
@@ -155,7 +174,7 @@ export default [
       PlaceHolderEditor,
       InputTypeEditor,
       NumberPrecisionEditor,
-      MinimumLengthEditor,
+      // MinimumLengthEditor,
       MaximumLengthEditor,
     ],
   },

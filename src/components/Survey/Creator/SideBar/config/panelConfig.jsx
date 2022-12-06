@@ -1,4 +1,3 @@
-import generateValueBinder from "./generateValueBinder";
 import RadioBinder from "../components/ValueBinder/Radio.vue";
 import {
   TitleEditor,
@@ -8,31 +7,31 @@ import {
   VisibleIfEditor,
 } from "./common";
 
-const InnerIndentEditor = generateValueBinder(
-  RadioBinder,
-  {
-    title: "Add inner indent",
-    bindName: "innerIndent",
-    options: [
-      {
-        label: "0",
-        value: 0,
-      },
-      {
-        label: "1",
-        value: 1,
-      },
-      {
-        label: "2",
-        value: 2,
-      },
-      {
-        label: "3",
-        value: 3,
-      },
-    ],
-  },
-  "InnerIdentEditor"
+const InnerIndentEditor = () => (
+  <RadioBinder
+    {...{
+      title: "Add inner indent",
+      bindName: "innerIndent",
+      options: [
+        {
+          label: "0",
+          value: 0,
+        },
+        {
+          label: "1",
+          value: 1,
+        },
+        {
+          label: "2",
+          value: 2,
+        },
+        {
+          label: "3",
+          value: 3,
+        },
+      ],
+    }}
+  />
 );
 
 export default [

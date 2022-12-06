@@ -7,6 +7,8 @@ const CellWrapper = defineComponent({
       type: String,
       required: true,
     },
+    cellType: String,
+    required: true,
   },
   setup(props, { slots }) {
     const { currentActivePath, onQuestionItemClick } = useInjectCreator();
@@ -14,14 +16,17 @@ const CellWrapper = defineComponent({
       () => unref(currentActivePath) === props.cellPath
     );
     const handleContainerClick = (e) => {
-      onQuestionItemClick(props.cellPath);
+      onQuestionItemClick(props.cellPath, props.cellType);
       e.stopPropagation();
       e.preventDefault();
       return false;
     };
     return () => (
       <div
-        class={["survey-question_container", isActive.value && "active"]}
+        class={[
+          "survey-question_container rounded-sm cursor-pointer",
+          isActive.value && "active",
+        ]}
         onClick={handleContainerClick}
       >
         {slots.default()}

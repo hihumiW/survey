@@ -2,7 +2,7 @@
   <Vertical :title="props.title">
     <NSelect
       :placeholder="placeholder"
-      :value="binderValue"
+      :value="selectValue"
       :options="props.options"
       @update:value="handleValueChange"
       size="large"
@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, ref, unref, watch } from "vue";
 import { NSelect } from "naive-ui";
 import Vertical from "../Layout/Vertical";
 import useBinder from "./hooks/useBinder";
@@ -31,8 +31,31 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
+  emptySelectedValue: {
+    type: String,
+  },
 });
 
+const isControlled = computed(() => !!props.emptySelectedValue);
+
 const { binderValue, handleValueChange } = useBinder(props.bindName);
+
+const controlledValue = ref();
 const placeholder = computed(() => `Please select ${props.title}`);
+
+const selectValue = computed(() =>
+  unref(isControlled) ? unref(controlledValue) : unref(binderValue)
+);
+const setControlledValue = () => {
+  const val = unref(binderValue);
+  if (val) {
+    controlledValue.value = val;
+  } else {
+    controlledValue.value = props.emptySelectedValue;
+  }
+};
+if (isControlled) {
+  watch(binderValue, setControlledValue);
+  setControlledValue();
+}
 </script>

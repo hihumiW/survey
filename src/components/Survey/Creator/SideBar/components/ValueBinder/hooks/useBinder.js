@@ -2,11 +2,8 @@ import { computed, unref } from "vue";
 import { useInjectCreator } from "@survey/hooks/useCreator";
 
 const useBinder = (bindName) => {
-  const {
-    currentActivePath,
-    currentActiveItem,
-    updateQuestionFieldValueByPath,
-  } = useInjectCreator();
+  const { currentActivePath, getModelV, updateQuestionFieldValueByPath } =
+    useInjectCreator();
 
   const handleValueChange = (val) =>
     updateQuestionFieldValueByPath(
@@ -14,7 +11,9 @@ const useBinder = (bindName) => {
       val
     );
 
-  const binderValue = computed(() => unref(currentActiveItem)[bindName]);
+  const binderValue = computed(
+    () => getModelV(unref(currentActivePath))[bindName]
+  );
 
   return {
     binderValue,

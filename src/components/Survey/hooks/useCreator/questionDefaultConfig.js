@@ -1,53 +1,41 @@
 import { capitalize } from "lodash-es";
-import QuestionTypeEnum from "@survey/util/questionTypeEnum";
+import questionTypeEnum, {
+  gridCellTypeEnum,
+  textTypeEnum,
+} from "@survey/util/questionTypeEnum";
 
 const getQuestionDefaultConfig = (questionType, isSubNode) => {
   switch (questionType) {
-    case QuestionTypeEnum.text:
+    case questionTypeEnum.text:
       return {
         inputType: "text",
         inputVariant: "outlined",
         precision: "",
         ...getCommonDefault(isSubNode),
       };
-    case QuestionTypeEnum.radiogroup:
-    case QuestionTypeEnum.checkbox:
-    case QuestionTypeEnum.dropdown:
+    case questionTypeEnum.radiogroup:
+    case questionTypeEnum.checkbox:
+    case questionTypeEnum.dropdown:
       return getSelectTypeDefault(isSubNode);
-    case QuestionTypeEnum.file:
+    case questionTypeEnum.file:
       return getCommonDefault(isSubNode);
-    case QuestionTypeEnum.panel:
+    case questionTypeEnum.panel:
       return {
         indent: 0,
         showQuestionNumber: false,
         innerIndent: 0,
         title: "",
       };
-    case QuestionTypeEnum.matrixradio:
-    case QuestionTypeEnum.matrixcheckbox:
-    case QuestionTypeEnum.matrixinput:
+    case questionTypeEnum.matrixradio:
+    case questionTypeEnum.matrixcheckbox:
+    case questionTypeEnum.matrixinput:
       return getMartixDefault();
-    case QuestionTypeEnum.grid:
+    case questionTypeEnum.grid:
       return {
         indent: 0,
         showQuestionNumber: true,
         rows: ["row1", "row2", "row3"],
         columns: getItemsByValues(["column1", "column2"], GridColumnGenerator),
-        cells: {
-          row1: {
-            column1: {
-              cellType: "text",
-            },
-            column2: {
-              cellType: "input",
-            },
-          },
-          row2: {
-            column1: {
-              cellType: "any",
-            },
-          },
-        },
       };
   }
 };
@@ -91,6 +79,20 @@ export const getItem = (value) => ({
 export const GridColumnGenerator = (value) => ({
   value,
   text: capitalize(value),
-  type: "gridColumn",
-  cellType: "text",
+  ...getGridCellDefaultConfig(gridCellTypeEnum.text),
 });
+
+export const getGridCellDefaultConfig = (cellType) => {
+  const config = {
+    cellType,
+  };
+  switch (cellType) {
+    case gridCellTypeEnum.input:
+      config.inputType = textTypeEnum.text;
+      break;
+    case gridCellTypeEnum.dropdown:
+      config.choices = getItemsByValues(["item1", "item2", "item3"]);
+      break;
+  }
+  return config;
+};

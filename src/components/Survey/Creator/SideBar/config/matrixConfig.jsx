@@ -1,5 +1,5 @@
-import GridColumnEditor from "../components/GridColumnEditor/index.vue";
-import GridRowEditor from "../components/GridRowEditor/index.vue";
+import MatrixItemEditor from "../components/MatrixItemEditor/index.vue";
+
 import {
   NameEditor,
   TitleEditor,
@@ -12,6 +12,10 @@ import {
   RequiredIfEditor,
 } from "./common";
 
+export const ColumnsEditor = () => <MatrixItemEditor type="columns" />;
+
+const RowsEditor = () => <MatrixItemEditor type="rows" />;
+
 export default [
   {
     categoryName: "General",
@@ -21,12 +25,12 @@ export default [
   {
     categoryName: "Columns",
     categoryTitle: "Columns",
-    components: [GridColumnEditor],
+    components: [ColumnsEditor],
   },
   {
     categoryName: "Rows",
     categoryTitle: "Rows",
-    components: [GridRowEditor],
+    components: [RowsEditor],
   },
   {
     categoryName: "Layout",
