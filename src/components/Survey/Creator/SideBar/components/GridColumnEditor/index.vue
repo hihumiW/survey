@@ -21,7 +21,7 @@
 import { computed, unref } from "vue";
 import EditorLayout from "../ItemsEditor/Layout/EditorLayout";
 import RowItem from "../ItemsEditor/ItemRow";
-
+import questionTypeEnum from "@survey/util/questionTypeEnum";
 import { useInjectCreator } from "@survey/hooks/useCreator";
 import useGridEdit from "@survey/Creator/hooks/useGridEdit";
 
@@ -29,7 +29,10 @@ const { currentActiveItem, currentActivePath, onQuestionItemClick } =
   useInjectCreator();
 const items = computed(() => unref(currentActiveItem)?.columns || []);
 const handleEditClick = (columnIndex) => {
-  onQuestionItemClick(`${unref(currentActivePath)}.columns.${columnIndex}`);
+  onQuestionItemClick(
+    `${unref(currentActivePath)}.columns.${columnIndex}`,
+    questionTypeEnum.gridColumn
+  );
 };
 
 const {

@@ -59,8 +59,9 @@ export const gridConfig = [
 ];
 
 /** -----------input Cell ------------------*/
-const isInputCell = ({ currentActiveItem }) =>
-  unref(currentActiveItem).cellType === gridCellTypeEnum.input;
+const isInputCell = ({ currentActiveItem }) => {
+  return unref(currentActiveItem)?.cellType === gridCellTypeEnum.input;
+};
 
 const GridInputTypeEditor = generateConditionComp(
   InputTypeEditor,
@@ -93,8 +94,9 @@ const GridMaximumLengthEditor = generateConditionComp(
 
 /** -----------text Cell ------------------*/
 
-const isTextCell = ({ currentActiveItem }) =>
-  unref(currentActiveItem)?.cellType === gridCellTypeEnum.text;
+const isTextCell = ({ currentActiveItem }) => {
+  return unref(currentActiveItem)?.cellType === gridCellTypeEnum.text;
+};
 
 const CellTextContentEditor = generateConditionComp(
   InputValueBinder,
@@ -126,13 +128,38 @@ const GridColumnCellTypeEditor = () => (
   <GridCellType title="Colum cell type" type={questionTypeEnum.gridColumn} />
 );
 
-export const gridColumnConfig = ({ currentActiveItem }) => {
+const GridCellTypeEditor = () => (
+  <GridCellType title="Cell type" type={questionTypeEnum.gridCell} />
+);
+
+const GridColumnTitleEditor = () => (
+  <InputValueBinder title="Column title" bindName="text" />
+);
+
+export const gridCellConfig = ({
+  currentActiveItem,
+  currentActiveItemType,
+}) => {
+  const isGridColumn =
+    unref(currentActiveItemType) === questionTypeEnum.gridColumn;
+  const CategoryTitleInfo = isGridColumn
+    ? {
+        categoryTitle: "Column",
+        categoryName: "gridColumn",
+      }
+    : {
+        categoryTitle: "Cell",
+        categoryName: "gridCell",
+      };
+  const GridCellTypeComponent = isGridColumn
+    ? GridColumnCellTypeEditor
+    : GridCellTypeEditor;
+
   const config = [
     {
-      categoryTitle: "Column",
-      categoryName: "gridColumn",
+      ...CategoryTitleInfo,
       components: [
-        GridColumnCellTypeEditor,
+        GridCellTypeComponent,
         CellTextContentEditor,
         GridInputTypeEditor,
         GridPlaceHolderEditor,
@@ -148,13 +175,8 @@ export const gridColumnConfig = ({ currentActiveItem }) => {
       components: [ChoicesEditor, DropdownPlaceholder, DropdownMuitipleEditor],
     });
   }
+  if (isGridColumn) {
+    config[0].components.unshift(GridColumnTitleEditor);
+  }
   return config;
 };
-
-export const gridCellConfig = [
-  {
-    categoryTitle: "Cell",
-    categoryName: "gridCell",
-    components: [],
-  },
-];

@@ -34,7 +34,7 @@
 </template>
 <script setup>
 import { computed, unref } from "vue";
-import SingleText from "./Text/SingleText.vue";
+import SingleText from "./Text";
 import SelectBase from "./SelectBase";
 import File from "./File/index.vue";
 import Panel from "./Panel/index.vue";

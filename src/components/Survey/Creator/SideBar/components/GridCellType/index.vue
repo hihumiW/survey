@@ -18,6 +18,7 @@ import questionTypeEnum, {
 } from "@survey/util/questionTypeEnum";
 import { getGridCellDefaultConfig } from "@survey/hooks/useCreator/questionDefaultConfig";
 import { unref, ref, watch, nextTick } from "vue";
+import { computed } from "@vue/reactivity";
 
 const props = defineProps({
   title: String,
@@ -35,50 +36,51 @@ const {
   removeItem,
 } = useInjectCreator();
 
-const isGridCell = props.type === questionTypeEnum.gridCell;
+const isGridCell = computed(() => props.type === questionTypeEnum.gridCell);
 
 const selectValue = ref();
 const cellTypePath = () => `${unref(currentActivePath)}.cellType`;
 const setSelectValue = () => {
   selectValue.value =
     getModelV(cellTypePath()) ||
-    (isGridCell ? gridCellTypeEnum.inherit : undefined);
+    (unref(isGridCell) ? gridCellTypeEnum.inherit : undefined);
 };
 setSelectValue();
 
 watch(currentActivePath, setSelectValue);
 
-const CellTypeOptions = [
-  { label: "Text", value: gridCellTypeEnum.text },
-  {
-    label: "Input",
-    value: gridCellTypeEnum.input,
-  },
-  {
-    label: "Dropdown",
-    value: gridCellTypeEnum.dropdown,
-  },
-];
-
-if (isGridCell) {
-  CellTypeOptions.push([
+const CellTypeOptions = computed(() => {
+  const options = [
+    { label: "Text", value: gridCellTypeEnum.text },
     {
+      label: "Input",
+      value: gridCellTypeEnum.input,
+    },
+    {
+      label: "Dropdown",
+      value: gridCellTypeEnum.dropdown,
+    },
+  ];
+  if (unref(isGridCell)) {
+    options.unshift({
       label: "Inherit",
       value: gridCellTypeEnum.inherit,
-    },
-  ]);
-}
+    });
+  }
+  return options;
+});
 
 const handleCellTypeChange = (value) => {
   const activeItem = unref(currentActiveItem);
+  const unRefIsGridCell = unref(isGridCell);
   if (value === gridCellTypeEnum.inherit) {
-    if (isGridCell) {
-      removeItem(unref(currentActivePath));
+    if (unRefIsGridCell) {
       currentActiveItem.value = null;
+      removeItem(unref(currentActivePath));
     }
   } else {
     let mergedConfig = {};
-    if (!isGridCell) {
+    if (!unRefIsGridCell) {
       const { value, text } = activeItem;
       mergedConfig = {
         value,

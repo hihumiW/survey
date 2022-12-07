@@ -1,6 +1,7 @@
 import getQuestionDefaultConfig, { getItem } from "./questionDefaultConfig";
 import { ref, unref, provide, inject } from "vue";
 import objectPath from "object-path";
+import questionTypeEnum from "../../util/questionTypeEnum";
 
 window.objectPath = objectPath;
 
@@ -34,7 +35,7 @@ const useCreator = (surveyQuestionsRef) => {
      */
     onQuestionItemClick: (questionPath, questionType) => {
       const item = creator.getModelV(questionPath);
-      if (!item) return;
+      if (!item && questionType !== questionTypeEnum.gridCell) return;
       currentActivePath.value = questionPath;
       currentActiveItem.value = item;
       currentActiveItemType.value = questionType || item.type;

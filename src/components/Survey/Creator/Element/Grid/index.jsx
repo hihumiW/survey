@@ -1,7 +1,8 @@
 import { computed, defineComponent, toRef, unref } from "vue";
 import Title from "@survey/components/Title/index.vue";
-import CellWrapper from "./CellWrapper";
+import CellWrapper from "./components/CellWrapper";
 import Table from "@survey/components/Table";
+import Cell from "./components/Cell";
 import useGridEdit from "./useGridEdit";
 import questionCommonProps from "@survey/util/questionCommonProps";
 import QuestionContainer from "@survey/components/QuestionContainer/index.vue";
@@ -13,14 +14,16 @@ const Grid = defineComponent({
     const pathRef = toRef(props, "path");
     const getColumnPath = (columnIndex) =>
       `${unref(pathRef)}.columns.${columnIndex}`;
-    const getCellPath = () => {};
-    const { handleColumnTitleChange } = useGridEdit(pathRef);
+    const getCellPath = (rowName, columnName) =>
+      `${unref(pathRef)}.cells.${rowName}.${columnName}`;
+    const { handleColumnTitleChange, cellEditor } = useGridEdit(pathRef);
+
     const datas = computed(() => {
       const {
         question: { rows },
       } = props;
-      return rows.map((row) => ({
-        key: row.value,
+      return rows.map((rowName) => ({
+        key: rowName,
       }));
     });
 
@@ -42,6 +45,7 @@ const Grid = defineComponent({
               <Title
                 value={column.originalColumn.text}
                 editable
+                placeholder="Please enter column text"
                 onUpdate:value={(text) =>
                   handleColumnTitleChange(columnIndex, text)
                 }
@@ -49,8 +53,22 @@ const Grid = defineComponent({
             </CellWrapper>
           );
         },
-        cell: () => {
-          return <div>cell text</div>;
+        cell: ({ rowData, column }) => {
+          const cellPath = getCellPath(rowData.key, column.id);
+          return (
+            <CellWrapper
+              cellPath={cellPath}
+              cellType={questionTypeEnum.gridCell}
+            >
+              <Cell
+                cellPath={cellPath}
+                column={column}
+                rowName={rowData.key}
+                cells={props.question.cells}
+                cellEditor={cellEditor}
+              />
+            </CellWrapper>
+          );
         },
       }));
     });

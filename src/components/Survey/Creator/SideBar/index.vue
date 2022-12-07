@@ -18,7 +18,7 @@
       </div>
       <Category
         v-else
-        :questionType="currentActiveItem.type"
+        :questionType="currentActiveItemType"
         :categoryConfig="activeConfig"
       />
     </div>
@@ -31,13 +31,22 @@ import { NEmpty } from "naive-ui";
 import Category from "./components/Category";
 import sideBarConfig from "./config/index.js";
 import { useInjectCreator } from "@survey/hooks/useCreator";
+import questionTypeEnum from "../../util/questionTypeEnum";
 
 const creator = useInjectCreator();
-const { currentActiveItem, currentActiveItemType } = creator;
+const { currentActiveItem, currentActiveItemType, currentActivePath } = creator;
 const haveActiveItem = computed(() => !!unref(currentActiveItem));
 const sideBarTitle = computed(() => {
   const item = unref(currentActiveItem);
-  return item?.name || item?.value || "No question selected";
+  const type = unref(currentActiveItemType);
+  if (type === questionTypeEnum.gridColumn) {
+    return item?.value;
+  }
+  if (type === questionTypeEnum.gridCell) {
+    return unref(currentActivePath).split("cells.")[1];
+  }
+
+  return item?.name || "No question selected";
 });
 
 const activeConfig = computed(() => {

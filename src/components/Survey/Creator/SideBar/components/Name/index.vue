@@ -13,7 +13,7 @@ import { useInjectCreator } from "@survey/hooks/useCreator";
 const { currentActiveItem, currentActivePath, updateQuestionNameFieldValue } =
   useInjectCreator();
 
-const getCurrentActiveItemName = () => unref(currentActiveItem).name;
+const getCurrentActiveItemName = () => unref(currentActiveItem)?.name;
 
 const nameValue = ref(getCurrentActiveItemName());
 

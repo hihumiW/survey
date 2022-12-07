@@ -34,6 +34,7 @@ import useCreator from "./hooks/useCreator";
 import { useQuestionSequenceInit } from "./hooks/useQuestionIndex";
 
 const creator = useCreator();
+
 useQuestionSequenceInit(creator.surveyQuestions);
 const isMounted = useMounted();
 onMounted(() => {

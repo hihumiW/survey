@@ -12,7 +12,7 @@ const useBinder = (bindName) => {
     );
 
   const binderValue = computed(
-    () => getModelV(unref(currentActivePath))[bindName]
+    () => getModelV(unref(currentActivePath))?.[bindName]
   );
 
   return {
