@@ -20,7 +20,7 @@ const useItemEdit = (eidtConfig) => {
   };
 
   const handleItemValueChange = (itemIndex, newValue) =>
-    updateItemValue(`${getItemPath(itemIndex)}`, newValue);
+    updateItemValue(unref(itemsPathRef), itemIndex, newValue);
 
   const handleItemAdd = () =>
     addNewItem(unref(itemsPathRef), unref(itemValueTemplate));
