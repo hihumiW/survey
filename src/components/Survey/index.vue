@@ -29,7 +29,7 @@ import { useMounted } from "@vueuse/core";
 import { NTabs, NTabPane } from "naive-ui";
 import { onMounted, ref } from "vue";
 import Creator from "./Creator/index.vue";
-import JSONPreview from "./JSON/index.vue";
+import JSONPreview from "./JSON";
 import useCreator from "./hooks/useCreator";
 import { useQuestionSequenceInit } from "./hooks/useQuestionIndex";
 
