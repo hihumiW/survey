@@ -3,7 +3,7 @@ import Title from "@survey/components/Title/index.vue";
 import CellWrapper from "./components/CellWrapper";
 import Table from "@survey/components/Table";
 import Cell from "./components/Cell";
-import useGridEdit from "./useGridEdit";
+import useGridEdit from "@survey/Creator/hooks/useGridEdit";
 import questionCommonProps from "@survey/util/questionCommonProps";
 import QuestionContainer from "@survey/components/QuestionContainer/index.vue";
 import questionTypeEnum from "@survey/util/questionTypeEnum";
@@ -74,7 +74,7 @@ const Grid = defineComponent({
     });
 
     return () => (
-      <QuestionContainer {...props}>
+      <QuestionContainer {...props} editable>
         <div className="overflow-auto">
           <Table
             data={datas.value}

@@ -10,11 +10,15 @@ const useGridEdit = (gridPathRef) => {
     syncCellColumnPathChange,
     syncCellColumnPathRemove,
     syncCellRowPathRemove,
+    getModelV,
+    filterCellEmptyRows,
+    filterCellsEmpty,
   } = useInjectCreator();
   if (!updateQuestionFieldValueByPath || !unref(gridPathRef)) return {};
 
   const p = () => unref(gridPathRef);
-  const cellPath = () => `${p()}.cells`;
+  const cellsPath = () => `${p()}.cells`;
+  const getCells = () => getModelV(cellsPath());
   const columnPath = (index = -1) =>
     index === -1 ? `${p()}.columns` : `${p()}.columns.${index}`;
   const rowPath = (index = -1) =>
@@ -31,21 +35,26 @@ const useGridEdit = (gridPathRef) => {
       columnIndex,
       newValue,
       (prevValue, nowValue) => {
-        syncCellColumnPathChange(cellPath(), prevValue, nowValue);
+        syncCellColumnPathChange(getCells(), prevValue, nowValue);
       }
     );
   };
 
   const handleColumnRemove = (removeIndex, item) => {
     removeItem(columnPath(removeIndex));
-    syncCellColumnPathRemove(cellPath(), item.value);
+    const cells = getCells();
+    syncCellColumnPathRemove(cells, item.value);
+    filterCellEmptyRows(cellsPath(), cells);
+    filterCellsEmpty(cellsPath(), cells);
   };
   const handleColumnAdd = () =>
     addNewItem(`${columnPath()}`, "column", GridColumnGenerator);
 
   const handleRowRemove = (columnIndex, rowValue) => {
     removeItem(rowPath(columnIndex));
-    syncCellRowPathRemove(cellPath(), rowValue);
+    const cells = getCells();
+    syncCellRowPathRemove(cells, rowValue);
+    filterCellsEmpty(cellsPath(), cells);
   };
 
   const handleRowAdd = () =>
@@ -56,6 +65,12 @@ const useGridEdit = (gridPathRef) => {
       (value) => value
     );
 
+  const cellEditor = {
+    updateCellText(cellPath, text) {
+      updateQuestionFieldValueByPath(`${cellPath}.cellText`, text);
+    },
+  };
+
   return {
     handleColumnTitleChange,
     handleColumnValueChange,
@@ -63,6 +78,7 @@ const useGridEdit = (gridPathRef) => {
     handleColumnAdd,
     handleRowRemove,
     handleRowAdd,
+    cellEditor,
   };
 };
 

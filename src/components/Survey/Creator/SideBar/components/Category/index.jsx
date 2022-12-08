@@ -3,7 +3,11 @@ import "./index.css";
 const Category = (props) => {
   return (
     <div class="side-bar-category_container mt-3">
-      <NCollapse accordion>
+      <NCollapse
+        accordion
+        expandedNames={props.expandedName}
+        onUpdate:expandedNames={props.updateSideBarExpandedName}
+      >
         {props.categoryConfig.map(
           ({ categoryName, categoryTitle, components }) => (
             <NCollapseItem
@@ -35,6 +39,8 @@ const Category = (props) => {
 Category.props = {
   questionType: String,
   categoryConfig: Array,
+  expandedName: String,
+  updateSideBarExpandedName: Function,
 };
 
 export default Category;

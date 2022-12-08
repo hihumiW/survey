@@ -17,7 +17,7 @@
       <div class="flex justify-between items-center">
         <span>{{ questionTypeName }}</span>
         <div class="flex">
-          <NButton strong secondary round type="warning"> Duplicate </NButton>
+          <!-- <NButton strong secondary round type="warning"> Duplicate </NButton> -->
           <NButton
             strong
             secondary
@@ -58,7 +58,7 @@ const handleQuestionContainerClick = () => {
   onQuestionItemClick(props.path);
 };
 
-const handleDeleteItemClick = () => removeItem(props.path);
+const handleDeleteItemClick = () => removeItem(props.path, props.question.name);
 
 const questionTypeName = computed(
   () => questionTypes.find((item) => item.type === props.question.type)?.name

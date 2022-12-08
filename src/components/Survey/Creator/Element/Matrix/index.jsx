@@ -101,7 +101,7 @@ const Matrix = defineComponent({
     };
 
     return () => (
-      <QuestionContainer {...props}>
+      <QuestionContainer {...props} editable>
         <div className="overflow-auto relative">
           <Table
             class="survey-table"

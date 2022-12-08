@@ -34,6 +34,8 @@ const {
   getModelV,
   updateQuestionFieldValueByPath,
   removeItem,
+  filterCellsEmpty,
+  filterCellEmptyRows,
 } = useInjectCreator();
 
 const isGridCell = computed(() => props.type === questionTypeEnum.gridCell);
@@ -71,17 +73,21 @@ const CellTypeOptions = computed(() => {
 });
 
 const handleCellTypeChange = (value) => {
-  const activeItem = unref(currentActiveItem);
+  const activeCell = unref(currentActiveItem);
+
   const unRefIsGridCell = unref(isGridCell);
   if (value === gridCellTypeEnum.inherit) {
     if (unRefIsGridCell) {
       currentActiveItem.value = null;
       removeItem(unref(currentActivePath));
+      const cellsPath = unref(currentActivePath).split(".cells")[0] + ".cells";
+      filterCellEmptyRows(cellsPath);
+      filterCellsEmpty(cellsPath);
     }
   } else {
     let mergedConfig = {};
     if (!unRefIsGridCell) {
-      const { value, text } = activeItem;
+      const { value, text } = activeCell;
       mergedConfig = {
         value,
         text,

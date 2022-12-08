@@ -3,8 +3,6 @@ import { ref, unref, provide, inject } from "vue";
 import objectPath from "object-path";
 import questionTypeEnum from "../../util/questionTypeEnum";
 
-window.objectPath = objectPath;
-
 export const CREATOR_KEY = Symbol("creator");
 
 const useCreator = (surveyQuestionsRef) => {
@@ -25,6 +23,8 @@ const useCreator = (surveyQuestionsRef) => {
   const currentActiveItemType = ref();
   // 当前用户选中的题目的对象在配置中的路径；
   const currentActivePath = ref();
+
+  const sideBarExpandedName = ref("");
 
   const creator = {
     getModelV: (path) => questionModel.get(path),
@@ -90,7 +90,9 @@ const useCreator = (surveyQuestionsRef) => {
     },
     getNewQuestionName: (questionType) => {
       const questionBaseName = questionType === "panel" ? "panel" : "question";
-      let startIndex = unref(surveyQuestions).length;
+      let startIndex = unref(surveyQuestions).filter(
+        (question) => question.type !== questionTypeEnum.panel
+      ).length;
       const getNew = () => {
         return `${questionBaseName}${++startIndex}`;
       };
@@ -101,6 +103,11 @@ const useCreator = (surveyQuestionsRef) => {
       }
       return questionName;
     },
+    /**
+     * 添加一个新的question
+     * @param {questionTypeEnum} questionType 要添加的问题的类型
+     * @param {string} insertPath 默认情况下新的question都会被插入在question的最后；对于添加在panel下面的question，需要指定insertPath
+     */
     addQuestion: (questionType, insertPath) => {
       const newQuesName = creator.getNewQuestionName(questionType);
       const defaultConfig =
@@ -129,8 +136,16 @@ const useCreator = (surveyQuestionsRef) => {
       );
       questionModel.push(itemsPath, newItem);
     },
-    removeItem: (removeItemPath) => {
+    /**
+     * 删除指定path的 值
+     * @param {string} removeItemPath
+     * @param {string} removeSetName 移除question时需要额外传入question的name；
+     */
+    removeItem: (removeItemPath, removeSetName) => {
       console.log("remove item path -------------->", removeItemPath);
+      if (removeSetName) {
+        surveyQuestionsNameSet.delete(removeSetName);
+      }
       questionModel.del(removeItemPath);
     },
     updateItemValue: (itemsPath, itemIndex, newValue, cb) => {
@@ -160,6 +175,12 @@ const useCreator = (surveyQuestionsRef) => {
       }
       return itemGenerator(newValue);
     },
+    /**
+     * 便利cells的行，并将便利到的行作为参数传给rowFn中
+     * @param {Cells} cells 需要便利的cell
+     * @param {(rowData) => void} rowFn
+     * @returns
+     */
     forEachCellRows: (cells, rowFn) => {
       if (!cells) return;
       for (const rowKey in cells) {
@@ -174,32 +195,66 @@ const useCreator = (surveyQuestionsRef) => {
         }
       }
     },
-    syncCellColumnPathChange: (cellPath, prevColumnValue, nowColumnValue) => {
-      creator.forEachCellRows(creator.getModelV(cellPath), ({ rowInfo }) => {
+    /**
+     * 对于grid类型的题目： 当列的name变化时 cells中对应的列名也应该一起变化
+     * @param {string} cells
+     * @param {string} prevColumnValue  变化的列，变化前的name值
+     * @param {string} nowColumnValue  变化的列， 变化之后的值
+     */
+    syncCellColumnPathChange: (cells, prevColumnValue, nowColumnValue) => {
+      creator.forEachCellRows(cells, ({ rowInfo }) => {
         if (prevColumnValue in rowInfo) {
           rowInfo[nowColumnValue] = rowInfo[prevColumnValue];
           delete rowInfo[prevColumnValue];
         }
       });
     },
-    syncCellColumnPathRemove: (cellPath, removeColumnValue) => {
-      creator.forEachCellRows(creator.getModelV(cellPath), ({ rowInfo }) => {
+    /**
+     * 对于grid类型的题目： 当某一列被移除时， cells中对应的列的配置也应该一起被移除
+     * @param {string} cells
+     * @param {string} removeColumnValue 被移除的列name值
+     */
+    syncCellColumnPathRemove: (cells, removeColumnValue) => {
+      creator.forEachCellRows(cells, ({ rowInfo }) => {
         if (removeColumnValue in rowInfo) {
           delete rowInfo[removeColumnValue];
         }
       });
     },
-    syncCellRowPathRemove: (cellPath, removeRowValue) => {
-      const cells = creator.getModelV(cellPath);
+    /**
+     * 对于grid类型的题目： 当某一行移除时，cell中对应的行配置也需要移除
+     * @param {string} cells
+     * @param {string} removeRowValue 被移除的rowName
+     */
+    syncCellRowPathRemove: (cells, removeRowValue) => {
+      if (!cells) return;
       if (removeRowValue in cells) {
         delete cells[removeRowValue];
       }
+    },
+    filterCellsEmpty: (cellsPath, cells) => {
+      const cellsValue = cells || creator.getModelV(cellsPath);
+      if (Object.keys(cellsValue).length === 0) {
+        creator.removeItem(cellsPath);
+      }
+    },
+    filterCellEmptyRows: (cellsPath, cells) => {
+      const cellsValue = cells || creator.getModelV(cellsPath);
+      creator.forEachCellRows(cellsValue, ({ rowInfo, rowKey }) => {
+        if (Object.keys(rowInfo).length === 0) {
+          delete cellsValue[rowKey];
+        }
+      });
     },
     survey: surveyDef,
     surveyQuestions,
     currentActiveItem,
     currentActivePath,
     currentActiveItemType,
+    sideBarExpandedName,
+    updateSideBarExpandedName: ([value]) => {
+      sideBarExpandedName.value = value;
+    },
     JSON() {
       const { title, description } = unref(surveyDef);
       const questions = unref(surveyQuestions);
@@ -210,6 +265,8 @@ const useCreator = (surveyQuestionsRef) => {
       };
     },
   };
+
+  window.cc = creator;
 
   provide("creator", creator);
 

@@ -85,9 +85,10 @@ const SelectBase = defineComponent({
     };
 
     const renderSelect = () => {
-      return props.question.type === "dropdown" ? (
-        <NSelect placeholder="Select..." disabled size="large" />
-      ) : null;
+      if (props.question.type !== "dropdown") return null;
+      const selectPlaceholder =
+        props.question.dropdownPlaceholder || "Select...";
+      return <NSelect placeholder={selectPlaceholder} disabled size="large" />;
     };
 
     return () => {

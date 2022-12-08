@@ -7,10 +7,10 @@
       <div class="flex-1 min-h-0 h-full overflow-y-auto">
         <div
           class="mx-auto flex flex-col gap-y-3"
-          :class="shouldFullWidth ? 'mx-4' : ' max-w-[700px]'"
+          :class="shouldFullWidth ? 'mx-6' : ' max-w-[700px]'"
         >
           <SureveyTitle />
-          <div class="mt-4 flex flex-col gap-y-8">
+          <div class="my-8 flex flex-col gap-y-8">
             <SurveyElement
               v-for="(question, index) in surveyQuestions"
               :key="question.name"
