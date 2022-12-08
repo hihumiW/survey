@@ -38,7 +38,7 @@ const creator = useCreator();
 useQuestionSequenceInit(creator.surveyQuestions);
 const isMounted = useMounted();
 onMounted(() => {
-  creator.addQuestion("grid");
+  creator.addQuestion("dropdown");
 });
 
 const tabValue = ref("designer");

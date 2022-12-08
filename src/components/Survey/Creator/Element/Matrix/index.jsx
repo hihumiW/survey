@@ -1,5 +1,5 @@
 import { computed, defineComponent, toRef } from "vue";
-import { NRadio, NCheckbox, NInput } from "naive-ui";
+import { NRadio, NCheckbox, NInput, NSelect } from "naive-ui";
 import Title from "@survey/components/Title/index.vue";
 import Table from "@survey/components/Table";
 import QuestionContainer from "@survey/components/QuestionContainer/index.vue";
@@ -92,6 +92,9 @@ const Matrix = defineComponent({
       }
       if (type === QuestionTypeEnum.matrixinput) {
         element = <NInput placeholder="" {...commonProps} />;
+      }
+      if (type === QuestionTypeEnum.matrixdropdown) {
+        element = <NSelect placeholder="" {...commonProps} />;
       }
       return (
         <div className="min-h-[40px] flex items-center justify-center">

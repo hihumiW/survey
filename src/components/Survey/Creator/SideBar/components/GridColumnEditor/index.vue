@@ -1,19 +1,15 @@
 <template>
   <EditorLayout title="Columns" :onItemAdd="handleColumnAdd">
-    <div
-      class="flex flex-col"
+    <RowItem
       v-for="(column, index) in items"
       :key="column.value"
-    >
-      <RowItem
-        :item="column"
-        :itemIndex="index"
-        :onItemTitleChange="handleColumnTitleChange"
-        :onItemValueChange="handleColumnValueChange"
-        :onItemRemove="handleColumnRemove"
-        :onEditClick="handleEditClick"
-      />
-    </div>
+      :item="column"
+      :itemIndex="index"
+      :onItemTitleChange="handleColumnTitleChange"
+      :onItemValueChange="handleColumnValueChange"
+      :onItemRemove="handleColumnRemove"
+      :onEditClick="handleEditClick"
+    />
   </EditorLayout>
 </template>
 

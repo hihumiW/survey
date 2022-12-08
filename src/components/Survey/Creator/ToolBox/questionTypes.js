@@ -34,6 +34,10 @@ export default [
     type: QuestionTypeEnum.matrixcheckbox,
   },
   {
+    name: "MatrixDropdown",
+    type: QuestionTypeEnum.matrixdropdown,
+  },
+  {
     name: "MatrixInput",
     type: QuestionTypeEnum.matrixinput,
   },

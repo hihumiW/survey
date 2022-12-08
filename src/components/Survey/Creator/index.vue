@@ -44,6 +44,7 @@ const shouldFullWidth = computed(() =>
         QuestionTypeEnum.matrixradio,
         QuestionTypeEnum.matrixcheckbox,
         QuestionTypeEnum.matrixinput,
+        QuestionTypeEnum.matrixdropdown,
         QuestionTypeEnum.grid,
       ].includes(question.type)
     )

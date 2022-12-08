@@ -29,6 +29,7 @@ const getQuestionDefaultConfig = (questionType, isSubNode) => {
     case questionTypeEnum.matrixradio:
     case questionTypeEnum.matrixcheckbox:
     case questionTypeEnum.matrixinput:
+    case questionTypeEnum.matrixdropdown:
       return getMartixDefault();
     case questionTypeEnum.grid:
       return {

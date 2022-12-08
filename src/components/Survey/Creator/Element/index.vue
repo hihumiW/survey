@@ -79,6 +79,7 @@ const RenderComponent = computed(() => {
     case QuestionTypeEnum.matrixradio:
     case QuestionTypeEnum.matrixcheckbox:
     case QuestionTypeEnum.matrixinput:
+    case QuestionTypeEnum.matrixdropdown:
       return Matrix;
     case QuestionTypeEnum.grid:
       return Grid;

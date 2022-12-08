@@ -1,4 +1,4 @@
-import MatrixItemEditor from "../components/MatrixItemEditor/index.vue";
+import MatrixItemEditor from "../components/MatrixItemEditor";
 
 import {
   NameEditor,

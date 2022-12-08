@@ -28,11 +28,17 @@ const useItemEdit = (eidtConfig) => {
   const handleItemRemove = (revemoIndex) =>
     removeItem(getItemPath(revemoIndex));
 
+  const handleItemScoreChange = (itemIndex, value) => {
+    const scorePath = `${getItemPath(itemIndex)}.score`;
+    updateQuestionFieldValueByPath(scorePath, value);
+  };
+
   return {
     handleTitleChange,
     handleItemValueChange,
     handleItemAdd,
     handleItemRemove,
+    handleItemScoreChange,
   };
 };
 

@@ -5,11 +5,13 @@ export default {
   dropdown: "dropdown",
   file: "file",
   panel: "panel",
+  //matrix
   matrixradio: "matrixradio",
   matrixcheckbox: "matrixcheckbox",
   matrixinput: "matrixinput",
-  grid: "grid",
+  matrixdropdown: "matrixdropdown",
   // grid cell type
+  grid: "grid",
   gridColumn: "gridColumn",
   gridCell: "gridCell",
 };

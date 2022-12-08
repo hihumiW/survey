@@ -16,6 +16,7 @@ const sideBarConfig = {
   [questionTypeEnum.matrixradio]: matrixConfig,
   [questionTypeEnum.matrixcheckbox]: matrixConfig,
   [questionTypeEnum.matrixinput]: matrixConfig,
+  [questionTypeEnum.matrixdropdown]: matrixConfig,
   [questionTypeEnum.grid]: gridConfig,
   [questionTypeEnum.gridColumn]: gridCellConfig,
   [questionTypeEnum.gridCell]: gridCellConfig,
