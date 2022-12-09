@@ -7,12 +7,14 @@
         <NTabs type="bar" size="large" v-model:value="tabValue">
           <NTabPane name="designer" tab="Designer" />
           <NTabPane name="json" tab="JSON" />
+          <NTabPane name="preview" tab="Preview" />
         </NTabs>
       </div>
       <div class="flex-1 min-h-0">
         <template v-if="isMounted">
           <Creator v-if="tabValue === 'designer'" />
           <JSONPreview v-if="tabValue === 'json'" />
+          <SurveyPreview v-if="tabValue === 'preview'" :creator="creator" />
         </template>
       </div>
     </div>
@@ -31,12 +33,12 @@ import { NTabs, NTabPane } from "naive-ui";
 import { onMounted, ref } from "vue";
 import Creator from "./Creator/index.vue";
 import JSONPreview from "./JSON";
+import SurveyPreview from "./Preview";
 import useCreator from "./hooks/useCreator";
 import { useQuestionSequenceInit } from "./hooks/useQuestionIndex";
 
 const creator = useCreator();
 const { showSideBar } = creator;
-
 useQuestionSequenceInit(creator.surveyQuestions);
 const isMounted = useMounted();
 onMounted(() => {

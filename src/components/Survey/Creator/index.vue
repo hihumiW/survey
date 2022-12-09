@@ -4,22 +4,17 @@
       <div class="w-[160px] flex-shrink-0">
         <ToolBox />
       </div>
-      <div class="flex-1 min-h-0 h-full overflow-y-auto">
-        <div
-          class="mx-auto flex flex-col gap-y-3"
-          :class="shouldFullWidth ? 'mx-6' : ' max-w-[700px]'"
-        >
+      <SurveyContainer :questions="surveyQuestions">
+        <template #title>
           <SureveyTitle />
-          <div class="my-8 flex flex-col gap-y-8">
-            <SurveyElement
-              v-for="(question, index) in surveyQuestions"
-              :key="question.name"
-              :question="question"
-              :path="String(index)"
-            />
-          </div>
-        </div>
-      </div>
+        </template>
+        <SurveyElement
+          v-for="(question, index) in surveyQuestions"
+          :key="question.name"
+          :question="question"
+          :path="String(index)"
+        />
+      </SurveyContainer>
     </div>
     <Teleport to="#sideBar">
       <SideBar />
@@ -42,27 +37,13 @@ import ToolBox from "./ToolBox/index.vue";
 import SureveyTitle from "../components/SureveyTitle/index.vue";
 import SurveyElement from "./Element/index.vue";
 import SideBar from "./SideBar/index.vue";
-import { Teleport, computed, unref } from "vue";
-import QuestionTypeEnum from "@survey/util/questionTypeEnum";
+import { Teleport } from "vue";
+import SurveyContainer from "../components/SurveyContainer";
 import { NButton, NIcon } from "naive-ui";
 import { ChevronForwardSharp, ChevronBackSharp } from "@vicons/ionicons5";
 import { useInjectCreator } from "@survey/hooks/useCreator";
 
 const { surveyQuestions, showSideBar, toggleSideBarShow } = useInjectCreator();
-
-const shouldFullWidth = computed(() =>
-  Boolean(
-    unref(surveyQuestions).find((question) =>
-      [
-        QuestionTypeEnum.matrixradio,
-        QuestionTypeEnum.matrixcheckbox,
-        QuestionTypeEnum.matrixinput,
-        QuestionTypeEnum.matrixdropdown,
-        QuestionTypeEnum.grid,
-      ].includes(question.type)
-    )
-  )
-);
 </script>
 
 <script>
