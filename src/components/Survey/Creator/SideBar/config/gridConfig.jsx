@@ -5,7 +5,7 @@ import GridCellType from "../components/GridCellType/index.vue";
 import generateConditionComp from "./generateValueBinder";
 import InputValueBinder from "../components/ValueBinder/Input.vue";
 import BooleanValueBinader from "../components/ValueBinder/Boolean.vue";
-import ChoicesEditor from "../components/ChoicesEditor/index.vue";
+import ChoicesEditor from "../components/ChoicesEditor";
 import questionTypeEnum, {
   gridCellTypeEnum,
 } from "@survey/util/questionTypeEnum";
@@ -132,7 +132,7 @@ const GridCellTypeEditor = () => (
   <GridCellType title="Cell type" type={questionTypeEnum.gridCell} />
 );
 
-const GridColumnTitleEditor = () => (
+export const GridColumnTitleEditor = () => (
   <InputValueBinder title="Column title" bindName="text" />
 );
 
@@ -142,24 +142,15 @@ export const gridCellConfig = ({
 }) => {
   const isGridColumn =
     unref(currentActiveItemType) === questionTypeEnum.gridColumn;
-  const CategoryTitleInfo = isGridColumn
-    ? {
-        categoryTitle: "Column",
-        categoryName: "gridColumn",
-      }
-    : {
-        categoryTitle: "Cell",
-        categoryName: "gridCell",
-      };
-  const GridCellTypeComponent = isGridColumn
-    ? GridColumnCellTypeEditor
-    : GridCellTypeEditor;
+  const isDropdownType =
+    unref(currentActiveItem)?.cellType === gridCellTypeEnum.dropdown;
 
   const config = [
     {
-      ...CategoryTitleInfo,
+      categoryTitle: isGridColumn ? "Column" : "Cell",
+      categoryName: isGridColumn ? "gridColumn" : "gridCell",
       components: [
-        GridCellTypeComponent,
+        isGridColumn ? GridColumnCellTypeEditor : GridCellTypeEditor,
         CellTextContentEditor,
         GridInputTypeEditor,
         GridPlaceHolderEditor,
@@ -168,15 +159,16 @@ export const gridCellConfig = ({
       ],
     },
   ];
-  if (unref(currentActiveItem)?.cellType === gridCellTypeEnum.dropdown) {
+  if (isGridColumn) {
+    config[0].components.unshift(GridColumnTitleEditor);
+  }
+  if (isDropdownType) {
     config.push({
       categoryTitle: "Choice",
       categoryName: "gridChoice",
       components: [ChoicesEditor, DropdownPlaceholder, DropdownMuitipleEditor],
     });
   }
-  if (isGridColumn) {
-    config[0].components.unshift(GridColumnTitleEditor);
-  }
+
   return config;
 };

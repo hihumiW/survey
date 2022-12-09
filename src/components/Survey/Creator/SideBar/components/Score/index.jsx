@@ -6,7 +6,8 @@ const Score = (props) => {
     <Vertical title="Score">
       <NInputNumber
         size="large"
-        value={props.value}
+        value={props.value || 0}
+        min={0}
         onUpdate:value={props.onUpdate}
       />
     </Vertical>

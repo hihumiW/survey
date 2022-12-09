@@ -8,8 +8,12 @@ export default {
   //matrix
   matrixradio: "matrixradio",
   matrixcheckbox: "matrixcheckbox",
-  matrixinput: "matrixinput",
+  matrixSelectColumn: "matrixSelectColumn",
   matrixdropdown: "matrixdropdown",
+  matrixDropdownColumn: "matrixDropdownColumn",
+  matrixinput: "matrixinput",
+  matrixInputColumn: "matrixInputColumn",
+
   // grid cell type
   grid: "grid",
   gridColumn: "gridColumn",

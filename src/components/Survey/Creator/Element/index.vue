@@ -38,7 +38,7 @@ import SingleText from "./Text";
 import SelectBase from "./SelectBase";
 import File from "./File/index.vue";
 import Panel from "./Panel/index.vue";
-import Matrix from "./Matrix";
+import Matrix from "./Grid/Matrix";
 import Grid from "./Grid";
 import questionTypes from "../ToolBox/questionTypes";
 import { NButton } from "naive-ui";

@@ -138,7 +138,7 @@ export const NumberPrecisionEditor = generateConditionComp(
     options: [
       {
         label: "Free",
-        value: "",
+        value: -1,
       },
       {
         label: "Integrate",

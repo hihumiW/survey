@@ -33,6 +33,7 @@ import { NEmpty } from "naive-ui";
 import Category from "./components/Category";
 import sideBarConfig from "./config/index.js";
 import { useInjectCreator } from "@survey/hooks/useCreator";
+import QuestionTypeEnum from "../../util/questionTypeEnum";
 import questionTypeEnum from "../../util/questionTypeEnum";
 
 const creator = useInjectCreator();
@@ -47,10 +48,17 @@ const haveActiveItem = computed(() => !!unref(currentActiveItem));
 const sideBarTitle = computed(() => {
   const item = unref(currentActiveItem);
   const type = unref(currentActiveItemType);
-  if (type === questionTypeEnum.gridColumn) {
+  if (
+    [
+      QuestionTypeEnum.gridColumn,
+      QuestionTypeEnum.matrixSelectColumn,
+      QuestionTypeEnum.matrixInputColumn,
+      questionTypeEnum.matrixDropdownColumn,
+    ].includes(type)
+  ) {
     return item?.value;
   }
-  if (type === questionTypeEnum.gridCell) {
+  if (type === QuestionTypeEnum.gridCell) {
     return unref(currentActivePath).split("cells.")[1];
   }
 

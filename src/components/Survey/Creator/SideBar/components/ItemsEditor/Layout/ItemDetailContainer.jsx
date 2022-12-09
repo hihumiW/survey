@@ -3,7 +3,9 @@ const ItemDetailContainer = (props, { slots }) => {
     <div class="survey-sideBar-itemDetail-container">
       {slots.default()}
       {props.showDetail && (
-        <div class="p-4 bg-neutral-100">{slots.detail()}</div>
+        <div class="p-4 bg-neutral-100 flex flex-col gap-y-4">
+          {slots.detail()}
+        </div>
       )}
     </div>
   );

@@ -6,6 +6,7 @@
           <Title
             placeholder="Survey Title"
             :value="survey.title"
+            editable
             @update:value="updateSurveyTitle"
           />
         </div>
@@ -13,6 +14,7 @@
           <Title
             placeholder="Description"
             :value="survey.description"
+            editable
             @update:value="updateSurveyDescription"
           />
         </div>

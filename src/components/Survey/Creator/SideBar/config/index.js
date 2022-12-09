@@ -1,25 +1,32 @@
-import questionTypeEnum from "@survey/util/questionTypeEnum";
+import QuestionTypeEnum from "@survey/util/questionTypeEnum";
 import textConfig from "./textConfig";
 import SelectConfig from "./selectConfig";
 import fileConfig from "./fileConfig";
 import panelConfig from "./panelConfig";
-import matrixConfig from "./matrixConfig";
 import { gridConfig, gridCellConfig } from "./gridConfig";
+import matrixConfig, {
+  matrixSelectColumnConfig,
+  matrixInputColumnConfig,
+  matrixDropdownColumnConfig,
+} from "./matrixConfig";
 
 const sideBarConfig = {
-  [questionTypeEnum.text]: textConfig,
-  [questionTypeEnum.radiogroup]: SelectConfig,
-  [questionTypeEnum.checkbox]: SelectConfig,
-  [questionTypeEnum.dropdown]: SelectConfig,
-  [questionTypeEnum.file]: fileConfig,
-  [questionTypeEnum.panel]: panelConfig,
-  [questionTypeEnum.matrixradio]: matrixConfig,
-  [questionTypeEnum.matrixcheckbox]: matrixConfig,
-  [questionTypeEnum.matrixinput]: matrixConfig,
-  [questionTypeEnum.matrixdropdown]: matrixConfig,
-  [questionTypeEnum.grid]: gridConfig,
-  [questionTypeEnum.gridColumn]: gridCellConfig,
-  [questionTypeEnum.gridCell]: gridCellConfig,
+  [QuestionTypeEnum.text]: textConfig,
+  [QuestionTypeEnum.radiogroup]: SelectConfig,
+  [QuestionTypeEnum.checkbox]: SelectConfig,
+  [QuestionTypeEnum.dropdown]: SelectConfig,
+  [QuestionTypeEnum.file]: fileConfig,
+  [QuestionTypeEnum.panel]: panelConfig,
+  [QuestionTypeEnum.matrixradio]: matrixConfig,
+  [QuestionTypeEnum.matrixcheckbox]: matrixConfig,
+  [QuestionTypeEnum.matrixSelectColumn]: matrixSelectColumnConfig,
+  [QuestionTypeEnum.matrixinput]: matrixConfig,
+  [QuestionTypeEnum.matrixInputColumn]: matrixInputColumnConfig,
+  [QuestionTypeEnum.matrixdropdown]: matrixConfig,
+  [QuestionTypeEnum.matrixDropdownColumn]: matrixDropdownColumnConfig,
+  [QuestionTypeEnum.grid]: gridConfig,
+  [QuestionTypeEnum.gridColumn]: gridCellConfig,
+  [QuestionTypeEnum.gridCell]: gridCellConfig,
 };
 
 export default sideBarConfig;

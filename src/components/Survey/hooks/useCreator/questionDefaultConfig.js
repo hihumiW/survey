@@ -10,7 +10,7 @@ const getQuestionDefaultConfig = (questionType, isSubNode) => {
       return {
         inputType: "text",
         inputVariant: "outlined",
-        precision: "",
+        precision: -1,
         ...getCommonDefault(isSubNode),
       };
     case questionTypeEnum.radiogroup:
@@ -29,8 +29,9 @@ const getQuestionDefaultConfig = (questionType, isSubNode) => {
     case questionTypeEnum.matrixradio:
     case questionTypeEnum.matrixcheckbox:
     case questionTypeEnum.matrixinput:
-    case questionTypeEnum.matrixdropdown:
       return getMartixDefault();
+    case questionTypeEnum.matrixdropdown:
+      return getMartixDefault(true);
     case questionTypeEnum.grid:
       return {
         indent: 0,
@@ -62,11 +63,17 @@ const getSelectTypeDefault = (isSubNode) => ({
   choices: getItemsByValues(["item1", "item2", "item3"]),
 });
 
-const getMartixDefault = () => ({
+const getMartixDefault = (isDropdown = false) => ({
   indent: 0,
   showQuestionNumber: true,
   rows: getItemsByValues(["row1", "row2"]),
-  columns: getItemsByValues(["column1", "column2"]),
+  columns: getItemsByValues(["column1", "column2"]).map((column) => {
+    if (isDropdown) {
+      column.choices = getItemsByValues(["item1", "item2", "item3"]);
+    }
+
+    return column;
+  }),
 });
 
 const getItemsByValues = (values, generator = getItem) =>

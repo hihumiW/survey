@@ -1,48 +1,40 @@
-import { computed, defineComponent, ref, unref } from "vue";
+import { computed, defineComponent, unref } from "vue";
 import { capitalize } from "lodash-es";
 import EditorLayout from "../ItemsEditor/Layout/EditorLayout";
-import ItemDetailContainer from "../ItemsEditor/Layout/ItemDetailContainer";
 import ItemRow from "../ItemsEditor/ItemRow";
-import Score from "../Score";
 import { useInjectCreator } from "@survey/hooks/useCreator";
 import useItemEdit from "@survey/Creator/hooks/useItemEdit";
-import questionTypeEnum from "@survey/util/questionTypeEnum";
+import { getMatrixColumnType } from "@survey/Creator/hooks/useMatrixEdit";
+
 const MatrixColumnRowsItemEditor = defineComponent({
   setup(props) {
     const titleName = capitalize(props.type);
     const templateName = props.type === "columns" ? "column" : "row";
-    const { currentActiveItem, currentActivePath } = useInjectCreator();
+    const { currentActiveItem, currentActivePath, onQuestionItemClick } =
+      useInjectCreator();
 
     const {
       handleTitleChange,
       handleItemValueChange,
       handleItemAdd,
       handleItemRemove,
-      handleItemScoreChange,
     } = useItemEdit({
       itemsPathRef: `${unref(currentActivePath)}.${props.type}`,
       itemValueTemplate: templateName,
     });
 
-    const shouldShowEdit = computed(
-      () =>
-        unref(currentActiveItem).type !== questionTypeEnum.matrixinput &&
-        props.type === "columns"
-    );
-
-    const handleScoreUpdate = (index) => (score) =>
-      handleItemScoreChange(index, score);
-
-    const showDetailIndex = ref();
-    const handleItemEdit = unref(shouldShowEdit)
-      ? (editItemIndex) => {
-          if (showDetailIndex.value !== editItemIndex) {
-            showDetailIndex.value = editItemIndex;
-          } else {
-            showDetailIndex.value = null;
-          }
-        }
-      : undefined;
+    const handleItemEdit = computed(() => {
+      if (props.type === "columns") {
+        return (columnIndex, column) => {
+          const matrixQuestionPath = unref(currentActivePath);
+          const matrixQuestion = unref(currentActiveItem);
+          onQuestionItemClick(
+            `${matrixQuestionPath}.columns.${columnIndex}`,
+            getMatrixColumnType(matrixQuestion.type)
+          );
+        };
+      }
+    });
 
     const renderItems = (items) => {
       if (!items?.length) {
@@ -56,29 +48,15 @@ const MatrixColumnRowsItemEditor = defineComponent({
     };
 
     const renderItem = (item, itemIndex) => {
-      const slots = {
-        default: () => (
-          <ItemRow
-            item={item}
-            itemIndex={itemIndex}
-            onItemTitleChange={handleTitleChange}
-            onItemValueChange={handleItemValueChange}
-            onItemRemove={handleItemRemove}
-            onEditClick={handleItemEdit}
-          />
-        ),
-      };
-      if (unref(shouldShowEdit)) {
-        slots.detail = () => (
-          <Score value={item.score} onUpdate={handleScoreUpdate(itemIndex)} />
-        );
-      }
-
       return (
-        <ItemDetailContainer
+        <ItemRow
           key={item.value}
-          showDetail={itemIndex === showDetailIndex.value}
-          v-slots={slots}
+          item={item}
+          itemIndex={itemIndex}
+          onItemTitleChange={handleTitleChange}
+          onItemValueChange={handleItemValueChange}
+          onItemRemove={handleItemRemove}
+          onEditClick={handleItemEdit.value}
         />
       );
     };

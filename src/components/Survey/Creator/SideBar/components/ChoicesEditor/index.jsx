@@ -8,7 +8,7 @@ import { useInjectCreator } from "@survey/hooks/useCreator";
 import useChoices from "@survey/Creator/hooks/useChoices";
 
 const ChoicesEditor = defineComponent({
-  setup() {
+  setup(props) {
     const { currentActiveItem, currentActivePath } = useInjectCreator();
     const {
       handleTitleChange,
@@ -54,15 +54,17 @@ const ChoicesEditor = defineComponent({
               onItemTitleChange={handleTitleChange}
               onItemValueChange={handleItemValueChange}
               onItemRemove={handleItemRemove}
-              onEditClick={handleItemEdit}
+              onEditClick={props.showScore ? handleItemEdit : undefined}
             />
           ),
-          detail: () => (
-            <Score
-              value={choice.score}
-              onUpdate={handleScoreUpdate(choiceIndex)}
-            />
-          ),
+          detail: props.showScore
+            ? () => (
+                <Score
+                  value={choice.score}
+                  onUpdate={handleScoreUpdate(choiceIndex)}
+                />
+              )
+            : undefined,
         }}
       </ItemDetailContainer>
     );
@@ -76,5 +78,9 @@ const ChoicesEditor = defineComponent({
     };
   },
 });
+
+ChoicesEditor.props = {
+  showScore: Boolean,
+};
 
 export default ChoicesEditor;

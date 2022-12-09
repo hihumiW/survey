@@ -92,7 +92,7 @@ export default [
     categoryName: "Choices",
     categoryTitle: "Choices",
     components: [
-      ChoicesEditor,
+      () => <ChoicesEditor showScore />,
       DropDownPlaceholderEditor,
       EnableOtherOptionEditor,
       OtherOptionTextEditor,

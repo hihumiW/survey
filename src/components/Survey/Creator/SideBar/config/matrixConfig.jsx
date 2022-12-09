@@ -1,5 +1,7 @@
 import MatrixItemEditor from "../components/MatrixItemEditor";
-
+import { GridColumnTitleEditor } from "./gridConfig";
+import InputValueBinder from "../components/ValueBinder/Input.vue";
+import ChoicesEditor from "../components/ChoicesEditor";
 import {
   NameEditor,
   TitleEditor,
@@ -41,5 +43,44 @@ export default [
     categoryName: "Logic",
     categoryTitle: "Logic",
     components: [VisibleIfEditor, RequiredIfEditor, EditableIfEditor],
+  },
+];
+
+const ScoreValueBinder = () => (
+  <InputValueBinder
+    title="Score"
+    type="number"
+    bindName="score"
+    inputProps={{ min: 0 }}
+    defaultValue={0}
+  />
+);
+
+export const matrixSelectColumnConfig = [
+  {
+    categoryTitle: "Column",
+    categoryName: "matrixSelectColumn",
+    components: [GridColumnTitleEditor, ScoreValueBinder],
+  },
+];
+
+export const matrixInputColumnConfig = [
+  {
+    categoryTitle: "Column",
+    categoryName: "matrixInputColumn",
+    components: [GridColumnTitleEditor],
+  },
+];
+
+export const matrixDropdownColumnConfig = [
+  {
+    categoryTitle: "Column",
+    categoryName: "matrixDropdownColumn",
+    components: [GridColumnTitleEditor],
+  },
+  {
+    categoryTitle: "Choices",
+    categoryName: "matrixDropdownColumnChoices",
+    components: [() => <ChoicesEditor showScore />],
   },
 ];

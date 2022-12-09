@@ -1,10 +1,13 @@
-import { computed, defineComponent, toRef } from "vue";
+import { computed, defineComponent, toRef, unref } from "vue";
 import { NRadio, NCheckbox, NInput, NSelect } from "naive-ui";
 import Title from "@survey/components/Title/index.vue";
 import Table from "@survey/components/Table";
+import ColumnWrapper from "../components/CellWrapper";
 import QuestionContainer from "@survey/components/QuestionContainer/index.vue";
 import questionCommonProps from "@survey/util/questionCommonProps";
-import useMatrixEdit from "./useMatrixEdit";
+import useMatrixEdit, {
+  getMatrixColumnType,
+} from "@survey/Creator/hooks/useMatrixEdit";
 import QuestionTypeEnum from "@survey/util/questionTypeEnum";
 
 const Matrix = defineComponent({
@@ -12,6 +15,8 @@ const Matrix = defineComponent({
   name: "MatrixElement",
   setup(props) {
     const pathRef = toRef(props, "path");
+    const getColumnPath = (columnIndex) =>
+      `${unref(pathRef)}.columns.${columnIndex}`;
     const { handleColumnTitleChange, handleRowTitleChange } =
       useMatrixEdit(pathRef);
 
@@ -65,13 +70,18 @@ const Matrix = defineComponent({
 
     const renderColumnHeader = ({ column, columnIndex }) => {
       return (
-        <Title
-          value={column.originalColumn.text}
-          editable
-          onUpdate:value={(text) =>
-            handleColumnTitleChange(columnIndex - 1, text)
-          }
-        />
+        <ColumnWrapper
+          cellPath={getColumnPath(columnIndex - 1)}
+          cellType={getMatrixColumnType(props.question.type)}
+        >
+          <Title
+            value={column.originalColumn.text}
+            editable
+            onUpdate:value={(text) =>
+              handleColumnTitleChange(columnIndex - 1, text)
+            }
+          />
+        </ColumnWrapper>
       );
     };
 

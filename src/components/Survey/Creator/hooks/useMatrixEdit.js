@@ -1,4 +1,5 @@
 import useItemEdit from "@survey/Creator/hooks/useItemEdit";
+import QuestionTypeEnum from "@survey/util/questionTypeEnum";
 
 import { computed, unref } from "vue";
 const useMatrixEdit = (questionPathRef) => {
@@ -23,3 +24,15 @@ const useMatrixEdit = (questionPathRef) => {
 };
 
 export default useMatrixEdit;
+
+export const getMatrixColumnType = (matrixType) => {
+  switch (matrixType) {
+    case QuestionTypeEnum.matrixcheckbox:
+    case QuestionTypeEnum.matrixradio:
+      return QuestionTypeEnum.matrixSelectColumn;
+    case QuestionTypeEnum.matrixdropdown:
+      return QuestionTypeEnum.matrixDropdownColumn;
+    case QuestionTypeEnum.matrixinput:
+      return QuestionTypeEnum.matrixInputColumn;
+  }
+};
