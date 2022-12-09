@@ -8,8 +8,9 @@ export const CREATOR_KEY = Symbol("creator");
 const useCreator = (surveyQuestionsRef) => {
   const surveyQuestions = surveyQuestionsRef || ref([]);
   const questionModel = objectPath(surveyQuestions.value);
-
   const surveyQuestionsNameSet = new Set();
+
+  const showSideBar = ref(true);
 
   const surveyDef = ref({
     title: "",
@@ -253,6 +254,10 @@ const useCreator = (surveyQuestionsRef) => {
     currentActivePath,
     currentActiveItemType,
     sideBarExpandedName,
+    showSideBar,
+    toggleSideBarShow: () => {
+      showSideBar.value = !showSideBar.value;
+    },
     updateSideBarExpandedName: ([value]) => {
       sideBarExpandedName.value = value;
     },

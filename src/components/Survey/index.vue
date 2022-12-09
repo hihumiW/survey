@@ -16,9 +16,10 @@
         </template>
       </div>
     </div>
+
     <div
       id="sideBar"
-      v-show="tabValue === 'designer'"
+      v-show="tabValue === 'designer' && showSideBar"
       class="w-[450px] flex-shrink-0 box-border border-l border-neutral-300"
     />
   </div>
@@ -34,6 +35,7 @@ import useCreator from "./hooks/useCreator";
 import { useQuestionSequenceInit } from "./hooks/useQuestionIndex";
 
 const creator = useCreator();
+const { showSideBar } = creator;
 
 useQuestionSequenceInit(creator.surveyQuestions);
 const isMounted = useMounted();

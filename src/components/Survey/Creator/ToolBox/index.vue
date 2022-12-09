@@ -12,10 +12,10 @@
 </template>
 
 <script setup>
-import { inject } from "vue";
 import questionTypes from "./questionTypes";
+import { useInjectCreator } from "@survey/hooks/useCreator";
 
-const { addQuestion } = inject("creator");
+const { addQuestion } = useInjectCreator();
 
 const handleItemClick = (type) => addQuestion(type);
 </script>

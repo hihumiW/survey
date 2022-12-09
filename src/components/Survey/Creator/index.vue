@@ -24,8 +24,15 @@
     <Teleport to="#sideBar">
       <SideBar />
     </Teleport>
-    <div class="absolute -top-8 right-2">
-      <NButton> Hide </NButton>
+    <div class="absolute -top-9 right-2">
+      <NButton text title="collapse side bar" @click="toggleSideBarShow">
+        <template #icon>
+          <NIcon size="20">
+            <ChevronForwardSharp v-if="showSideBar" />
+            <ChevronBackSharp v-else />
+          </NIcon>
+        </template>
+      </NButton>
     </div>
   </div>
 </template>
@@ -35,11 +42,13 @@ import ToolBox from "./ToolBox/index.vue";
 import SureveyTitle from "../components/SureveyTitle/index.vue";
 import SurveyElement from "./Element/index.vue";
 import SideBar from "./SideBar/index.vue";
-import { Teleport, inject, computed, unref } from "vue";
+import { Teleport, computed, unref } from "vue";
 import QuestionTypeEnum from "@survey/util/questionTypeEnum";
-import { NButton } from "naive-ui";
+import { NButton, NIcon } from "naive-ui";
+import { ChevronForwardSharp, ChevronBackSharp } from "@vicons/ionicons5";
+import { useInjectCreator } from "@survey/hooks/useCreator";
 
-const { surveyQuestions } = inject("creator");
+const { surveyQuestions, showSideBar, toggleSideBarShow } = useInjectCreator();
 
 const shouldFullWidth = computed(() =>
   Boolean(

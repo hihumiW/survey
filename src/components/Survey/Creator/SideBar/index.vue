@@ -34,7 +34,6 @@ import Category from "./components/Category";
 import sideBarConfig from "./config/index.js";
 import { useInjectCreator } from "@survey/hooks/useCreator";
 import QuestionTypeEnum from "../../util/questionTypeEnum";
-import questionTypeEnum from "../../util/questionTypeEnum";
 
 const creator = useInjectCreator();
 const {
@@ -53,7 +52,7 @@ const sideBarTitle = computed(() => {
       QuestionTypeEnum.gridColumn,
       QuestionTypeEnum.matrixSelectColumn,
       QuestionTypeEnum.matrixInputColumn,
-      questionTypeEnum.matrixDropdownColumn,
+      QuestionTypeEnum.matrixDropdownColumn,
     ].includes(type)
   ) {
     return item?.value;

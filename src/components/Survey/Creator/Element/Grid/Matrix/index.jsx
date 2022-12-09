@@ -101,10 +101,14 @@ const Matrix = defineComponent({
         element = <NCheckbox {...commonProps} />;
       }
       if (type === QuestionTypeEnum.matrixinput) {
-        element = <NInput placeholder="" {...commonProps} />;
+        element = (
+          <NInput placeholder="Input..." {...commonProps} class="text-left" />
+        );
       }
       if (type === QuestionTypeEnum.matrixdropdown) {
-        element = <NSelect placeholder="" {...commonProps} />;
+        element = (
+          <NSelect placeholder="Select..." {...commonProps} class="text-left" />
+        );
       }
       return (
         <div className="min-h-[40px] flex items-center justify-center">
