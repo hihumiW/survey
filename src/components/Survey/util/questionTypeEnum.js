@@ -13,7 +13,6 @@ export default {
   matrixDropdownColumn: "matrixDropdownColumn",
   matrixinput: "matrixinput",
   matrixInputColumn: "matrixInputColumn",
-
   // grid cell type
   grid: "grid",
   gridColumn: "gridColumn",

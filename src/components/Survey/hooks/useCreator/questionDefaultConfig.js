@@ -36,7 +36,7 @@ const getQuestionDefaultConfig = (questionType, isSubNode) => {
       return {
         indent: 0,
         showQuestionNumber: true,
-        rows: ["row1", "row2", "row3"],
+        gridRows: ["row1", "row2", "row3"],
         columns: getItemsByValues(["column1", "column2"], GridColumnGenerator),
       };
   }

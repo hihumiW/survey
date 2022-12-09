@@ -234,6 +234,7 @@ const useCreator = (surveyQuestionsRef) => {
     },
     filterCellsEmpty: (cellsPath, cells) => {
       const cellsValue = cells || creator.getModelV(cellsPath);
+      if (!cellsValue) return;
       if (Object.keys(cellsValue).length === 0) {
         creator.removeItem(cellsPath);
       }

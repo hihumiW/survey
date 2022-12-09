@@ -20,9 +20,9 @@ const Grid = defineComponent({
 
     const datas = computed(() => {
       const {
-        question: { rows },
+        question: { gridRows },
       } = props;
-      return rows.map((rowName) => ({
+      return gridRows.map((rowName) => ({
         key: rowName,
       }));
     });

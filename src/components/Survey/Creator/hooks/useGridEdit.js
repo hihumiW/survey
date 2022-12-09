@@ -22,7 +22,7 @@ const useGridEdit = (gridPathRef) => {
   const columnPath = (index = -1) =>
     index === -1 ? `${p()}.columns` : `${p()}.columns.${index}`;
   const rowPath = (index = -1) =>
-    index === -1 ? `${p()}.rows` : `${p()}.rows.${index}`;
+    index === -1 ? `${p()}.gridRows` : `${p()}.gridRows.${index}`;
 
   const handleColumnTitleChange = (index, text) => {
     const path = `${columnPath(index)}.text`;
@@ -41,8 +41,8 @@ const useGridEdit = (gridPathRef) => {
   };
 
   const handleColumnRemove = (removeIndex, item) => {
-    removeItem(columnPath(removeIndex));
     const cells = getCells();
+    removeItem(columnPath(removeIndex));
     syncCellColumnPathRemove(cells, item.value);
     filterCellEmptyRows(cellsPath(), cells);
     filterCellsEmpty(cellsPath(), cells);

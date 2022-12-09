@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-full">
+  <div class="flex flex-col h-full relative">
     <div class="flex-1 pl-3 bg-neutral-100 flex h-full">
       <div class="w-[160px] flex-shrink-0">
         <ToolBox />
@@ -24,16 +24,20 @@
     <Teleport to="#sideBar">
       <SideBar />
     </Teleport>
+    <div class="absolute -top-8 right-2">
+      <NButton> Hide </NButton>
+    </div>
   </div>
 </template>
 
 <script setup>
 import ToolBox from "./ToolBox/index.vue";
-import SureveyTitle from "./components/SureveyTitle/index.vue";
+import SureveyTitle from "../components/SureveyTitle/index.vue";
 import SurveyElement from "./Element/index.vue";
 import SideBar from "./SideBar/index.vue";
 import { Teleport, inject, computed, unref } from "vue";
 import QuestionTypeEnum from "@survey/util/questionTypeEnum";
+import { NButton } from "naive-ui";
 
 const { surveyQuestions } = inject("creator");
 
@@ -55,5 +59,6 @@ const shouldFullWidth = computed(() =>
 <script>
 export default {
   name: "SurveyCreator",
+  components: { NButton },
 };
 </script>

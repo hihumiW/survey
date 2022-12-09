@@ -19,8 +19,10 @@
           />
         </div>
       </div>
-      <div class="w-[240px] flex-shrink-0">
-        <NSelect placeholder="请指定分类" class="survey-title_category" />
+      <div class="flex-shrink-0">
+        <NDropdown trigger="hover" :options="options">
+          <NButton class="text-base" text> Category </NButton>
+        </NDropdown>
       </div>
     </div>
     <div class="h-0.5 bg-primary-main" />
@@ -29,11 +31,18 @@
 
 <script setup>
 import { inject } from "vue";
-import { NSelect } from "naive-ui";
-import Title from "../../../components/Title/index.vue";
+import { NDropdown, NButton } from "naive-ui";
+import Title from "../Title/index.vue";
 const creator = inject("creator");
 
 const { updateSurveyTitle, updateSurveyDescription, survey } = creator;
+
+const options = [
+  {
+    label: "妈妈生的",
+    value: "madeInMAMA",
+  },
+];
 </script>
 
 <style>

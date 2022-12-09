@@ -20,6 +20,6 @@ import useGridEdit from "@survey/Creator/hooks/useGridEdit";
 
 const { currentActiveItem, currentActivePath } = useInjectCreator();
 
-const items = computed(() => unref(currentActiveItem)?.rows || []);
+const items = computed(() => unref(currentActiveItem)?.gridRows || []);
 const { handleRowAdd, handleRowRemove } = useGridEdit(currentActivePath);
 </script>
