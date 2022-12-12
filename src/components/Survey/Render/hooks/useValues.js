@@ -1,5 +1,5 @@
 import { inject, provide, ref } from "vue";
-import QuestionTypeEnum from "@survey/types/QuestionTypeEnum";
+import QuestionTypeEnum from "@survey/types/questionTypeEnum";
 
 const valuesInjectionKey = Symbol("values");
 
