@@ -1,6 +1,9 @@
 <template>
   <span
-    class="survey-title rounded-md cursor-text inline-block px-1.5 break-all"
+    :class="[
+      'survey-title rounded-md  inline-block px-1.5 break-all',
+      props.editable ? 'editable cursor-text' : 'cursor-default',
+    ]"
     :contenteditable="editable"
     role="textbox"
     spellcheck="true"
@@ -47,7 +50,7 @@ const handleTitleBlur = (e) => {
   color: #161616;
   outline-color: #18a058;
 }
-.survey-title:not(:focus):hover {
+.survey-title.editable:not(:focus):hover {
   background-color: rgba(24, 160, 88, 0.12);
 }
 </style>

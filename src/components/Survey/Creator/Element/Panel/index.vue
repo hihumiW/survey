@@ -34,14 +34,14 @@
 </template>
 
 <script setup>
-import QuestionContainer from "@survey/components/QuestionContainer/index.vue";
-import questionCommonProps from "@survey/util/questionCommonProps";
+import QuestionContainer from "@survey/Creator/components/QuestionContainer/index.vue";
+import questionCommonProps from "@survey/Creator/util/questionCommonProps";
 import QuestionTypeDispatch from "../index.vue";
 import { NDropdown, NButton } from "naive-ui";
 import questionTypes from "../../ToolBox/questionTypes";
 import { computed, provide } from "vue";
 import { useInjectCreator } from "@survey/hooks/useCreator";
-import QuestionTypeEnum from "@survey/util/questionTypeEnum";
+import QuestionTypeEnum from "@survey/types/questionTypeEnum";
 
 const props = defineProps(questionCommonProps);
 

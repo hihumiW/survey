@@ -34,7 +34,7 @@
 
 <script setup>
 import ToolBox from "./ToolBox/index.vue";
-import SureveyTitle from "../components/SureveyTitle/index.vue";
+import SureveyTitle from "./components/SureveyTitle/index.vue";
 import SurveyElement from "./Element/index.vue";
 import SideBar from "./SideBar/index.vue";
 import { Teleport } from "vue";

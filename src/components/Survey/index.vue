@@ -42,10 +42,10 @@ const { showSideBar } = creator;
 useQuestionSequenceInit(creator.surveyQuestions);
 const isMounted = useMounted();
 onMounted(() => {
-  creator.addQuestion("dropdown");
+  creator.addQuestion("text");
 });
 
-const tabValue = ref("designer");
+const tabValue = ref("preview");
 </script>
 
 <script>

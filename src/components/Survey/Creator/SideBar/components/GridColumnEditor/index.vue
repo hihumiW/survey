@@ -17,7 +17,7 @@
 import { computed, unref } from "vue";
 import EditorLayout from "../ItemsEditor/Layout/EditorLayout";
 import RowItem from "../ItemsEditor/ItemRow";
-import questionTypeEnum from "@survey/util/questionTypeEnum";
+import questionTypeEnum from "@survey/types/questionTypeEnum";
 import { useInjectCreator } from "@survey/hooks/useCreator";
 import useGridEdit from "@survey/Creator/hooks/useGridEdit";
 

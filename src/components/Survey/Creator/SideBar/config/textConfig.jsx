@@ -3,7 +3,7 @@ import generateConditionComp from "./generateValueBinder";
 import InputBinder from "../components/ValueBinder/Input.vue";
 import SelectBinder from "../components/ValueBinder/Select.vue";
 import RadioBinder from "../components/ValueBinder/Radio.vue";
-import { textTypeEnum } from "@survey/util/questionTypeEnum";
+import { textTypeEnum } from "@survey/types/questionTypeEnum";
 import {
   NameEditor,
   TitleEditor,
@@ -41,6 +41,7 @@ export const PlaceHolderEditor = generateConditionComp(
   {
     title: "Input area placeholder",
     bindName: "placeholder",
+    defaultValue: "",
   },
   "PlaceHolderEditor",
   // 只会在inputType 为默认值(text) 和 number时显示
@@ -142,19 +143,19 @@ export const NumberPrecisionEditor = generateConditionComp(
       },
       {
         label: "Integrate",
-        value: 0,
-      },
-      {
-        label: "1",
         value: 1,
       },
       {
-        label: "2",
+        label: "1",
         value: 2,
       },
       {
-        label: "3",
+        label: "2",
         value: 3,
+      },
+      {
+        label: "3",
+        value: 4,
       },
     ],
   },

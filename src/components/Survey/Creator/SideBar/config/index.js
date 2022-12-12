@@ -1,4 +1,4 @@
-import QuestionTypeEnum from "@survey/util/questionTypeEnum";
+import QuestionTypeEnum from "@survey/types/questionTypeEnum";
 import textConfig from "./textConfig";
 import SelectConfig from "./selectConfig";
 import fileConfig from "./fileConfig";

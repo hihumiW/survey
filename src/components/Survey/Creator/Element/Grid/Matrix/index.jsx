@@ -3,12 +3,12 @@ import { NRadio, NCheckbox, NInput, NSelect } from "naive-ui";
 import Title from "@survey/components/Title/index.vue";
 import Table from "@survey/components/Table";
 import ColumnWrapper from "../components/CellWrapper";
-import QuestionContainer from "@survey/components/QuestionContainer/index.vue";
-import questionCommonProps from "@survey/util/questionCommonProps";
+import QuestionContainer from "@survey/Creator/components/QuestionContainer/index.vue";
+import questionCommonProps from "@survey/Creator/util/questionCommonProps";
 import useMatrixEdit, {
   getMatrixColumnType,
 } from "@survey/Creator/hooks/useMatrixEdit";
-import QuestionTypeEnum from "@survey/util/questionTypeEnum";
+import QuestionTypeEnum from "@survey/types/questionTypeEnum";
 
 const Matrix = defineComponent({
   props: questionCommonProps,

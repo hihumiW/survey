@@ -1,5 +1,5 @@
 import useItemEdit from "@survey/Creator/hooks/useItemEdit";
-import QuestionTypeEnum from "@survey/util/questionTypeEnum";
+import QuestionTypeEnum from "@survey/types/questionTypeEnum";
 
 import { computed, unref } from "vue";
 const useMatrixEdit = (questionPathRef) => {

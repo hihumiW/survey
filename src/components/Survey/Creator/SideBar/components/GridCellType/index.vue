@@ -15,7 +15,7 @@ import { NSelect } from "naive-ui";
 import { useInjectCreator } from "@survey/hooks/useCreator";
 import questionTypeEnum, {
   gridCellTypeEnum,
-} from "@survey/util/questionTypeEnum";
+} from "@survey/types/questionTypeEnum";
 import { getGridCellDefaultConfig } from "@survey/hooks/useCreator/questionDefaultConfig";
 import { unref, ref, watch, nextTick } from "vue";
 import { computed } from "@vue/reactivity";

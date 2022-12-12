@@ -1,19 +1,15 @@
 <template>
-  <div
-    :class="[
-      'survey-question_container px-6 pt-6 pb-4 bg-white rounded-sm',
-      isActive && 'active',
-    ]"
-    @click="handleQuestionContainerClick"
+  <QuestionWrapper
+    :questionIndent="question.indent"
+    :onClick="handleQuestionContainerClick"
+    :class="[isActive && 'active']"
   >
-    <div :class="['ml-0', 'ml-6', 'ml-8', 'ml-10'][question.indent]">
-      <component
-        :is="RenderComponent"
-        :question="props.question"
-        :path="props.path"
-      />
-    </div>
-    <div class="survey-question_footer mt-4">
+    <component
+      :is="RenderComponent"
+      :question="props.question"
+      :path="props.path"
+    />
+    <template #footer>
       <div class="flex justify-between items-center">
         <span>{{ questionTypeName }}</span>
         <div class="flex">
@@ -29,23 +25,25 @@
           </NButton>
         </div>
       </div>
-    </div>
-  </div>
+    </template>
+  </QuestionWrapper>
 </template>
 <script setup>
 import { computed, unref } from "vue";
+import { NButton } from "naive-ui";
+
+import QuestionWrapper from "@survey/components/QuestionWrapper";
 import SingleText from "./Text";
 import SelectBase from "./SelectBase";
 import File from "./File/index.vue";
 import Panel from "./Panel/index.vue";
 import Matrix from "./Grid/Matrix";
 import Grid from "./Grid";
-import questionTypes from "../ToolBox/questionTypes";
-import { NButton } from "naive-ui";
-import { useInjectCreator } from "@survey/hooks/useCreator";
 
-import questionCommonProps from "@survey/util/questionCommonProps";
-import QuestionTypeEnum from "@survey/util/questionTypeEnum";
+import { useInjectCreator } from "@survey/hooks/useCreator";
+import questionTypes from "../ToolBox/questionTypes";
+import questionCommonProps from "@survey/Creator/util/questionCommonProps";
+import QuestionTypeEnum from "@survey/types/questionTypeEnum";
 
 const props = defineProps(questionCommonProps);
 
@@ -92,19 +90,3 @@ export default {
   name: "ElementDispatch",
 };
 </script>
-
-<style>
-.survey-question_container:hover {
-  box-shadow: 0 0 0 2px rgba(255, 152, 20, 0.2);
-}
-.survey-question_footer {
-  visibility: hidden;
-}
-.survey-question_container.active .survey-question_footer,
-.survey-question_container:hover .survey-question_footer {
-  visibility: visible;
-}
-.survey-question_container.active {
-  box-shadow: 0 0 0 2px rgba(255, 152, 20);
-}
-</style>

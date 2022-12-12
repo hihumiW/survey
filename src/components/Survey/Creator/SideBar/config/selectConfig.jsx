@@ -4,7 +4,7 @@ import RadioBinder from "../components/ValueBinder/Radio.vue";
 import BooleanBinder from "../components/ValueBinder/Boolean.vue";
 import generateConditionComp from "./generateValueBinder";
 import ChoicesEditor from "../components/ChoicesEditor";
-import questionTypeEnum from "@survey/util/questionTypeEnum";
+import questionTypeEnum from "@survey/types/questionTypeEnum";
 import { unref } from "vue";
 import {
   NameEditor,

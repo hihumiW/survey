@@ -9,7 +9,7 @@ import {
 export const getPlaceholder = (inputType, defaultPlaceholder) => {
   switch (inputType) {
     case "time":
-      return "--:--";
+      return "--:--:--";
     case "date":
       return "year/month/day";
     case "provinceCity":
@@ -32,4 +32,11 @@ export const getRenderInput = (inputType) => {
     default:
       return NInput;
   }
+};
+
+export const getInputVariantClassName = (inputVariant) => {
+  return [
+    "survey-question_text",
+    inputVariant === "standard" && "variant-standard",
+  ];
 };

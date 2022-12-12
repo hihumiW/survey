@@ -20,7 +20,7 @@ export const useQuestionSequenceInit = (surveyQuestionsRef) => {
 };
 
 export const useQuestionIndex = (questionRef) => {
-  const surveyQuestionSequence = inject(QUESTION_SEQUENCE_LIST_KEY);
+  const surveyQuestionSequence = inject(QUESTION_SEQUENCE_LIST_KEY, () => []);
   return computed(() =>
     unref(questionRef).showQuestionNumber
       ? unref(surveyQuestionSequence).findIndex(

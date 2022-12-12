@@ -1,7 +1,7 @@
 import SurveyRender from "../Render/index";
 
 const Preview = (props) => {
-  return <SurveyRender questions={props.creator.JSON()} />;
+  return <SurveyRender survey={props.creator.JSON()} />;
 };
 
 Preview.props = {

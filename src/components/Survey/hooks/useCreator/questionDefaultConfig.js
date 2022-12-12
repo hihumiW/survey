@@ -2,13 +2,13 @@ import { capitalize } from "lodash-es";
 import questionTypeEnum, {
   gridCellTypeEnum,
   textTypeEnum,
-} from "@survey/util/questionTypeEnum";
+} from "@survey/types/questionTypeEnum";
 
 const getQuestionDefaultConfig = (questionType, isSubNode) => {
   switch (questionType) {
     case questionTypeEnum.text:
       return {
-        inputType: "text",
+        inputType: "time",
         inputVariant: "outlined",
         precision: -1,
         ...getCommonDefault(isSubNode),

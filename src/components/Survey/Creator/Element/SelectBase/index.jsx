@@ -1,8 +1,8 @@
 import { defineComponent } from "vue";
 import { NInput, NRadioGroup, NCheckboxGroup, NSelect } from "naive-ui";
 
-import QuestionContainer from "@survey/components/QuestionContainer/index.vue";
-import questionCommonProps from "@survey/util/questionCommonProps";
+import QuestionContainer from "@survey/Creator/components/QuestionContainer/index.vue";
+import questionCommonProps from "@survey/Creator/util/questionCommonProps";
 import OptionItem from "./OptionItem.vue";
 
 import { useInjectCreator } from "@survey/hooks/useCreator";
@@ -99,7 +99,7 @@ const SelectBase = defineComponent({
         default: isDropDown ? renderSelect : renderOptions,
       };
       return (
-        <div class="survey-question-wrapper flex flex-col gap-y-4">
+        <div class="flex flex-col gap-y-4">
           <QuestionContainer {...props} v-slots={slots} editable />
           {isDropDown ? renderOptions() : null}
         </div>

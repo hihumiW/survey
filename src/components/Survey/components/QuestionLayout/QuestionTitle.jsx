@@ -11,7 +11,7 @@ const QuestionTitle = (props, { emit }) => {
         ]}
       >
         {props.questionIndex !== -1 && (
-          <span className="flex-shrink-0 text-neutral-500 text-sm mt-1">
+          <span className="flex-shrink-0 text-neutral-500 text-sm mt-1 cursor-default">
             {props.questionIndex}.
           </span>
         )}

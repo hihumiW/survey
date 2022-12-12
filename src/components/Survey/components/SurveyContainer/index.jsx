@@ -1,5 +1,5 @@
 import { unref } from "vue";
-import QuestionTypeEnum from "@survey/util/questionTypeEnum";
+import QuestionTypeEnum from "@survey/types/questionTypeEnum";
 
 const SurveyContainer = (props, { slots }) => {
   const shouldFullWidth = Boolean(

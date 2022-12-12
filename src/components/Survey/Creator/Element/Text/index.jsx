@@ -1,12 +1,15 @@
-import questionCommonProps from "@survey/util/questionCommonProps";
-import QuestionContainer from "@survey/components/QuestionContainer/index.vue";
+import questionCommonProps from "@survey/Creator/util/questionCommonProps";
+import QuestionContainer from "@survey/Creator/components/QuestionContainer/index.vue";
 
-import { getPlaceholder, getRenderInput } from "@survey/hooks/Element/Text";
+import {
+  getPlaceholder,
+  getRenderInput,
+  getInputVariantClassName,
+} from "@survey/hooks/Element/Text";
 const Text = (props) => {
   const {
     question: { inputVariant, inputType, placeholder },
   } = props;
-  const isStandardVariant = inputVariant === "standard";
 
   const InputProps = {
     size: "large",
@@ -20,7 +23,7 @@ const Text = (props) => {
     <QuestionContainer
       {...props}
       editable
-      class={["survey-question_text", isStandardVariant && "variant-standard"]}
+      class={getInputVariantClassName(inputVariant)}
     >
       <Input {...InputProps} />
     </QuestionContainer>

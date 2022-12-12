@@ -33,7 +33,7 @@ import { NEmpty } from "naive-ui";
 import Category from "./components/Category";
 import sideBarConfig from "./config/index.js";
 import { useInjectCreator } from "@survey/hooks/useCreator";
-import QuestionTypeEnum from "../../util/questionTypeEnum";
+import QuestionTypeEnum from "../../types/questionTypeEnum";
 
 const creator = useInjectCreator();
 const {

@@ -37,9 +37,11 @@ const props = defineProps({
   },
 });
 
+const defaultValue = props.defaultValue || props.type === "number" ? 0 : "";
+
 const { binderValue, handleValueChange } = useBinder(
   props.bindName,
-  props.defaultValue
+  defaultValue
 );
 
 const placeholder = computed(() => `Please input ${props.title.toLowerCase()}`);

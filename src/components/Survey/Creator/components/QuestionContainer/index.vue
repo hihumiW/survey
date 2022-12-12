@@ -15,9 +15,9 @@
 
 <script setup>
 import { computed, toRef } from "vue";
-import QuestionLayout from "./QuestionLayout.vue";
-import QuestionTitle from "./QuestionTitle.jsx";
-import questionCommonProps from "@survey/util/questionCommonProps";
+import QuestionLayout from "@survey/components/QuestionLayout/index.vue";
+import QuestionTitle from "@survey/components/QuestionLayout/QuestionTitle.jsx";
+import questionCommonProps from "@survey/Creator/util/questionCommonProps";
 import { useQuestionIndex } from "@survey/hooks/useQuestionIndex";
 import { useInjectCreator } from "@survey/hooks/useCreator";
 

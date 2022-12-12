@@ -8,7 +8,7 @@ import BooleanValueBinader from "../components/ValueBinder/Boolean.vue";
 import ChoicesEditor from "../components/ChoicesEditor";
 import questionTypeEnum, {
   gridCellTypeEnum,
-} from "@survey/util/questionTypeEnum";
+} from "@survey/types/questionTypeEnum";
 import {
   NameEditor,
   TitleEditor,

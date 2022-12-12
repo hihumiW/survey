@@ -4,9 +4,9 @@ import CellWrapper from "./components/CellWrapper";
 import Table from "@survey/components/Table";
 import Cell from "./components/Cell";
 import useGridEdit from "@survey/Creator/hooks/useGridEdit";
-import questionCommonProps from "@survey/util/questionCommonProps";
-import QuestionContainer from "@survey/components/QuestionContainer/index.vue";
-import questionTypeEnum from "@survey/util/questionTypeEnum";
+import questionCommonProps from "@survey/Creator/util/questionCommonProps";
+import QuestionContainer from "@survey/Creator/components/QuestionContainer/index.vue";
+import questionTypeEnum from "@survey/types/questionTypeEnum";
 
 const Grid = defineComponent({
   props: questionCommonProps,

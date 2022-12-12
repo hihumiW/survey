@@ -1,7 +1,7 @@
 import getQuestionDefaultConfig, { getItem } from "./questionDefaultConfig";
 import { ref, unref, provide, inject } from "vue";
 import objectPath from "object-path";
-import questionTypeEnum from "../../util/questionTypeEnum";
+import questionTypeEnum from "../../types/questionTypeEnum";
 
 export const CREATOR_KEY = Symbol("creator");
 
@@ -13,8 +13,9 @@ const useCreator = (surveyQuestionsRef) => {
   const showSideBar = ref(true);
 
   const surveyDef = ref({
-    title: "",
-    description: "",
+    title: "新的问卷1",
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora repellendus praesentium, earum dignissimos quo possimus incidunt autem, officia cumque, placeat veritatis ex numquam architecto soluta totam consequuntur magni quod! Reiciendis.",
     questions: surveyQuestions,
   });
 

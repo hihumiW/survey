@@ -1,4 +1,4 @@
-import { gridCellTypeEnum } from "@survey/util/questionTypeEnum";
+import { gridCellTypeEnum } from "@survey/types/questionTypeEnum";
 
 import Text from "./Text";
 import Input from "./Input";
