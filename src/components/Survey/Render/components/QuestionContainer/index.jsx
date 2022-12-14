@@ -4,7 +4,6 @@ import QuestionTitle from "@survey/components/QuestionLayout/QuestionTitle.jsx";
 
 const QuestionContainer = (props, { slots }) => {
   const { question, questionIndex } = props;
-
   return (
     <QuestionWrapper questionIndent={props.question.indent}>
       <QuestionLayout question={question}>

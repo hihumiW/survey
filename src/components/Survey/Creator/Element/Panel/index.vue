@@ -5,10 +5,7 @@
     @click="stopPropagation"
     hideTitleWhenEmpty
   >
-    <div
-      class="flex flex-col gap-y-6"
-      :class="['ml-0', 'ml-6', 'ml-8', 'ml-10'][props.question.innerIndent]"
-    >
+    <PanelContainer :innerIndent="props.question.innerIndent">
       <QuestionTypeDispatch
         class="border border-dashed border-neutral-200"
         v-for="(childQuestion, index) in props.question.questions"
@@ -16,7 +13,7 @@
         :question="childQuestion"
         :path="getChildQuestionPath(index)"
       />
-    </div>
+    </PanelContainer>
 
     <div class="flex justify-center p-3">
       <NDropdown
@@ -39,11 +36,15 @@ import questionCommonProps from "@survey/Creator/util/questionCommonProps";
 import QuestionTypeDispatch from "../index.vue";
 import { NDropdown, NButton } from "naive-ui";
 import questionTypes from "../../ToolBox/questionTypes";
-import { computed, provide } from "vue";
+import { toRef } from "vue";
 import { useInjectCreator } from "@survey/hooks/useCreator";
+import { usePanelConifigProvide } from "@survey/hooks/Panel/useConfigInject";
+import PanelContainer from "@survey/components/PanelContainer";
 import QuestionTypeEnum from "@survey/types/questionTypeEnum";
 
 const props = defineProps(questionCommonProps);
+
+const questionRef = toRef(props, "question");
 
 const { addQuestion } = useInjectCreator();
 
@@ -67,11 +68,5 @@ const handlePanelQuestionAdd = (addType) => {
 };
 const stopPropagation = (e) => e.stopPropagation();
 
-const injectParentConfig = computed(() => {
-  const { titleLocation } = props.question;
-  return {
-    titleLocation,
-  };
-});
-provide("parentConfig", injectParentConfig);
+usePanelConifigProvide(questionRef);
 </script>

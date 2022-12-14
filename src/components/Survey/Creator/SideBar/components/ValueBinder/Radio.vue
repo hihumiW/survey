@@ -30,9 +30,15 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  defaultValue: {
+    type: [String, Number],
+  },
 });
 
-const { binderValue, handleValueChange } = useBinder(props.bindName);
+const { binderValue, handleValueChange } = useBinder(
+  props.bindName,
+  props.defaultValue
+);
 </script>
 
 <style>

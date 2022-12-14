@@ -1,15 +1,15 @@
 import { computed, unref } from "vue";
 import { useValues } from "./useValues";
 
-const useVModel = (question) => {
+const useVModel = (fieldName) => {
   const { setFieldValue, values } = useValues();
-  const { name } = question;
+
   return computed({
     get() {
-      return unref(values)[name];
+      return unref(values)[fieldName];
     },
     set(val) {
-      setFieldValue(name, val);
+      setFieldValue(fieldName, val);
     },
   });
 };

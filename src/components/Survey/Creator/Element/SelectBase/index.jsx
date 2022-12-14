@@ -33,11 +33,11 @@ const SelectBase = defineComponent({
         props.question.type === "checkbox" ? NCheckboxGroup : NRadioGroup;
 
       return (
-        <Container size="large" disabled class="mt-1.5 w-full">
+        <Container size="large" disabled class="w-full">
           <div
             class={[
-              "flex  gap-y-6",
-              getIsInline() ? "flex-wrap gap-x-6" : "flex-col",
+              "survey-question-select-options-container",
+              getIsInline() && "inline",
             ]}
           >
             {props.question.choices.map((choice, index) => (
@@ -51,35 +51,33 @@ const SelectBase = defineComponent({
                 onRemove={handleItemRemove}
               />
             ))}
-          </div>
-          <div class="flex flex-col gap-y-6 mt-6">
             <OptionItem
               type="add"
               chioceText="New item"
               questionType={props.question.type}
               onAddItem={handleItemAdd}
             />
-            {props.question.showOtherItem && (
-              <div class="flex flex-col gap-y-2">
-                <OptionItem
-                  type="edit"
-                  chioceText={getOhterOptionText()}
-                  chioceIndex={-1}
-                  questionType={props.question.type}
-                  onTitleChange={handleOtherTitleChange}
-                  onRemove={handleOtherChoiceRemove}
-                />
-                <NInput
-                  class="ml-8 self-stretch"
-                  style="width: auto"
-                  disabled
-                  resizable={false}
-                  type="textarea"
-                  placeholder={props.question.otherPlaceholder || ""}
-                />
-              </div>
-            )}
           </div>
+
+          {props.question.showOtherItem && (
+            <div class="mt-6">
+              <OptionItem
+                type="edit"
+                chioceText={getOhterOptionText()}
+                chioceIndex={-1}
+                questionType={props.question.type}
+                onTitleChange={handleOtherTitleChange}
+                onRemove={handleOtherChoiceRemove}
+              />
+              <NInput
+                class="survey-question-select-otherText indent"
+                disabled
+                resizable={false}
+                type="textarea"
+                placeholder={props.question.otherPlaceholder || ""}
+              />
+            </div>
+          )}
         </Container>
       );
     };

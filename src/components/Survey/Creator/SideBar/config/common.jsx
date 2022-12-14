@@ -80,6 +80,7 @@ export const TitleLocatioEditor = generateValueBinder(
       title: "Title location",
       bindName: "titleLocation",
       options,
+      emptySelectedValue: "top",
     };
   },
   "TitleLocationEditor"
@@ -108,6 +109,7 @@ export const IndentEditor = () => (
           value: 3,
         },
       ],
+      defaultValue: 0,
     }}
   />
 );

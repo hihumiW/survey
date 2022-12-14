@@ -1,7 +1,7 @@
 <template>
   <span
     :class="[
-      'survey-title rounded-md  inline-block px-1.5 break-all',
+      'survey-title rounded-md  inline-block pr-1.5 break-all',
       props.editable ? 'editable cursor-text' : 'cursor-default',
     ]"
     :contenteditable="editable"

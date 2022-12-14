@@ -8,6 +8,7 @@ const ItemEditor = (props) => {
       {props.items.length ? (
         props.items.map((item, index) => (
           <ItemRow
+            key={item.value}
             item={item}
             itemIndex={index}
             onItemTitleChange={props.onItemTitleChange}

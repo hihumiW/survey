@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-full relative">
+  <div class="flex flex-col h-full relative survey-creator-container">
     <div class="flex-1 pl-3 bg-neutral-100 flex h-full">
       <div class="w-[160px] flex-shrink-0">
         <ToolBox />

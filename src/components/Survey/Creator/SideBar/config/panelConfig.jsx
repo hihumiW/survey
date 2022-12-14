@@ -30,6 +30,7 @@ const InnerIndentEditor = () => (
           value: 3,
         },
       ],
+      defaultValue: 0,
     }}
   />
 );

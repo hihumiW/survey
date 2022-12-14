@@ -7,21 +7,21 @@ import {
   getPlaceholder,
   getInputVariantClassName,
 } from "@survey/hooks/Element/Text";
-import useVisibleIf from "../../hooks/useVisibleIf";
-import useEditableIf from "../../hooks/useEditableIf";
-import useVModel from "../../hooks/useVModel";
+import useVisibleIf from "@survey/Render/hooks/useVisibleIf";
+import useEditableIf from "@survey/Render/hooks/useEditableIf";
+import useVModel from "@survey/Render/hooks/useVModel";
 import { useQuestionIndex } from "@survey/hooks/useQuestionIndex";
 
 const SingleText = defineComponent({
   props: questionCommonProps,
   setup(props) {
     const { question, values } = props;
-    const { inputType, placeholder, inputVariant, precision, maxLength } =
+    const { name, inputType, placeholder, inputVariant, precision, maxLength } =
       question;
 
     const editableIf = useEditableIf(question, values);
     const visibleIf = useVisibleIf(question, values);
-    const inputValue = useVModel(question);
+    const inputValue = useVModel(name);
     const questionIndex = useQuestionIndex(question);
 
     const RenderComp = getRenderInput(inputType);
@@ -66,7 +66,7 @@ const SingleText = defineComponent({
     const renderInput = () => {
       return (
         <RenderComp
-          value={inputType.value}
+          value={inputValue.value}
           disabled={!unref(editableIf)}
           {...CompStaticProps.value}
         />
@@ -80,8 +80,8 @@ const SingleText = defineComponent({
 
       return (
         <QuestionContainer
-          question={props.question}
-          questionIndex={questionIndex.value}
+          question={question}
+          questionIndex={unref(questionIndex)}
           class={getInputVariantClassName(inputVariant)}
         >
           {renderInput()}
