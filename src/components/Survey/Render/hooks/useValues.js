@@ -1,24 +1,36 @@
 import { inject, provide, ref } from "vue";
 import QuestionTypeEnum from "@survey/types/questionTypeEnum";
+import objectPath from "object-path";
+
+window.objectPath = objectPath;
 
 const valuesInjectionKey = Symbol("values");
 
 export const useValuesInit = () => {
   const values = ref({});
+  window.values = values;
 
   const setFieldValue = (field, value) => {
     values.value[field] = value;
   };
 
-  provide(valuesInjectionKey, {
-    values,
-    setFieldValue,
-  });
-
-  return {
-    values,
-    setFieldValue,
+  const setNestedObjectValue = (setPath, setValue) => {
+    objectPath.set(values.value, setPath, setValue);
   };
+
+  const removeValuesProperty = (removePath) => {
+    objectPath.del(values.value, removePath);
+  };
+
+  const provideData = {
+    values,
+    setFieldValue,
+    setNestedObjectValue,
+    removeValuesProperty,
+  };
+  provide(valuesInjectionKey, provideData);
+
+  return provideData;
 };
 
 export const useValues = () => {

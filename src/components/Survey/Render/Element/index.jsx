@@ -1,9 +1,9 @@
 import questionCommonProps from "../types/questionCommonProps";
 import QuestionTypeEnum from "@survey/types/questionTypeEnum";
-import { NEmpty } from "naive-ui";
 import SingleText from "./Text/SingleText";
 import Select from "./Select";
 import Panel from "./Panel";
+import Matrix from "./Grid/Matrix";
 
 const SurveyRenderElementDispatch = (props) => {
   return props.questions.map((question) => (
@@ -36,6 +36,11 @@ const SurveyElement = (props) => {
       return <Select {...props} />;
     case QuestionTypeEnum.panel:
       return <Panel {...props} />;
+    case QuestionTypeEnum.matrixradio:
+    case QuestionTypeEnum.matrixcheckbox:
+    case QuestionTypeEnum.matrixdropdown:
+    case QuestionTypeEnum.matrixinput:
+      return <Matrix {...props} />;
     default:
       return null;
   }
