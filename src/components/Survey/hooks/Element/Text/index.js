@@ -5,6 +5,7 @@ import {
   NDatePicker,
   NSelect,
 } from "naive-ui";
+import { textTypeEnum } from "@survey/types/questionTypeEnum";
 
 export const getPlaceholder = (inputType, defaultPlaceholder) => {
   switch (inputType) {
@@ -39,4 +40,26 @@ export const getInputVariantClassName = (inputVariant) => {
     "survey-question_text",
     inputVariant === "standard" && "variant-standard",
   ];
+};
+
+export const getInputProps = (props) => {
+  const { placeholder, inputType, precision, maxLength } = props;
+  const Props = {
+    size: "large",
+    clearable: true,
+    placeholder: getPlaceholder(inputType, placeholder),
+  };
+  switch (inputType) {
+    case textTypeEnum.number:
+      Props.precision = precision === -1 ? undefined : precision - 1;
+      return Props;
+    case textTypeEnum.text:
+      Props.maxlength = maxLength;
+      Props.showCount = !!maxLength;
+      return Props;
+    case textTypeEnum.date:
+      Props.format = "yyyy/MM/dd";
+      return Props;
+  }
+  return Props;
 };

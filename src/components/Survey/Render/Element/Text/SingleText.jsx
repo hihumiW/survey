@@ -4,7 +4,7 @@ import questionCommonProps from "@survey/Render/types/questionCommonProps";
 import { textTypeEnum } from "@survey/types/questionTypeEnum";
 import {
   getRenderInput,
-  getPlaceholder,
+  getInputProps,
   getInputVariantClassName,
 } from "@survey/hooks/Element/Text";
 import useVisibleIf from "@survey/Render/hooks/useVisibleIf";
@@ -16,8 +16,7 @@ const SingleText = defineComponent({
   props: questionCommonProps,
   setup(props) {
     const { question, values } = props;
-    const { name, inputType, placeholder, inputVariant, precision, maxLength } =
-      question;
+    const { name, inputType, inputVariant } = question;
 
     const editableIf = useEditableIf(question, values);
     const visibleIf = useVisibleIf(question, values);
@@ -37,25 +36,13 @@ const SingleText = defineComponent({
 
     //Input不会变化的Props；只会执行一次
     const CompStaticProps = computed(() => {
-      const Props = {
-        size: "large",
-        clearable: true,
-        placeholder: getPlaceholder(inputType, placeholder),
-      };
+      const Props = getInputProps(question);
       switch (inputType) {
-        case textTypeEnum.number:
-          Props.precision = precision === -1 ? undefined : precision - 1;
-        case textTypeEnum.text:
-          Props.maxlength = maxLength;
-          Props.showCount = !!maxLength;
         case textTypeEnum.text:
         case textTypeEnum.number:
           //输入框 仅仅在blur时同步values的值
           Props.onBlur = handleInputBlur;
           return Props;
-        case textTypeEnum.date:
-          Props.format = "yyyy/MM/dd";
-
         default:
           //其他的input类型 在change时同步values的值
           Props["onUpdate:value"] = handleValueChange;

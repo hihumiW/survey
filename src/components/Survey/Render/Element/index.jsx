@@ -4,6 +4,7 @@ import SingleText from "./Text/SingleText";
 import Select from "./Select";
 import Panel from "./Panel";
 import Matrix from "./Grid/Matrix";
+import Grid from "./Grid";
 
 const SurveyRenderElementDispatch = (props) => {
   return props.questions.map((question) => (
@@ -41,6 +42,8 @@ const SurveyElement = (props) => {
     case QuestionTypeEnum.matrixdropdown:
     case QuestionTypeEnum.matrixinput:
       return <Matrix {...props} />;
+    case QuestionTypeEnum.grid:
+      return <Grid {...props} />;
     default:
       return null;
   }
