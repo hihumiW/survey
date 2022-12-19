@@ -16,7 +16,6 @@ import {
   IndentEditor,
   VisibleIfEditor,
   EditableIfEditor,
-  RequiredIfEditor,
   DefaultValueExpressionEditor,
 } from "./common";
 
@@ -115,7 +114,6 @@ export default [
     components: [
       VisibleIfEditor,
       EditableIfEditor,
-      RequiredIfEditor,
       DefaultValueExpressionEditor,
     ],
   },

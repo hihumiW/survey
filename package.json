@@ -17,7 +17,8 @@
     "memoizerific": "^1.11.3",
     "object-path": "^0.11.8",
     "vue": "^3.2.41",
-    "vue-json-pretty": "^2.2.3"
+    "vue-json-pretty": "^2.2.3",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.2.0",

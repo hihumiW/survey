@@ -11,7 +11,6 @@ import {
   IndentEditor,
   VisibleIfEditor,
   EditableIfEditor,
-  RequiredIfEditor,
 } from "./common";
 
 export const ColumnsEditor = () => <MatrixItemEditor type="columns" />;
@@ -42,7 +41,7 @@ export default [
   {
     categoryName: "Logic",
     categoryTitle: "Logic",
-    components: [VisibleIfEditor, RequiredIfEditor, EditableIfEditor],
+    components: [VisibleIfEditor, EditableIfEditor],
   },
 ];
 

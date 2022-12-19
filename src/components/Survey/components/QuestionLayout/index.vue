@@ -8,6 +8,7 @@
         <slot />
       </div>
     </div>
+    <slot name="footer" />
   </div>
 </template>
 

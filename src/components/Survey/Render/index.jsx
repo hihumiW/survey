@@ -1,9 +1,11 @@
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import SurveyContainer from "../components/SurveyContainer";
 import SurveyTitle from "./components/SurveyTitle";
 import SurveyRenderElementDispatch from "./Element";
 import { useValuesInit } from "./hooks/useValues";
 import { useQuestionSequenceInit } from "@survey/hooks/useQuestionIndex";
+import useValidate from "./hooks/useValidate";
+import { NButton } from "naive-ui";
 
 const SurveyPreview = defineComponent({
   setup(props) {
@@ -13,7 +15,12 @@ const SurveyPreview = defineComponent({
 
     useQuestionSequenceInit(questions);
 
-    const { values } = useValuesInit();
+    const valuesSchema = useValidate(questions);
+    const { values, touched, errors, handleSubmit } = useValuesInit({
+      schema: valuesSchema,
+    });
+
+    console.log(errors);
 
     const renderTitle = () => (
       <SurveyTitle surveyTitle={title} surveyDescription={description} />
@@ -28,7 +35,22 @@ const SurveyPreview = defineComponent({
         );
       }
       return (
-        <SurveyRenderElementDispatch questions={questions} values={values} />
+        <SurveyRenderElementDispatch
+          questions={questions}
+          values={values}
+          touched={touched}
+          errors={errors}
+        />
+      );
+    };
+
+    const renderFooter = () => {
+      return (
+        <div class="text-center">
+          <NButton size="large" type="primary" onClick={handleSubmit}>
+            Submit
+          </NButton>
+        </div>
       );
     };
 
@@ -39,6 +61,7 @@ const SurveyPreview = defineComponent({
             {{
               title: renderTitle,
               default: renderQuestions,
+              footer: renderFooter,
             }}
           </SurveyContainer>
         </div>

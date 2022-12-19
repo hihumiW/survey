@@ -12,6 +12,8 @@ const SurveyRenderElementDispatch = (props) => {
       key={question.name}
       question={question}
       values={props.values}
+      errors={props.errors}
+      touched={props.touched}
     />
   ));
 };
@@ -24,6 +26,12 @@ SurveyRenderElementDispatch.props = {
   values: {
     type: Object,
     required: true,
+  },
+  touched: {
+    type: Object,
+  },
+  errors: {
+    type: Object,
   },
 };
 

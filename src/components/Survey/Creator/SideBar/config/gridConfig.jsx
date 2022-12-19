@@ -18,7 +18,6 @@ import {
   IndentEditor,
   VisibleIfEditor,
   EditableIfEditor,
-  RequiredIfEditor,
 } from "./common";
 
 import {
@@ -54,7 +53,7 @@ export const gridConfig = [
   {
     categoryName: "Logic",
     categoryTitle: "Logic",
-    components: [VisibleIfEditor, RequiredIfEditor, EditableIfEditor],
+    components: [VisibleIfEditor, EditableIfEditor],
   },
 ];
 

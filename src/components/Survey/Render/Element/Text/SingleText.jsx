@@ -1,4 +1,4 @@
-import { computed, defineComponent, unref } from "vue";
+import { computed, defineComponent, unref, watch } from "vue";
 import QuestionContainer from "@survey/Render/components/QuestionContainer";
 import questionCommonProps from "@survey/Render/types/questionCommonProps";
 import { textTypeEnum } from "@survey/types/questionTypeEnum";
@@ -15,7 +15,12 @@ import { useQuestionIndex } from "@survey/hooks/useQuestionIndex";
 const SingleText = defineComponent({
   props: questionCommonProps,
   setup(props) {
-    const { question, values } = props;
+    const { question, values, touched, errors } = props;
+
+    watch(errors, (v) => {
+      console.log("cnm change", v);
+    });
+
     const { name, inputType, inputVariant } = question;
 
     const editableIf = useEditableIf(question, values);
@@ -70,6 +75,8 @@ const SingleText = defineComponent({
           question={question}
           questionIndex={unref(questionIndex)}
           class={getInputVariantClassName(inputVariant)}
+          touched={touched}
+          errors={errors}
         >
           {renderInput()}
         </QuestionContainer>

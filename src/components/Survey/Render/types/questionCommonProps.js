@@ -7,4 +7,10 @@ export default {
     type: Object,
     required: true,
   },
+  touched: {
+    type: Object,
+  },
+  errors: {
+    type: Object,
+  },
 };

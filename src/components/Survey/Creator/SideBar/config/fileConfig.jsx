@@ -10,7 +10,6 @@ import {
   IndentEditor,
   VisibleIfEditor,
   EditableIfEditor,
-  RequiredIfEditor,
 } from "./common";
 
 const FileAcceptedTypesEditor = () => (
@@ -79,6 +78,6 @@ export default [
   {
     categoryName: "Logic",
     categoryTitle: "Logic",
-    components: [VisibleIfEditor, RequiredIfEditor, EditableIfEditor],
+    components: [VisibleIfEditor, EditableIfEditor],
   },
 ];

@@ -17,12 +17,13 @@ const SurveyContainer = (props, { slots }) => {
     <div className="flex-1 min-h-0 h-full overflow-y-auto">
       <div
         class={[
-          "mx-auto flex flex-col gap-y-3",
+          "mx-auto flex flex-col gap-y-10",
           shouldFullWidth ? "mx-6" : " max-w-[700px]",
         ]}
       >
         {slots.title()}
-        <div class="my-8 flex flex-col gap-y-8">{slots.default()}</div>
+        <div class="flex flex-col gap-y-8">{slots.default()}</div>
+        <div>{slots.footer && slots.footer()}</div>
       </div>
     </div>
   );
