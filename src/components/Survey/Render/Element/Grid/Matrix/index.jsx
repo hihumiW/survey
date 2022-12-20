@@ -12,7 +12,7 @@ import { useQuestionIndex } from "@survey/hooks/useQuestionIndex";
 const Matrix = defineComponent({
   props: questionCommonProps,
   setup(props) {
-    const { question, values } = props;
+    const { question, values, touched, errors } = props;
 
     const { name } = question;
     const { setNestedObjectValue, removeValuesProperty } = useValues();
@@ -165,6 +165,8 @@ const Matrix = defineComponent({
         <QuestionContainer
           question={question}
           questionIndex={unref(questionIndex)}
+          touched={touched}
+          errors={errors}
         >
           <div className="overflow-auto">
             <Table class="survey-table" columns={columns} data={data} />

@@ -20,8 +20,6 @@ const SurveyPreview = defineComponent({
       schema: valuesSchema,
     });
 
-    console.log(errors);
-
     const renderTitle = () => (
       <SurveyTitle surveyTitle={title} surveyDescription={description} />
     );
@@ -46,7 +44,7 @@ const SurveyPreview = defineComponent({
 
     const renderFooter = () => {
       return (
-        <div class="text-center">
+        <div class="text-center mb-8">
           <NButton size="large" type="primary" onClick={handleSubmit}>
             Submit
           </NButton>

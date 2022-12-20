@@ -1,4 +1,4 @@
-import { inject, provide, ref, watch, onUnmounted } from "vue";
+import { inject, provide, ref, watch, onUnmounted, unref } from "vue";
 import QuestionTypeEnum from "@survey/types/questionTypeEnum";
 import objectPath from "object-path";
 
@@ -14,7 +14,11 @@ export const useValuesInit = (config) => {
 
   const setFieldValue = (field, value) => {
     touched.value[field] = true;
-    values.value[field] = value;
+    if (value) {
+      values.value[field] = value;
+    } else {
+      delete values.value[field];
+    }
   };
 
   const setNestedObjectValue = (setPath, setValue) => {
@@ -46,6 +50,7 @@ export const useValuesInit = (config) => {
         errors.value = null;
       })
       .catch((error) => {
+        console.log(error);
         const valuesError = error.inner.reduce((errorPreview, e) => {
           const { path, message } = e;
           const questionPath = path.split(".")[0];
@@ -55,15 +60,18 @@ export const useValuesInit = (config) => {
         errors.value = valuesError;
       });
   };
-  const validateSigleField = (questionName) => {
+  const validateField = (questionName) => {
     config.schema
       .validateAt(questionName, values.value)
       .then(() => {
-        console.log("no err");
-        delete errors.value[questionName];
+        if (unref(errors)) {
+          delete errors.value[questionName];
+        }
       })
       .catch((e) => {
-        errors.value[questionName] = e.message;
+        if (unref(errors)) {
+          errors.value[questionName] = e.message;
+        }
       });
   };
 
@@ -71,7 +79,10 @@ export const useValuesInit = (config) => {
     return config.schema._nodes.map((node) => {
       return watch(
         () => values.value[node],
-        () => validateSigleField(node)
+        () => validateField(node),
+        {
+          deep: true,
+        }
       );
     });
   };

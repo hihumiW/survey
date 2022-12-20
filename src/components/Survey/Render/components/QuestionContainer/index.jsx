@@ -6,9 +6,8 @@ const QuestionContainer = (props, { slots }) => {
   const { question, questionIndex, touched, errors } = props;
   const { name } = question;
   const errorMsg = unref(errors)?.[name];
-
   const showError = unref(touched)?.[name] && !!errorMsg;
-  console.log(showError, "showError");
+
   return (
     <QuestionWrapper questionIndent={props.question.indent}>
       <QuestionLayout question={question}>

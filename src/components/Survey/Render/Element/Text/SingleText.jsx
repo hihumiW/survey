@@ -1,4 +1,4 @@
-import { computed, defineComponent, unref, watch } from "vue";
+import { computed, defineComponent, unref } from "vue";
 import QuestionContainer from "@survey/Render/components/QuestionContainer";
 import questionCommonProps from "@survey/Render/types/questionCommonProps";
 import { textTypeEnum } from "@survey/types/questionTypeEnum";
@@ -16,10 +16,6 @@ const SingleText = defineComponent({
   props: questionCommonProps,
   setup(props) {
     const { question, values, touched, errors } = props;
-
-    watch(errors, (v) => {
-      console.log("cnm change", v);
-    });
 
     const { name, inputType, inputVariant } = question;
 

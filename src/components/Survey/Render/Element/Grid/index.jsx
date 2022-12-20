@@ -12,7 +12,7 @@ import { getInputProps, getRenderInput } from "@survey/hooks/Element/Text";
 const Grid = defineComponent({
   props: questionCommonProps,
   setup(props) {
-    const { question, values } = props;
+    const { question, values, touched, errors } = props;
 
     const { name, cells } = question;
     const { setNestedObjectValue, removeValuesProperty } = useValues();
@@ -122,6 +122,8 @@ const Grid = defineComponent({
         <QuestionContainer
           question={question}
           questionIndex={unref(questionIndex)}
+          touched={touched}
+          errors={errors}
         >
           <div className="overflow-auto">
             <Table class="survey-table" columns={columns} data={data} />

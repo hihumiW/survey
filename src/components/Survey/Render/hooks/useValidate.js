@@ -1,5 +1,8 @@
 import * as yup from "yup";
-import QuestionTypeEnum, { textTypeEnum } from "@survey/types/questionTypeEnum";
+import QuestionTypeEnum, {
+  textTypeEnum,
+  gridCellTypeEnum,
+} from "@survey/types/questionTypeEnum";
 
 const useValidate = (questions) => {
   const getTextScheme = (inputType) => {
@@ -27,15 +30,38 @@ const useValidate = (questions) => {
         type
       )
     ) {
-      columnValidate = columns.reduce((lookup, column) => {
+      const rowDataShape = columns.reduce((lookup, column) => {
         lookup[column.value] = getStringSchema();
         return lookup;
       }, {});
+      columnValidate = yup.object().shape(rowDataShape);
     }
     const shape = rows.reduce((lookup, row) => {
-      lookup[row.value] = columnValidate;
+      lookup[row.value] = columnValidate.clone();
       return lookup;
     }, {});
+    return yup.object().shape(shape);
+  };
+
+  const getGridSchema = (question) => {
+    const { gridRows, columns, cells } = question;
+    let shape = {};
+    gridRows.forEach((rowName) => {
+      const rowDataShape = {};
+      columns.forEach((column) => {
+        const { value: columnName } = column;
+        const config = cells?.[rowName]?.[columnName] || column;
+        if (config.cellType === gridCellTypeEnum.input) {
+          rowDataShape[columnName] = getTextScheme(config.inputType);
+        }
+        if (config.cellType === gridCellTypeEnum.dropdown) {
+          rowDataShape[columnName] = config.multipleChoice
+            ? getArraySchema()
+            : getStringSchema();
+        }
+      });
+      shape[rowName] = yup.object().shape(rowDataShape);
+    });
     return yup.object().shape(shape);
   };
 
@@ -59,6 +85,8 @@ const useValidate = (questions) => {
       case QuestionTypeEnum.matrixinput:
       case QuestionTypeEnum.matrixdropdown:
         return getMatrixSchema(question);
+      case QuestionTypeEnum.grid:
+        return getGridSchema(question);
       default:
         break;
     }
@@ -72,6 +100,7 @@ const useValidate = (questions) => {
       }
       return lookup;
     }, {});
+    console.log(questionsShape);
     return yup.object().shape(questionsShape);
   };
 

@@ -23,7 +23,7 @@ const getOtherTextValueFieldName = (fieldName) => `${fieldName}__Comment`;
 const Select = defineComponent({
   props: questionCommonProps,
   setup(props) {
-    const { question, values } = props;
+    const { question, values, touched, errors } = props;
     const {
       name,
       type,
@@ -123,6 +123,8 @@ const Select = defineComponent({
         <QuestionContainer
           question={question}
           questionIndex={unref(questionIndex)}
+          touched={touched}
+          errors={errors}
         >
           {isDropdown ? renderSelect() : renderOptions()}
           {renderOther()}
