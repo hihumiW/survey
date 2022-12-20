@@ -100,7 +100,7 @@ const useValidate = (questions) => {
       }
       return lookup;
     }, {});
-    console.log(questionsShape);
+
     return yup.object().shape(questionsShape);
   };
 

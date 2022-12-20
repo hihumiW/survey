@@ -5,12 +5,11 @@ import objectPath from "object-path";
 const valuesInjectionKey = Symbol("values");
 
 export const useValuesInit = (config) => {
-  const values = ref({});
+  const values = ref({
+    ...(config.defaultValue || {}),
+  });
   const errors = ref(null);
   const touched = ref({});
-
-  window.errors = errors;
-  window.values = values;
 
   const setFieldValue = (field, value) => {
     touched.value[field] = true;
@@ -42,7 +41,7 @@ export const useValuesInit = (config) => {
   provide(valuesInjectionKey, provideData);
 
   const validateValue = () => {
-    config.schema
+    return config.schema
       .validate(values.value, {
         abortEarly: false,
       })
@@ -50,19 +49,25 @@ export const useValuesInit = (config) => {
         errors.value = null;
       })
       .catch((error) => {
-        console.log(error);
         const valuesError = error.inner.reduce((errorPreview, e) => {
           const { path, message } = e;
           const questionPath = path.split(".")[0];
-          errorPreview[questionPath] = message;
+          if (questionPath in errorPreview) {
+            errorPreview[questionPath] += ` , ${message}`;
+          } else {
+            errorPreview[questionPath] = message;
+          }
+
           return errorPreview;
         }, {});
         errors.value = valuesError;
       });
   };
   const validateField = (questionName) => {
-    config.schema
-      .validateAt(questionName, values.value)
+    return config.schema
+      .validateAt(questionName, values.value, {
+        abortEarly: false,
+      })
       .then(() => {
         if (unref(errors)) {
           delete errors.value[questionName];
@@ -70,38 +75,41 @@ export const useValuesInit = (config) => {
       })
       .catch((e) => {
         if (unref(errors)) {
-          errors.value[questionName] = e.message;
+          errors.value[questionName] = e.inner
+            .map((e) => e.message)
+            .join(" , ");
         }
       });
   };
 
-  const watchValueChange = () => {
-    return config.schema._nodes.map((node) => {
+  const watchRequiredValueChange = () => {
+    return config.schema._nodes.map((questionName) => {
       return watch(
-        () => values.value[node],
-        () => validateField(node),
+        () => values.value[questionName],
+        () => validateField(questionName),
         {
           deep: true,
         }
       );
     });
   };
-  const stops = watchValueChange();
+  const stops = watchRequiredValueChange();
   onUnmounted(() => stops.forEach((stop) => stop()));
 
   let isAllTouchedSeted = false;
   const setAllTouched = () => {
     if (isAllTouchedSeted) return;
-    config.schema._nodes.map((node) => {
-      touched.value[node] = true;
+    config.schema._nodes.map((questionName) => {
+      touched.value[questionName] = true;
     });
     isAllTouchedSeted = true;
   };
 
   const handleSubmit = () => {
     setAllTouched();
-    validateValue();
-    !errors.value && config.onSubmit && config.onSubmit(values.value);
+    validateValue().then(() => {
+      !errors.value && config.onSubmit && config.onSubmit(values.value);
+    });
   };
 
   return {

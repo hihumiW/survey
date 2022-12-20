@@ -13,9 +13,8 @@ const useCreator = (surveyQuestionsRef) => {
   const showSideBar = ref(true);
 
   const surveyDef = ref({
-    title: "新的问卷1",
-    description:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora repellendus praesentium, earum dignissimos quo possimus incidunt autem, officia cumque, placeat veritatis ex numquam architecto soluta totam consequuntur magni quod! Reiciendis.",
+    title: "",
+    description: "",
     questions: surveyQuestions,
   });
 
@@ -55,6 +54,9 @@ const useCreator = (surveyQuestionsRef) => {
      */
     updateSurveyDescription: (description) => {
       surveyDef.value.description = description || "";
+    },
+    updateSurveyFormType: (id) => {
+      surveyDef.value.categoryId = id;
     },
     /**
      * 更新question的name；name需要保证唯一；
@@ -263,12 +265,13 @@ const useCreator = (surveyQuestionsRef) => {
       sideBarExpandedName.value = value;
     },
     JSON() {
-      const { title, description } = unref(surveyDef);
+      const { title, description, categoryId } = unref(surveyDef);
       const questions = unref(surveyQuestions);
       return {
         title,
         description,
         questions,
+        categoryId,
       };
     },
   };

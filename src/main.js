@@ -1,6 +1,8 @@
 import { createApp, h } from "vue";
 import { NMessageProvider } from "naive-ui";
+import { VueQueryPlugin } from "vue-query";
 import "./style.css";
+import router from "./router";
 import App from "./App.vue";
 import "vfonts/Lato.css";
 
@@ -9,5 +11,14 @@ const AppWrapper = () => {
 };
 
 const app = createApp(AppWrapper);
-
-app.mount("#app");
+const vueQueryPluginOptions = {
+  queryClientConfig: {
+    defaultOptions: {
+      queries: {
+        retry: 0,
+        refetchOnWindowFocus: false,
+      },
+    },
+  },
+};
+app.use(router).use(VueQueryPlugin, vueQueryPluginOptions).mount("#app");

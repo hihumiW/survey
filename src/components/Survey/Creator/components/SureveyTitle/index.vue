@@ -18,28 +18,38 @@
       />
     </template>
     <template #category>
-      <NDropdown trigger="hover" :options="options">
-        <NButton class="text-base" text> Category </NButton>
-      </NDropdown>
+      <NSelect
+        placeholder="FormTypes"
+        :value="survey.categoryId"
+        :options="formTypes"
+        label-field="name"
+        value-field="id"
+        filterable
+        @update:value="updateSurveyFormType"
+      />
     </template>
   </SurveyTitleContainer>
 </template>
 
 <script setup>
-import { inject } from "vue";
-import { NDropdown, NButton } from "naive-ui";
+import { NSelect } from "naive-ui";
 import SurveyTitleContainer from "@survey/components/SurveyTitleContainer";
 import Title from "@survey/components/Title/index.vue";
-const creator = inject("creator");
-
-const { updateSurveyTitle, updateSurveyDescription, survey } = creator;
-
-const options = [
-  {
-    label: "妈妈生的",
-    value: "madeInMAMA",
+import useFormTypes from "@survey/hooks/useFormTypes";
+const props = defineProps({
+  creator: {
+    type: Object,
   },
-];
+});
+
+const {
+  updateSurveyTitle,
+  updateSurveyDescription,
+  updateSurveyFormType,
+  survey,
+} = props.creator;
+
+const { data: formTypes } = useFormTypes();
 </script>
 
 <style>

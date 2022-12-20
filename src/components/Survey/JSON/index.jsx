@@ -1,10 +1,9 @@
 import VueJsonPretty from "vue-json-pretty";
 import clipboard from "clipboardy";
 import { NButton } from "naive-ui";
-import { inject } from "vue";
 import "vue-json-pretty/lib/styles.css";
-const JSONPreview = () => {
-  const { JSON } = inject("creator");
+const JSONPreview = (props) => {
+  const { JSON } = props.creator;
   const jsonData = JSON();
   const handleCopyClick = () => {
     clipboard.write(window.JSON.stringify(jsonData)).then(() => {
@@ -26,4 +25,10 @@ const JSONPreview = () => {
   );
 };
 
+JSONPreview.props = {
+  creator: {
+    type: Object,
+    required: true,
+  },
+};
 export default JSONPreview;

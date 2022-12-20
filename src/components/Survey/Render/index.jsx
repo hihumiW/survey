@@ -1,4 +1,4 @@
-import { defineComponent, ref } from "vue";
+import { defineComponent, unref } from "vue";
 import SurveyContainer from "../components/SurveyContainer";
 import SurveyTitle from "./components/SurveyTitle";
 import SurveyRenderElementDispatch from "./Element";
@@ -6,22 +6,39 @@ import { useValuesInit } from "./hooks/useValues";
 import { useQuestionSequenceInit } from "@survey/hooks/useQuestionIndex";
 import useValidate from "./hooks/useValidate";
 import { NButton } from "naive-ui";
+import useFormTypes from "@survey/hooks/useFormTypes";
 
-const SurveyPreview = defineComponent({
+const SurveyRender = defineComponent({
   setup(props) {
     const {
-      survey: { title, description, questions },
+      defaultValue,
+      survey: { title, description, questions, categoryId },
     } = props;
 
     useQuestionSequenceInit(questions);
-
+    const { data: formTypes } = useFormTypes();
     const valuesSchema = useValidate(questions);
     const { values, touched, errors, handleSubmit } = useValuesInit({
+      defaultValue,
       schema: valuesSchema,
+      onSubmit: (values) => {
+        const unrefValues = unref(values);
+        if (props.onSurveySubmit) {
+          props.onSurveySubmit(unrefValues);
+        }
+        if (window.onSurveySubmit) {
+          window.onSurveySubmit(unrefValues);
+        }
+      },
     });
 
     const renderTitle = () => (
-      <SurveyTitle surveyTitle={title} surveyDescription={description} />
+      <SurveyTitle
+        surveyTitle={title}
+        surveyDescription={description}
+        formTypes={formTypes.value}
+        categoryId={categoryId}
+      />
     );
 
     const renderQuestions = () => {
@@ -68,11 +85,18 @@ const SurveyPreview = defineComponent({
   },
 });
 
-SurveyPreview.props = {
+SurveyRender.props = {
+  defaultValue: {
+    type: Object,
+    default: () => ({}),
+  },
   survey: {
     type: Object,
     required: true,
   },
+  onSurveySubmit: {
+    type: Function,
+  },
 };
 
-export default SurveyPreview;
+export default SurveyRender;

@@ -1,4 +1,4 @@
-import { NDropdown, NButton } from "naive-ui";
+import { NSelect } from "naive-ui";
 import SurveyTitleContainer from "@survey/components/SurveyTitleContainer";
 import Title from "@survey/components/Title/index.vue";
 const SurveyTitle = (props) => {
@@ -8,11 +8,14 @@ const SurveyTitle = (props) => {
         title: () => <Title value={props.surveyTitle} />,
         description: () => <Title value={props.surveyDescription} />,
         category: () => (
-          <NDropdown trigger="hover">
-            <NButton class="text-base" text>
-              Category
-            </NButton>
-          </NDropdown>
+          <NSelect
+            options={props.formTypes}
+            placeholder="FormTypes"
+            label-field="name"
+            value-field="id"
+            value={props.categoryId}
+            disabled
+          />
         ),
       }}
     </SurveyTitleContainer>
@@ -22,6 +25,8 @@ const SurveyTitle = (props) => {
 SurveyTitle.props = {
   surveyTitle: String,
   surveyDescription: String,
+  categoryId: [String, Number],
+  formTypes: Array,
 };
 
 export default SurveyTitle;

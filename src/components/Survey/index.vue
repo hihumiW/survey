@@ -13,7 +13,7 @@
       <div class="flex-1 min-h-0">
         <template v-if="isMounted">
           <Creator v-if="tabValue === 'designer'" />
-          <JSONPreview v-if="tabValue === 'json'" />
+          <JSONPreview v-if="tabValue === 'json'" :creator="creator" />
           <SurveyPreview v-if="tabValue === 'preview'" :creator="creator" />
         </template>
       </div>

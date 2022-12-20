@@ -14,4 +14,12 @@ export default defineConfig({
       "@survey": resolve("./src/components/Survey"),
     },
   },
+  server: {
+    proxy: {
+      "^/ctms/.*": {
+        target: "http://192.168.0.185:8907",
+        changeOrigin: true,
+      },
+    },
+  },
 });
