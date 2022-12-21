@@ -1,20 +1,25 @@
-import getQuestionDefaultConfig, { getItem } from "./questionDefaultConfig";
 import { ref, unref, provide, inject } from "vue";
 import objectPath from "object-path";
+import getQuestionDefaultConfig, { getItem } from "./questionDefaultConfig";
 import questionTypeEnum from "../../types/questionTypeEnum";
+import { cloneDeep } from "lodash-es";
 
 export const CREATOR_KEY = Symbol("creator");
 
-const useCreator = (surveyQuestionsRef) => {
-  const surveyQuestions = surveyQuestionsRef || ref([]);
+const useCreator = (defaultData = {}) => {
+  const surveyQuestions = defaultData.questions
+    ? ref(cloneDeep(defaultData.questions))
+    : ref([]);
   const questionModel = objectPath(surveyQuestions.value);
   const surveyQuestionsNameSet = new Set();
 
   const showSideBar = ref(true);
 
   const surveyDef = ref({
-    title: "",
-    description: "",
+    title: defaultData.title,
+    description: defaultData.description,
+    formId: defaultData.formId,
+    categoryId: defaultData.categoryId,
     questions: surveyQuestions,
   });
 
@@ -65,6 +70,7 @@ const useCreator = (surveyQuestionsRef) => {
      * @param {("success" | "fail") => void} cb 修改成功/失败后 的回调函数
      */
     updateQuestionNameFieldValue: (path, newQuestionName, cb) => {
+      if (!newQuestionName) return cb("fail");
       const questionNamePath = `${path}.name`;
       const oldQuestionName = creator.getModelV(questionNamePath);
       if (oldQuestionName && !surveyQuestionsNameSet.has(newQuestionName)) {
@@ -265,14 +271,18 @@ const useCreator = (surveyQuestionsRef) => {
       sideBarExpandedName.value = value;
     },
     JSON() {
-      const { title, description, categoryId } = unref(surveyDef);
+      const { title, description, categoryId, formId } = unref(surveyDef);
       const questions = unref(surveyQuestions);
-      return {
+      const json = {
         title,
         description,
         questions,
         categoryId,
       };
+      if (formId) {
+        json.formId = formId;
+      }
+      return json;
     },
   };
 

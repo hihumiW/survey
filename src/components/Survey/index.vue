@@ -22,7 +22,7 @@
     <div
       id="sideBar"
       v-show="tabValue === 'designer' && showSideBar"
-      class="w-[450px] flex-shrink-0 box-border border-l border-neutral-300"
+      class="w-[420px] flex-shrink-0 box-border border-l border-neutral-300"
     />
   </div>
 </template>
@@ -36,16 +36,27 @@ import JSONPreview from "./JSON";
 import SurveyPreview from "./Preview";
 import useCreator from "./hooks/useCreator";
 import { useQuestionSequenceInit } from "./hooks/useQuestionIndex";
+import { useRoute } from "vue-router";
 
-const creator = useCreator();
+const props = defineProps({
+  editSurveyData: {
+    type: Object,
+    default: () => ({}),
+  },
+});
+const route = useRoute();
+const creator = useCreator(props.editSurveyData);
 const { showSideBar } = creator;
 useQuestionSequenceInit(creator.surveyQuestions);
-const isMounted = useMounted();
-onMounted(() => {
-  creator.addQuestion("dropdown");
-});
 
-const tabValue = ref("preview");
+const isMounted = useMounted();
+if (route.name === "creator") {
+  onMounted(() => {
+    creator.addQuestion("dropdown");
+  });
+}
+
+const tabValue = ref("designer");
 </script>
 
 <script>

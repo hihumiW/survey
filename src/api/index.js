@@ -11,3 +11,8 @@ export const saveForm = (formData) =>
     method: "post",
     body: JSON.stringify(formData),
   });
+
+export const queryFormDetail = (formId) =>
+  fetchQuery(`/ctms/api/form/getForm/${formId}`, {
+    method: "post",
+  });

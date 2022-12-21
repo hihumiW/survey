@@ -1,5 +1,6 @@
-import CreateSurvey from "@/components/Survey/Create";
-import EditSurvey from "@/components/Survey/Edit";
+import CreateSurvey from "@/pages/Create";
+import EditSurvey from "@/pages/Create/Edit";
+import RenderSurvey from "@/pages/Survey";
 import { createRouter, createWebHashHistory } from "vue-router";
 const routes = [
   {
@@ -11,6 +12,11 @@ const routes = [
     path: "/creator/:formId",
     name: "editCreator",
     component: EditSurvey,
+  },
+  {
+    path: "/survey/:formId",
+    name: "renderSurvey",
+    component: RenderSurvey,
   },
 ];
 

@@ -54,7 +54,7 @@ const SingleText = defineComponent({
     const renderInput = () => {
       return (
         <RenderComp
-          value={inputValue.value}
+          defaultValue={inputValue.value}
           disabled={!unref(editableIf)}
           {...CompStaticProps.value}
         />

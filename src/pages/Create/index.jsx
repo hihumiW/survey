@@ -1,4 +1,4 @@
-import Survey from "./index.vue";
+import Survey from "@/components/Survey/index.vue";
 const Create = () => {
   return <Survey key="create" />;
 };

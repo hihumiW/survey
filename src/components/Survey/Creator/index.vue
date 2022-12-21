@@ -59,19 +59,22 @@ const router = useRouter();
 const handleSave = () => {
   const form = creator.JSON();
   const { title = "", categoryId } = form;
-
   if (title.trim() === "") {
     return window.$message.error("请输入问卷名称");
   }
   if (!categoryId) {
     return window.$message.error("请选择问卷分类");
   }
-  mutateAsync(form).then((formId) => {
-    window.$message.success("保存成功");
-    if (formId && route.name === "creator") {
-      router.replace(`/creator/${formId}`);
-    }
-  });
+  mutateAsync(form)
+    .then((formId) => {
+      window.$message.success("保存成功");
+      if (formId && route.name === "creator") {
+        router.replace(`/creator/${formId}`);
+      }
+    })
+    .catch((e) => {
+      window.$message.error(`保存失败${e.$message}`);
+    });
 };
 </script>
 
