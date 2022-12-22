@@ -29,6 +29,9 @@ body,
 #app {
   height: 100%;
 }
+.survey-app input .survey-app select {
+  border: none !important;
+}
 
 .n-button {
   background-color: var(--n-color);

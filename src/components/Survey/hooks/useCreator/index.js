@@ -286,8 +286,6 @@ const useCreator = (defaultData = {}) => {
     },
   };
 
-  window.cc = creator;
-
   provide("creator", creator);
 
   return creator;

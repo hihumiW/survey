@@ -6,6 +6,9 @@ const useFormTypes = () => {
     queryFn: queryFormTypes,
     placeholderData: [],
     staleTime: 1000 * 60 * 60 * 2,
+    onError() {
+      window.$message.error("量表类型加载失败");
+    },
   });
 };
 

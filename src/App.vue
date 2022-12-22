@@ -3,12 +3,14 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 
 import { useMessage } from "naive-ui";
-
+import { useRoute } from "vue-router";
 window.$message = useMessage();
+
+const route = useRoute();
 </script>
 
 <template>
-  <div class="h-full">
+  <div class="h-full survey-app">
     <router-view></router-view>
   </div>
 </template>

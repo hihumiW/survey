@@ -16,3 +16,19 @@ export const queryFormDetail = (formId) =>
   fetchQuery(`/ctms/api/form/getForm/${formId}`, {
     method: "post",
   });
+
+export const queryFormList = (data) =>
+  fetchQuery("/ctms/api/form/getFormPageList", {
+    method: "post",
+    body: JSON.stringify(data),
+  });
+
+export const deleteForm = (formId) =>
+  fetchQuery(`/ctms/api/form/deleteForm/${formId}`, {
+    method: "post",
+  });
+
+export const copyForm = (formId) =>
+  fetchQuery(`/ctms/api/form/copyForm/${formId}`, {
+    method: "post",
+  });

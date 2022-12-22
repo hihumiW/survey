@@ -23,7 +23,7 @@
       <NButton type="primary" @click="handleSave" :loading="isSaving">
         Confirm
       </NButton>
-      <NButton> Cancel </NButton>
+      <NButton @click="handleCancel"> Cancel </NButton>
       <NButton text title="collapse side bar" @click="toggleSideBarShow">
         <template #icon>
           <NIcon size="20">
@@ -75,6 +75,9 @@ const handleSave = () => {
     .catch((e) => {
       window.$message.error(`保存失败${e.$message}`);
     });
+};
+const handleCancel = () => {
+  router.back();
 };
 </script>
 

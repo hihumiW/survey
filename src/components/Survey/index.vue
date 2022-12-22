@@ -22,7 +22,7 @@
     <div
       id="sideBar"
       v-show="tabValue === 'designer' && showSideBar"
-      class="w-[420px] flex-shrink-0 box-border border-l border-neutral-300"
+      class="w-[400px] bg-white flex-shrink-0 box-border border-l border-neutral-300"
     />
   </div>
 </template>
@@ -43,9 +43,14 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
+  readOnly: {
+    type: Boolean,
+    default: () => false,
+  },
 });
+
 const route = useRoute();
-const creator = useCreator(props.editSurveyData);
+const creator = useCreator(props.editSurveyData, props.readOnly);
 const { showSideBar } = creator;
 useQuestionSequenceInit(creator.surveyQuestions);
 

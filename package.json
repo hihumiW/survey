@@ -1,5 +1,5 @@
 {
-  "name": "my-project",
+  "name": "crftest",
   "homepage": "survey",
   "private": true,
   "version": "0.0.0",
@@ -17,6 +17,8 @@
     "lodash-es": "^4.17.21",
     "memoizerific": "^1.11.3",
     "object-path": "^0.11.8",
+    "vite-plugin-css-injected-by-js": "^2.2.0",
+    "vite-plugin-qiankun": "^1.0.15",
     "vue": "^3.2.41",
     "vue-json-pretty": "^2.2.3",
     "vue-query": "^1.26.0",

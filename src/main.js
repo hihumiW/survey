@@ -1,6 +1,11 @@
 import { createApp, h } from "vue";
 import { NMessageProvider } from "naive-ui";
 import { VueQueryPlugin } from "vue-query";
+import {
+  renderWithQiankun,
+  qiankunWindow,
+} from "vite-plugin-qiankun/dist/helper";
+
 import "./style.css";
 import router from "./router";
 import App from "./App.vue";
@@ -10,15 +15,39 @@ const AppWrapper = () => {
   return h(NMessageProvider, () => [h(App)]);
 };
 
-const app = createApp(AppWrapper);
-const vueQueryPluginOptions = {
-  queryClientConfig: {
-    defaultOptions: {
-      queries: {
-        retry: 0,
-        refetchOnWindowFocus: false,
+const render = (props = {}) => {
+  const { container } = props;
+  const renderContainer = container || "#app";
+  const app = createApp(AppWrapper);
+  const vueQueryPluginOptions = {
+    queryClientConfig: {
+      defaultOptions: {
+        queries: {
+          retry: 0,
+          refetchOnWindowFocus: false,
+        },
       },
     },
-  },
+  };
+  app
+    .use(router)
+    .use(VueQueryPlugin, vueQueryPluginOptions)
+    .mount(renderContainer);
 };
-app.use(router).use(VueQueryPlugin, vueQueryPluginOptions).mount("#app");
+
+// some code
+renderWithQiankun({
+  mount(props) {
+    render(props);
+  },
+  bootstrap() {
+    console.log("bootstrap");
+  },
+  unmount(props) {
+    console.log("unmount");
+  },
+});
+
+if (!qiankunWindow.__POWERED_BY_QIANKUN__) {
+  render({});
+}

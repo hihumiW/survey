@@ -1,6 +1,7 @@
 import CreateSurvey from "@/pages/Create";
 import EditSurvey from "@/pages/Create/Edit";
 import RenderSurvey from "@/pages/Survey";
+import SurveyList from "@/pages/List";
 import { createRouter, createWebHashHistory } from "vue-router";
 const routes = [
   {
@@ -17,6 +18,14 @@ const routes = [
     path: "/survey/:formId",
     name: "renderSurvey",
     component: RenderSurvey,
+  },
+  {
+    path: "/list",
+    name: "list",
+    component: SurveyList,
+    meta: {
+      keepAlive: true,
+    },
   },
 ];
 
