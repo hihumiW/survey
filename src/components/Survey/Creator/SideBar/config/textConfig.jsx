@@ -70,8 +70,9 @@ export const MaximumLengthEditor = generateConditionComp(
     bindName: "maxLength",
     type: "number",
     inputProps: {
-      min: 0,
+      min: 1,
       max: 500,
+      clearable: true,
     },
   },
   "MaximumLengthEditor",

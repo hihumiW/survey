@@ -37,7 +37,8 @@ const props = defineProps({
   },
 });
 
-const defaultValue = props.defaultValue || props.type === "number" ? 0 : "";
+const defaultValue =
+  props.defaultValue || props.type === "number" ? undefined : "";
 
 const { binderValue, handleValueChange } = useBinder(
   props.bindName,

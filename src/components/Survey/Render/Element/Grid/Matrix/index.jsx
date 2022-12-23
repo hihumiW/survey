@@ -8,6 +8,7 @@ import useVisibleIf from "@survey/Render/hooks/useVisibleIf";
 import useEditableIf from "@survey/Render/hooks/useEditableIf";
 import { useValues } from "@survey/Render/hooks/useValues";
 import { useQuestionIndex } from "@survey/hooks/useQuestionIndex";
+import useReadOnly from "@survey/Render/hooks/useReadOnly";
 
 const Matrix = defineComponent({
   props: questionCommonProps,
@@ -19,6 +20,7 @@ const Matrix = defineComponent({
     const editableIf = useEditableIf(question, values);
     const visibleIf = useVisibleIf(question, values);
     const questionIndex = useQuestionIndex(question);
+    const readOnly = useReadOnly(props);
 
     const questionValue = computed(() => {
       return unref(values)?.[name];
@@ -97,7 +99,7 @@ const Matrix = defineComponent({
       const { key: rowName } = rowData;
       const { id: columnName } = column;
       const CommonProps = {
-        disabled: !unref(editableIf),
+        disabled: unref(readOnly) || !unref(editableIf),
         size: "large",
       };
       const rowValue = unref(questionValue)?.[rowName];
@@ -133,6 +135,7 @@ const Matrix = defineComponent({
                   columnName
                 )
               }
+              disabled={unref(readOnly)}
               {...CommonProps}
             />
           );
@@ -149,6 +152,7 @@ const Matrix = defineComponent({
               onUpdate:value={(value) =>
                 handleSelectOrInputValueChange(value, rowName, columnName)
               }
+              disabled={unref(readOnly)}
               {...CommonProps}
             />
           );

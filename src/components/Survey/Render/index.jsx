@@ -5,7 +5,8 @@ import SurveyRenderElementDispatch from "./Element";
 import { useValuesInit } from "./hooks/useValues";
 import { useQuestionSequenceInit } from "@survey/hooks/useQuestionIndex";
 import useValidate from "./hooks/useValidate";
-import { NButton } from "naive-ui";
+
+import { NButton, NEmpty } from "naive-ui";
 import useFormTypes from "@survey/hooks/useFormTypes";
 
 const SurveyRender = defineComponent({
@@ -13,11 +14,13 @@ const SurveyRender = defineComponent({
     const {
       defaultValue,
       survey: { title, description, questions, categoryId },
+      readOnly,
     } = props;
 
     useQuestionSequenceInit(questions);
     const { data: formTypes } = useFormTypes();
     const valuesSchema = useValidate(questions);
+
     const { values, touched, errors, handleSubmit } = useValuesInit({
       defaultValue,
       schema: valuesSchema,
@@ -55,11 +58,13 @@ const SurveyRender = defineComponent({
           values={values}
           touched={touched}
           errors={errors}
+          readOnly={readOnly}
         />
       );
     };
 
     const renderFooter = () => {
+      if (props.readOnly || !questions?.length) return null;
       return (
         <div class="text-center mb-8">
           <NButton size="large" type="primary" onClick={handleSubmit}>
@@ -71,7 +76,7 @@ const SurveyRender = defineComponent({
 
     return () => {
       return (
-        <div class="flex-1 bg-neutral-100 flex h-full">
+        <div class="flex-grow bg-neutral-100 flex flex-col">
           <SurveyContainer questions={questions}>
             {{
               title: renderTitle,
@@ -86,6 +91,10 @@ const SurveyRender = defineComponent({
 });
 
 SurveyRender.props = {
+  readOnly: {
+    type: Boolean,
+    default: () => false,
+  },
   defaultValue: {
     type: Object,
     default: () => ({}),

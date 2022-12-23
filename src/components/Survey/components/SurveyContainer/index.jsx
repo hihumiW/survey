@@ -3,7 +3,7 @@ import QuestionTypeEnum from "@survey/types/questionTypeEnum";
 
 const SurveyContainer = (props, { slots }) => {
   const shouldFullWidth = Boolean(
-    unref(props.questions).find((question) =>
+    unref(props.questions)?.find((question) =>
       [
         QuestionTypeEnum.matrixradio,
         QuestionTypeEnum.matrixcheckbox,

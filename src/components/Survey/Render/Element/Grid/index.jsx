@@ -9,6 +9,8 @@ import useEditableIf from "@survey/Render/hooks/useEditableIf";
 import { useValues } from "@survey/Render/hooks/useValues";
 import { useQuestionIndex } from "@survey/hooks/useQuestionIndex";
 import { getInputProps, getRenderInput } from "@survey/hooks/Element/Text";
+import useReadOnly from "@survey/Render/hooks/useReadOnly";
+
 const Grid = defineComponent({
   props: questionCommonProps,
   setup(props) {
@@ -19,6 +21,7 @@ const Grid = defineComponent({
     const editableIf = useEditableIf(question, values);
     const visibleIf = useVisibleIf(question, values);
     const questionIndex = useQuestionIndex(question);
+    const readOnly = useReadOnly(props);
 
     const questionValue = computed(() => {
       return unref(values)?.[name];
@@ -61,7 +64,7 @@ const Grid = defineComponent({
       const { key: rowName } = rowData;
       const { id: columnName, originalColumn } = column;
       const CommonProps = {
-        disabled: !unref(editableIf),
+        disabled: unref(readOnly) || !unref(editableIf),
         size: "large",
       };
       const cellConfig = cells?.[rowName]?.[columnName] || originalColumn;
@@ -104,6 +107,7 @@ const Grid = defineComponent({
               onUpdate:value={(value) =>
                 handleSelectOrInputValueChange(value, rowName, columnName)
               }
+              disabled={unref(readOnly)}
               {...CommonProps}
             />
           );

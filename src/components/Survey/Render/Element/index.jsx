@@ -14,6 +14,7 @@ const SurveyRenderElementDispatch = (props) => {
       values={props.values}
       errors={props.errors}
       touched={props.touched}
+      readOnly={props.readOnly}
     />
   ));
 };
@@ -32,6 +33,9 @@ SurveyRenderElementDispatch.props = {
   },
   errors: {
     type: Object,
+  },
+  readOnly: {
+    type: Boolean,
   },
 };
 

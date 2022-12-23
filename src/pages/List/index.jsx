@@ -62,6 +62,10 @@ const SurveyList = defineComponent({
         title: "创建时间",
         key: "createTime",
         width: 250,
+        render(rowData) {
+          const { createTime } = rowData;
+          return createTime?.split(".")?.[0]?.split("T")?.join(" ");
+        },
       },
       {
         title: "操作",
@@ -70,16 +74,38 @@ const SurveyList = defineComponent({
         render(rowData) {
           return (
             <div class="flex gap-x-3">
-              <NButton size="small" onClick={() => handlePreview(rowData)}>
+              <NButton
+                size="small"
+                tertiary
+                onClick={() => handlePreview(rowData)}
+              >
                 查看
               </NButton>
-              <NButton size="small" onClick={() => handleEdit(rowData)}>
+              <NButton
+                size="small"
+                tertiary
+                onClick={() => handleEdit(rowData)}
+              >
                 编辑
               </NButton>
-              <NButton size="small">复制</NButton>
+              <NPopconfirm onPositiveClick={() => handleCopy(rowData)}>
+                {{
+                  trigger: () => (
+                    <NButton tertiary size="small">
+                      复制
+                    </NButton>
+                  ),
+                  default: () => <div>确定要复制吗？</div>,
+                }}
+              </NPopconfirm>
+
               <NPopconfirm onPositiveClick={() => handleDelete(rowData)}>
                 {{
-                  trigger: () => <NButton size="small">删除</NButton>,
+                  trigger: () => (
+                    <NButton tertiary type="error" size="small">
+                      删除
+                    </NButton>
+                  ),
                   default: () => <div>确定要删除吗？</div>,
                 }}
               </NPopconfirm>
@@ -119,7 +145,18 @@ const SurveyList = defineComponent({
       mutateDeleteForm(rowData.formId);
     };
 
-    const { mutateAsync: mutateCopyForm } = useMutation(copyForm);
+    const { mutateAsync: mutateCopyForm } = useMutation(copyForm, {
+      onSuccess() {
+        window.$message.error("复制成功");
+        queryClient.invalidateQueries(["formList"]);
+      },
+      onError() {
+        window.$message.error("复制失败");
+      },
+    });
+    const handleCopy = (rowData) => {
+      mutateCopyForm(rowData.formId);
+    };
 
     const handleSearch = () => {
       copyValue.value.page = 0;

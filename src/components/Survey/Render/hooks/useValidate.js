@@ -66,7 +66,7 @@ const useValidate = (questions) => {
   };
 
   const getStringSchema = () => yup.string().required();
-  const getArraySchema = () => yup.array().required();
+  const getArraySchema = () => yup.array().required().min(1);
   const getNumberSchema = () => yup.number().required();
 
   const getQuestionSchema = (question) => {
@@ -92,7 +92,7 @@ const useValidate = (questions) => {
     }
   };
   const getValueSchema = () => {
-    const questionsShape = questions.reduce((lookup, question) => {
+    const questionsShape = questions?.reduce((lookup, question) => {
       if (question.isRequired) {
         const schema = getQuestionSchema(question);
         if (!schema) return;

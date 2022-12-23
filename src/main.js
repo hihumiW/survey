@@ -1,10 +1,6 @@
 import { createApp, h } from "vue";
 import { NMessageProvider } from "naive-ui";
 import { VueQueryPlugin } from "vue-query";
-import {
-  renderWithQiankun,
-  qiankunWindow,
-} from "vite-plugin-qiankun/dist/helper";
 
 import "./style.css";
 import router from "./router";
@@ -35,19 +31,21 @@ const render = (props = {}) => {
     .mount(renderContainer);
 };
 
-// some code
-renderWithQiankun({
-  mount(props) {
-    render(props);
-  },
-  bootstrap() {
-    console.log("bootstrap");
-  },
-  unmount(props) {
-    console.log("unmount");
-  },
-});
+render();
 
-if (!qiankunWindow.__POWERED_BY_QIANKUN__) {
-  render({});
-}
+// // some code
+// renderWithQiankun({
+//   mount(props) {
+//     render(props);
+//   },
+//   bootstrap() {
+//     console.log("bootstrap");
+//   },
+//   unmount(props) {
+//     console.log("unmount");
+//   },
+// });
+
+// if (!qiankunWindow.__POWERED_BY_QIANKUN__) {
+//   render({});
+// }

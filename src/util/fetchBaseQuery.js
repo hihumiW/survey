@@ -3,6 +3,7 @@ const fetchBaseQuery = () => (url, config) => {
   if (!headers.has("Content-Type")) {
     headers.append("Content-Type", "application/json");
   }
+
   return fetch(url, {
     headers,
     ...restConfig,

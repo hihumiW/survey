@@ -29,6 +29,7 @@ body,
 #app {
   height: 100%;
 }
+
 .survey-app input .survey-app select {
   border: none !important;
 }
@@ -36,10 +37,11 @@ body,
 .n-button {
   background-color: var(--n-color);
 }
-
+#app {
+  color: #213547;
+}
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
     background-color: #ffffff;
   }
   a:hover {

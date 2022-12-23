@@ -51,11 +51,15 @@ export const getInputProps = (props) => {
   };
   switch (inputType) {
     case textTypeEnum.number:
-      Props.precision = precision === -1 ? undefined : precision - 1;
+      if (typeof precision === "number") {
+        Props.precision = precision === -1 ? undefined : precision - 1;
+      }
       return Props;
     case textTypeEnum.text:
-      Props.maxlength = maxLength;
-      Props.showCount = !!maxLength;
+      if (maxLength > 0) {
+        Props.maxlength = maxLength;
+        Props.showCount = !!maxLength;
+      }
       return Props;
     case textTypeEnum.date:
       Props.format = "yyyy/MM/dd";

@@ -10,7 +10,7 @@
           <NTabPane name="preview" tab="Preview" />
         </NTabs>
       </div>
-      <div class="flex-1 min-h-0">
+      <div class="flex-1 min-h-0 flex flex-col">
         <template v-if="isMounted">
           <Creator v-if="tabValue === 'designer'" />
           <JSONPreview v-if="tabValue === 'json'" :creator="creator" />

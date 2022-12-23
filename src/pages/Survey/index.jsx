@@ -1,37 +1,52 @@
-import { defineComponent, unref } from "vue";
-import usePageSurvey from "@/hooks/usePageSurvey";
+import { defineComponent } from "vue";
 import RenderSurvey from "@/components//Survey/Render";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+import { NButton } from "naive-ui";
+import LoadSurvey from "./Layout/LoadSurvey";
 
 const Survey = defineComponent({
-  setup() {
+  props: {
+    data: Object,
+  },
+  setup(props) {
     const route = useRoute();
-    const { data, isLoading, error } = usePageSurvey();
-    const handleSurveySubmit = (values) => {
-      if (typeof window.onSurveySubmit === "function") {
-        window.onSurveySubmit(values);
+    const router = useRouter();
+
+    const renderBackButton = () => {
+      if (route.query.hideBack) {
+        return null;
       }
+      return (
+        <div class="bg-neutral-100 p-4">
+          <NButton onClick={() => router.back()}>Back</NButton>
+        </div>
+      );
     };
+
     return () => {
-      if (unref(isLoading)) {
-        return <div>Loading...</div>;
-      }
-      if (unref(error)) {
-        return <div>error : {unref(error).message}</div>;
-      }
-      if (!unref(data)) {
-        return <div>empty responese data</div>;
-      }
+      if (!props.data) return;
       const key = `Survey_${route.params.formId}`;
       return (
-        <RenderSurvey
-          key={key}
-          survey={unref(data)}
-          onSurveySubmit={handleSurveySubmit}
-        />
+        <div class="h-full flex flex-col">
+          {renderBackButton()}
+
+          <RenderSurvey key={key} survey={props.data} />
+        </div>
       );
     };
   },
 });
 
-export default Survey;
+const SurveyWrapper = () => {
+  return (
+    <LoadSurvey>
+      {{
+        default: (props) => {
+          return <Survey data={props.data} />;
+        },
+      }}
+    </LoadSurvey>
+  );
+};
+SurveyWrapper.displayName = "SurveyWrapper";
+export default SurveyWrapper;

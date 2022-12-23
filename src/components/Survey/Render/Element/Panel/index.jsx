@@ -24,15 +24,14 @@ const Panel = defineComponent({
       if (!question.questions?.length)
         return (
           <div class="my-8">
-            {" "}
             <NEmpty />
           </div>
         );
 
       return (
         <SurveyRenderElementDispatch
+          {...props}
           questions={question.questions}
-          values={values}
         />
       );
     };

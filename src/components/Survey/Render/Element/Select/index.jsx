@@ -5,6 +5,7 @@ import useVisibleIf from "@survey/Render/hooks/useVisibleIf";
 import useEditableIf from "@survey/Render/hooks/useEditableIf";
 import useVModel from "@survey/Render/hooks/useVModel";
 import { useQuestionIndex } from "@survey/hooks/useQuestionIndex";
+import useReadOnly from "@survey/Render/hooks/useReadOnly";
 
 import QuestionTypeEnum from "@survey/types/questionTypeEnum";
 import questionCommonProps from "@survey/Render/types/questionCommonProps";
@@ -33,6 +34,7 @@ const Select = defineComponent({
       orientation,
     } = question;
 
+    const readOnly = useReadOnly(props);
     const editableIf = useEditableIf(question, values);
     const visibleIf = useVisibleIf(question, values);
     const selectValue = useVModel(name);
@@ -63,7 +65,7 @@ const Select = defineComponent({
           size="large"
           class="w-full"
           v-model:value={selectValue.value}
-          disabled={!unref(editableIf)}
+          disabled={unref(readOnly) || !unref(editableIf)}
         >
           <div
             class={[
@@ -90,7 +92,7 @@ const Select = defineComponent({
           size="large"
           filterable
           clearable
-          disabled={!unref(editableIf)}
+          disabled={unref(readOnly) || !unref(editableIf)}
         />
       );
     };
@@ -111,7 +113,7 @@ const Select = defineComponent({
           showCount
           clearable
           size="large"
-          disabled={!unref(editableIf)}
+          disabled={unref(readOnly) || !unref(editableIf)}
         />
       );
     };

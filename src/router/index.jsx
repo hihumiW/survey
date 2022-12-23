@@ -1,6 +1,7 @@
 import CreateSurvey from "@/pages/Create";
 import EditSurvey from "@/pages/Create/Edit";
 import RenderSurvey from "@/pages/Survey";
+import RenderReadOnlySurvey from "@/pages/Survey/Read";
 import SurveyList from "@/pages/List";
 import { createRouter, createWebHashHistory } from "vue-router";
 const routes = [
@@ -20,7 +21,12 @@ const routes = [
     component: RenderSurvey,
   },
   {
-    path: "/list",
+    path: "/survey/readOnly/:formId",
+    name: "renderReadOnlySurvey",
+    component: RenderReadOnlySurvey,
+  },
+  {
+    path: "/",
     name: "list",
     component: SurveyList,
     meta: {

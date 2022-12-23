@@ -32,3 +32,9 @@ export const copyForm = (formId) =>
   fetchQuery(`/ctms/api/form/copyForm/${formId}`, {
     method: "post",
   });
+
+export const queryFormAnswer = (data) =>
+  fetchQuery("/ctms/api/project/subjects/get/formRecord", {
+    method: "post",
+    body: JSON.stringify(data),
+  });

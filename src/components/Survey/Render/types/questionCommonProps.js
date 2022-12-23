@@ -13,4 +13,7 @@ export default {
   errors: {
     type: Object,
   },
+  readOnly: {
+    type: Boolean,
+  },
 };

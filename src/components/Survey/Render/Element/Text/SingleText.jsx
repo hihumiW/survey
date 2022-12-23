@@ -10,6 +10,7 @@ import {
 import useVisibleIf from "@survey/Render/hooks/useVisibleIf";
 import useEditableIf from "@survey/Render/hooks/useEditableIf";
 import useVModel from "@survey/Render/hooks/useVModel";
+import useReadOnly from "@survey/Render/hooks/useReadOnly";
 import { useQuestionIndex } from "@survey/hooks/useQuestionIndex";
 
 const SingleText = defineComponent({
@@ -23,7 +24,7 @@ const SingleText = defineComponent({
     const visibleIf = useVisibleIf(question, values);
     const inputValue = useVModel(name);
     const questionIndex = useQuestionIndex(question);
-
+    const readOnly = useReadOnly(props);
     const RenderComp = getRenderInput(inputType);
 
     const handleValueChange = (val) => (inputValue.value = val);
@@ -55,7 +56,7 @@ const SingleText = defineComponent({
       return (
         <RenderComp
           defaultValue={inputValue.value}
-          disabled={!unref(editableIf)}
+          disabled={unref(readOnly) || !unref(editableIf)}
           {...CompStaticProps.value}
         />
       );
