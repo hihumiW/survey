@@ -257,6 +257,31 @@ const useCreator = (defaultData = {}) => {
         }
       });
     },
+    moveItemIndex: (itemsPath, index = -1, direction) => {
+      const questions = creator.getModelV(itemsPath);
+      if (index === -1 || !questions?.length) return;
+      if (direction === "up" && index === 0) return;
+      if (direction === "down" && index === questions.length - 1) return;
+      const index2 = direction === "up" ? index - 1 : index + 1;
+      const temp = questions[index2];
+      questions[index2] = questions[index];
+      questions[index] = temp;
+    },
+    moveQuestionIndex: (name, forward, panelPath) => {
+      let index = -1;
+      let questions = panelPath
+        ? creator.getModelV(`${panelPath}.questions`)
+        : surveyQuestions.value;
+      if (!questions) return;
+      index = questions.findIndex((question) => question.name === name);
+      if (index === -1) return;
+      if (forward === "up" && index === 0) return;
+      if (forward === "down" && index === questions.length) return;
+      const index2 = forward === "up" ? index - 1 : index + 1;
+      const temp = questions[index2];
+      questions[index2] = questions[index];
+      questions[index] = temp;
+    },
     survey: surveyDef,
     surveyQuestions,
     currentActiveItem,

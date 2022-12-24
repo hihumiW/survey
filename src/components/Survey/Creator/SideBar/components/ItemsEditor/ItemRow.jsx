@@ -30,7 +30,11 @@ const ItemRow = (props) => {
     : undefined;
 
   return (
-    <ItemLayout onRemoveClick={handleItemRemove} onEditClick={handleEditClick}>
+    <ItemLayout
+      onRemoveClick={handleItemRemove}
+      onEditClick={handleEditClick}
+      onItemMove={props.onItemMove}
+    >
       <input
         class="survey-sideBar-itemRow_input textbase"
         placeholder="Choice value"
@@ -39,7 +43,7 @@ const ItemRow = (props) => {
       />
       <input
         class="survey-sideBar-itemRow_input"
-        placeholder="Choive text"
+        placeholder="Choice text"
         value={props.item.text}
         onInput={handleTextChange}
       />
@@ -58,6 +62,9 @@ export const ItemRowEventProps = {
     type: Function,
   },
   onEditClick: {
+    type: Function,
+  },
+  onItemMove: {
     type: Function,
   },
 };

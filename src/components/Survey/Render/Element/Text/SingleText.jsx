@@ -1,4 +1,4 @@
-import { computed, defineComponent, unref } from "vue";
+import { computed, defineComponent, unref, ref, watch } from "vue";
 import QuestionContainer from "@survey/Render/components/QuestionContainer";
 import questionCommonProps from "@survey/Render/types/questionCommonProps";
 import { textTypeEnum } from "@survey/types/questionTypeEnum";
@@ -22,8 +22,15 @@ const SingleText = defineComponent({
 
     const editableIf = useEditableIf(question, values);
     const visibleIf = useVisibleIf(question, values);
-    const inputValue = useVModel(name);
+
+    const inputValue = useVModel(name, question.defaultExpression);
+
+    const inputValueRef = ref(inputValue.value);
+    watch(inputValue, (val) => {
+      inputValueRef.value = val || null;
+    });
     const questionIndex = useQuestionIndex(question);
+
     const readOnly = useReadOnly(props);
     const RenderComp = getRenderInput(inputType);
 
@@ -55,7 +62,7 @@ const SingleText = defineComponent({
     const renderInput = () => {
       return (
         <RenderComp
-          defaultValue={inputValue.value}
+          v-model:value={inputValueRef.value}
           disabled={unref(readOnly) || !unref(editableIf)}
           {...CompStaticProps.value}
         />

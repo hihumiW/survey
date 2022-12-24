@@ -3,6 +3,8 @@ import {
   EllipsisVertical,
   RemoveCircleOutline,
   PencilOutline,
+  ArrowUp,
+  ArrowDown,
 } from "@vicons/ionicons5";
 
 const ItemLayout = (props, { slots }) => {
@@ -24,11 +26,33 @@ const ItemLayout = (props, { slots }) => {
 
   return (
     <div class="flex items-center">
-      <div class="p-3 flex items-center cursor-move mr-1">
-        <NIcon size="20px" color="#909090">
-          <EllipsisVertical />
-        </NIcon>
-      </div>
+      <NButton
+        text
+        class="p-3"
+        onClick={() => props.onItemMove && props.onItemMove("up")}
+      >
+        {{
+          icon: () => (
+            <NIcon size="20px">
+              <ArrowUp />
+            </NIcon>
+          ),
+        }}
+      </NButton>
+      <NButton
+        text
+        class="p-3 mr-3"
+        onClick={() => props.onItemMove && props.onItemMove("down")}
+      >
+        {{
+          icon: () => (
+            <NIcon size="20px">
+              <ArrowDown />
+            </NIcon>
+          ),
+        }}
+      </NButton>
+
       {slots.default()}
       {props.onEditClick && (
         <NButton
@@ -56,6 +80,9 @@ ItemLayout.props = {
     type: Function,
   },
   onEditClick: {
+    type: Function,
+  },
+  onItemMove: {
     type: Function,
   },
 };

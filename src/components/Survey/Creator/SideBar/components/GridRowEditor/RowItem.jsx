@@ -5,7 +5,7 @@ const RowItem = (props) => {
     props.onItemRemove && props.onItemRemove(props.rowIndex, props.rowValue);
 
   return (
-    <ItemLayout onRemoveClick={handleRemoveClick}>
+    <ItemLayout onRemoveClick={handleRemoveClick} onItemMove={props.onItemMove}>
       <input
         type="text"
         class="survey-sideBar-itemRow_input"
@@ -24,6 +24,9 @@ RowItem.props = {
   rowIndex: {
     type: Number,
     required: true,
+  },
+  onItemMove: {
+    type: Function,
   },
   onItemRemove: Function,
 };

@@ -16,6 +16,7 @@ const ChoicesEditor = defineComponent({
       handleItemAdd,
       handleItemRemove,
       handleItemScoreChange,
+      handleItemMove,
     } = useChoices(currentActivePath);
 
     const showDetailIndex = ref();
@@ -55,6 +56,7 @@ const ChoicesEditor = defineComponent({
               onItemValueChange={handleItemValueChange}
               onItemRemove={handleItemRemove}
               onEditClick={props.showScore ? handleItemEdit : undefined}
+              onItemMove={(direction) => handleItemMove(choiceIndex, direction)}
             />
           ),
           detail: props.showScore

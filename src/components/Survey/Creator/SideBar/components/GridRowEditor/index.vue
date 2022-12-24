@@ -6,6 +6,7 @@
       :rowValue="row"
       :rowIndex="index"
       :onItemRemove="handleRowRemove"
+      :onItemMove="(direction) => handleRowMove(index, direction)"
     />
   </EditorLayout>
 </template>
@@ -21,5 +22,7 @@ import useGridEdit from "@survey/Creator/hooks/useGridEdit";
 const { currentActiveItem, currentActivePath } = useInjectCreator();
 
 const items = computed(() => unref(currentActiveItem)?.gridRows || []);
-const { handleRowAdd, handleRowRemove } = useGridEdit(currentActivePath);
+
+const { handleRowAdd, handleRowRemove, handleRowMove } =
+  useGridEdit(currentActivePath);
 </script>

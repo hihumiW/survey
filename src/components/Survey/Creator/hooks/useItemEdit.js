@@ -8,6 +8,7 @@ const useItemEdit = (eidtConfig) => {
     updateItemValue,
     addNewItem,
     removeItem,
+    moveItemIndex,
   } = useInjectCreator();
 
   if (!updateQuestionFieldValueByPath || !unref(itemsPathRef)) return {};
@@ -33,12 +34,17 @@ const useItemEdit = (eidtConfig) => {
     updateQuestionFieldValueByPath(scorePath, value);
   };
 
+  const handleItemMove = (itemIndex, direction) => {
+    moveItemIndex(unref(itemsPathRef), itemIndex, direction);
+  };
+
   return {
     handleTitleChange,
     handleItemValueChange,
     handleItemAdd,
     handleItemRemove,
     handleItemScoreChange,
+    handleItemMove,
   };
 };
 

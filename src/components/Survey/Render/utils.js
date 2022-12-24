@@ -13,7 +13,7 @@ export const excuteExpression = (expression, values) => {
 
     return Function("values", ` return ${transExpression}`)(values);
   } catch (error) {
-    console.log(error);
+    console.log(`输入的表达式${expression}有误：`, error);
     return undefined;
   }
 };

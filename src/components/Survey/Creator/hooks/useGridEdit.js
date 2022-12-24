@@ -13,6 +13,7 @@ const useGridEdit = (gridPathRef) => {
     getModelV,
     filterCellEmptyRows,
     filterCellsEmpty,
+    moveItemIndex,
   } = useInjectCreator();
   if (!updateQuestionFieldValueByPath || !unref(gridPathRef)) return {};
 
@@ -47,6 +48,10 @@ const useGridEdit = (gridPathRef) => {
     filterCellEmptyRows(cellsPath(), cells);
     filterCellsEmpty(cellsPath(), cells);
   };
+
+  const handleColumnMove = (index, direction) => {
+    moveItemIndex(columnPath(), index, direction);
+  };
   const handleColumnAdd = () =>
     addNewItem(`${columnPath()}`, "column", GridColumnGenerator);
 
@@ -55,6 +60,10 @@ const useGridEdit = (gridPathRef) => {
     const cells = getCells();
     syncCellRowPathRemove(cells, rowValue);
     filterCellsEmpty(cellsPath(), cells);
+  };
+
+  const handleRowMove = (index, direction) => {
+    moveItemIndex(rowPath(), index, direction);
   };
 
   const handleRowAdd = () =>
@@ -78,6 +87,8 @@ const useGridEdit = (gridPathRef) => {
     handleColumnAdd,
     handleRowRemove,
     handleRowAdd,
+    handleColumnMove,
+    handleRowMove,
     cellEditor,
   };
 };

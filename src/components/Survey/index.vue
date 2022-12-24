@@ -22,7 +22,7 @@
     <div
       id="sideBar"
       v-show="tabValue === 'designer' && showSideBar"
-      class="w-[400px] bg-white flex-shrink-0 box-border border-l border-neutral-300"
+      class="w-[440px] bg-white flex-shrink-0 box-border border-l border-neutral-300"
     />
   </div>
 </template>

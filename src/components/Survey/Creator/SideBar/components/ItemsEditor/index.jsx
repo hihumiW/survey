@@ -14,6 +14,9 @@ const ItemEditor = (props) => {
             onItemTitleChange={props.onItemTitleChange}
             onItemValueChange={props.onItemValueChange}
             onItemRemove={props.onItemRemove}
+            onItemMove={(direction) =>
+              props.onItemMove && props.onItemMove(index, direction)
+            }
           />
         ))
       ) : (

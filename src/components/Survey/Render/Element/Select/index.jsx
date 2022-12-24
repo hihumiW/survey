@@ -37,7 +37,7 @@ const Select = defineComponent({
     const readOnly = useReadOnly(props);
     const editableIf = useEditableIf(question, values);
     const visibleIf = useVisibleIf(question, values);
-    const selectValue = useVModel(name);
+    const selectValue = useVModel(name, question.defaultExpression);
     const otherTextValue = useVModel(getOtherTextValueFieldName(name));
     const questionIndex = useQuestionIndex(question);
 

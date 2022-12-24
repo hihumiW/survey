@@ -18,6 +18,7 @@ const MatrixColumnRowsItemEditor = defineComponent({
       handleItemValueChange,
       handleItemAdd,
       handleItemRemove,
+      handleItemMove,
     } = useItemEdit({
       itemsPathRef: `${unref(currentActivePath)}.${props.type}`,
       itemValueTemplate: templateName,
@@ -57,6 +58,7 @@ const MatrixColumnRowsItemEditor = defineComponent({
           onItemValueChange={handleItemValueChange}
           onItemRemove={handleItemRemove}
           onEditClick={handleItemEdit.value}
+          onItemMove={(direction) => handleItemMove(itemIndex, direction)}
         />
       );
     };

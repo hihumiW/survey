@@ -12,8 +12,24 @@
     <template #footer>
       <div class="flex justify-between items-center">
         <span>{{ questionTypeName }}</span>
-        <div class="flex">
+        <div class="flex gap-x-3">
           <!-- <NButton strong secondary round type="warning"> Duplicate </NButton> -->
+          <NButton
+            strong
+            secondary
+            round
+            @click="handleQuestionIndexMove('up')"
+          >
+            上移
+          </NButton>
+          <NButton
+            strong
+            secondary
+            round
+            @click="handleQuestionIndexMove('down')"
+          >
+            下移
+          </NButton>
           <NButton
             strong
             secondary
@@ -21,7 +37,7 @@
             type="error"
             @click="handleDeleteItemClick"
           >
-            Delete
+            删除
           </NButton>
         </div>
       </div>
@@ -45,10 +61,17 @@ import questionTypes from "../ToolBox/questionTypes";
 import questionCommonProps from "@survey/Creator/util/questionCommonProps";
 import QuestionTypeEnum from "@survey/types/questionTypeEnum";
 
-const props = defineProps(questionCommonProps);
+const props = defineProps({
+  ...questionCommonProps,
+  panelPath: String,
+});
 
-const { removeItem, currentActiveItem, onQuestionItemClick } =
-  useInjectCreator();
+const {
+  removeItem,
+  currentActiveItem,
+  onQuestionItemClick,
+  moveQuestionIndex,
+} = useInjectCreator();
 
 const isActive = computed(() => unref(currentActiveItem) === props.question);
 
@@ -61,6 +84,9 @@ const handleDeleteItemClick = () => removeItem(props.path, props.question.name);
 const questionTypeName = computed(
   () => questionTypes.find((item) => item.type === props.question.type)?.name
 );
+
+const handleQuestionIndexMove = (forward) =>
+  moveQuestionIndex(props.question.name, forward, props.panelPath);
 
 const RenderComponent = computed(() => {
   switch (props.question.type) {

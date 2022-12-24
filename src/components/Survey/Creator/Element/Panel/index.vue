@@ -12,6 +12,7 @@
         :key="childQuestion.name"
         :question="childQuestion"
         :path="getChildQuestionPath(index)"
+        :panelPath="path"
       />
     </PanelContainer>
 

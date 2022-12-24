@@ -9,6 +9,7 @@
       :onItemValueChange="handleColumnValueChange"
       :onItemRemove="handleColumnRemove"
       :onEditClick="handleEditClick"
+      :onItemMove="(direction) => handleColumnMove(index, direction)"
     />
   </EditorLayout>
 </template>
@@ -36,5 +37,6 @@ const {
   handleColumnValueChange,
   handleColumnRemove,
   handleColumnAdd,
+  handleColumnMove,
 } = useGridEdit(currentActivePath);
 </script>
