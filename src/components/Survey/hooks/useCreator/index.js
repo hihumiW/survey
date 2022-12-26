@@ -276,7 +276,7 @@ const useCreator = (defaultData = {}) => {
       index = questions.findIndex((question) => question.name === name);
       if (index === -1) return;
       if (forward === "up" && index === 0) return;
-      if (forward === "down" && index === questions.length) return;
+      if (forward === "down" && index === questions.length - 1) return;
       const index2 = forward === "up" ? index - 1 : index + 1;
       const temp = questions[index2];
       questions[index2] = questions[index];

@@ -25,6 +25,7 @@ import {
   InputTypeEditor,
   NumberPrecisionEditor,
   MaximumLengthEditor,
+  ProvinceSelector,
 } from "./textConfig";
 
 import { DropdownPlaceholder } from "./selectConfig";
@@ -82,6 +83,13 @@ const GridNumberPrecisionEditor = generateConditionComp(
   "GridNumberPrecisionEditor",
   [isInputCell]
 );
+const GridProvinceSelectEditor = generateConditionComp(
+  ProvinceSelector,
+  undefined,
+  "GridProvinceSelectEditor",
+  [isInputCell]
+);
+
 const GridMaximumLengthEditor = generateConditionComp(
   MaximumLengthEditor,
   undefined,
@@ -155,6 +163,7 @@ export const gridCellConfig = ({
         GridPlaceHolderEditor,
         GridNumberPrecisionEditor,
         GridMaximumLengthEditor,
+        GridProvinceSelectEditor,
       ],
     },
   ];

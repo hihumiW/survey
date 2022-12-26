@@ -2,7 +2,7 @@
   <div class="h-full flex">
     <div class="flex flex-col flex-1 min-w-0">
       <div
-        class="h-[52px] flex-shrink-0 bg-white border-b border-neutral-300 flex survey-top-bar"
+        class="h-[52px] flex-shrink-0 bg-white border-b border-neutral-300 flex survey-top-bar dark:bg-black dark:border-neutral-700"
       >
         <NTabs type="bar" size="large" v-model:value="tabValue">
           <NTabPane name="designer" tab="Designer" />
@@ -22,7 +22,7 @@
     <div
       id="sideBar"
       v-show="tabValue === 'designer' && showSideBar"
-      class="w-[440px] bg-white flex-shrink-0 box-border border-l border-neutral-300"
+      class="w-[440px] bg-white flex-shrink-0 box-border border-l border-neutral-300 dark:bg-black dark:border-neutral-700"
     />
   </div>
 </template>

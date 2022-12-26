@@ -12,18 +12,33 @@ import useEditableIf from "@survey/Render/hooks/useEditableIf";
 import useVModel from "@survey/Render/hooks/useVModel";
 import useReadOnly from "@survey/Render/hooks/useReadOnly";
 import { useQuestionIndex } from "@survey/hooks/useQuestionIndex";
+import useProvinceCity, {
+  useAvaliableProvinceCity,
+} from "@/hooks/useProvinceCity";
+import { NButton } from "naive-ui";
 
 const SingleText = defineComponent({
   props: questionCommonProps,
   setup(props) {
     const { question, values, touched, errors } = props;
 
-    const { name, inputType, inputVariant } = question;
+    const { name, inputType, inputVariant, avaliableProvinceOptions } =
+      question;
 
     const editableIf = useEditableIf(question, values);
     const visibleIf = useVisibleIf(question, values);
 
     const inputValue = useVModel(name, question.defaultExpression);
+
+    const { province, isProvinceLoading, provinceError, provinceRefecth } =
+      useProvinceCity(
+        computed(() => props.question.inputType === textTypeEnum.provinceCity)
+      );
+
+    const avaliableProvinceData = useAvaliableProvinceCity(
+      province,
+      avaliableProvinceOptions
+    );
 
     const inputValueRef = ref(inputValue.value);
     watch(inputValue, (val) => {
@@ -52,6 +67,13 @@ const SingleText = defineComponent({
           //输入框 仅仅在blur时同步values的值
           Props.onBlur = handleInputBlur;
           return Props;
+        case textTypeEnum.provinceCity:
+          Props.valueField = "dictId";
+          Props.labelField = "name";
+          Props.filterable = true;
+          Props.options = unref(avaliableProvinceData);
+          Props["onUpdate:value"] = handleValueChange;
+          return Props;
         default:
           //其他的input类型 在change时同步values的值
           Props["onUpdate:value"] = handleValueChange;
@@ -60,6 +82,18 @@ const SingleText = defineComponent({
     });
 
     const renderInput = () => {
+      if (unref(isProvinceLoading)) {
+        return <p>获取省市数据中...</p>;
+      }
+      if (unref(provinceError)) {
+        return (
+          <div class="text-center">
+            <NButton onClick={() => unref(provinceRefecth)()} type="error">
+              省市数据获取失败, 重新获取
+            </NButton>
+          </div>
+        );
+      }
       return (
         <RenderComp
           v-model:value={inputValueRef.value}

@@ -16,7 +16,7 @@ const Category = (props) => {
               name={categoryName}
             >
               {components?.length ? (
-                <div class="bg-neutral-100 p-6">
+                <div class="bg-neutral-100 p-6 dark:bg-neutral-800">
                   <div class="flex flex-col gap-y-6">
                     {components.map((Comp) => {
                       return <Comp key={Comp.name} />;

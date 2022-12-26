@@ -1,3 +1,13 @@
 .survey-list-page .n-form-item-feedback-wrapper {
   display: none;
 }
+
+.survey-list-page .survey-panel {
+  @apply bg-white  dark:bg-black;
+  @apply border-neutral-300  dark:border-neutral-700 border;
+  @apply p-3 rounded-md;
+}
+
+.survey-list-page .survey-panel-title {
+  @apply font-bold text-black dark:text-white;
+}

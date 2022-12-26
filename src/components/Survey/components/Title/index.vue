@@ -40,17 +40,3 @@ const handleTitleBlur = (e) => {
   emit("update:value", inputText);
 };
 </script>
-
-<style scoped>
-.survey-title:empty::before {
-  content: attr(aria-placeholder);
-  color: #909090;
-}
-.survey-title:focus {
-  color: #161616;
-  outline-color: #18a058;
-}
-.survey-title.editable:not(:focus):hover {
-  background-color: rgba(24, 160, 88, 0.12);
-}
-</style>

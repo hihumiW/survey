@@ -17,7 +17,7 @@ const Survey = defineComponent({
         return null;
       }
       return (
-        <div class="bg-neutral-100 p-4">
+        <div class="bg-neutral-100 p-4 dark:bg-neutral-800">
           <NButton onClick={() => router.back()}>Back</NButton>
         </div>
       );
@@ -25,12 +25,13 @@ const Survey = defineComponent({
 
     return () => {
       if (!props.data) return;
-      const key = `Survey_${route.params.formId}`;
+      const formId = route.params.formId;
+      const key = `Survey_${formId}`;
       return (
         <div class="h-full flex flex-col">
           {renderBackButton()}
 
-          <RenderSurvey key={key} survey={props.data} />
+          <RenderSurvey key={key} survey={props.data} formId={formId} />
         </div>
       );
     };

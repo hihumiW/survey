@@ -1,5 +1,4 @@
 import { inject, provide, ref, watch, onUnmounted, unref } from "vue";
-import QuestionTypeEnum from "@survey/types/questionTypeEnum";
 import objectPath from "object-path";
 
 const valuesInjectionKey = Symbol("values");
@@ -8,6 +7,8 @@ export const useValuesInit = (config) => {
   const values = ref({
     ...(config.defaultValue || {}),
   });
+
+  window.cc = values;
   const errors = ref(null);
   const touched = ref({});
 
@@ -122,17 +123,4 @@ export const useValuesInit = (config) => {
 
 export const useValues = () => {
   return inject(valuesInjectionKey, () => ({}));
-};
-
-const forEachQuestions = (questions, fn) => {
-  if (!questions.length || !fn) return;
-  questions.forEach((question) => {
-    fn(question);
-    if (
-      question.type === QuestionTypeEnum.panel &&
-      question.questions?.length
-    ) {
-      forEachQuestions(question.questions, fn);
-    }
-  });
 };

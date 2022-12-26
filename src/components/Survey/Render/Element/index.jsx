@@ -5,6 +5,7 @@ import Select from "./Select";
 import Panel from "./Panel";
 import Matrix from "./Grid/Matrix";
 import Grid from "./Grid";
+import File from "./File";
 
 const SurveyRenderElementDispatch = (props) => {
   return props.questions.map((question) => (
@@ -15,6 +16,7 @@ const SurveyRenderElementDispatch = (props) => {
       errors={props.errors}
       touched={props.touched}
       readOnly={props.readOnly}
+      formId={props.formId}
     />
   ));
 };
@@ -37,6 +39,9 @@ SurveyRenderElementDispatch.props = {
   readOnly: {
     type: Boolean,
   },
+  formId: {
+    type: String,
+  },
 };
 
 const SurveyElement = (props) => {
@@ -56,6 +61,8 @@ const SurveyElement = (props) => {
       return <Matrix {...props} />;
     case QuestionTypeEnum.grid:
       return <Grid {...props} />;
+    case QuestionTypeEnum.file:
+      return <File {...props} />;
     default:
       return null;
   }

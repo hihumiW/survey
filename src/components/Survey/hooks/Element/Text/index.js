@@ -4,6 +4,7 @@ import {
   NTimePicker,
   NDatePicker,
   NSelect,
+  NCascader,
 } from "naive-ui";
 import { textTypeEnum } from "@survey/types/questionTypeEnum";
 
@@ -29,7 +30,7 @@ export const getRenderInput = (inputType) => {
     case "date":
       return NDatePicker;
     case "provinceCity":
-      return NSelect;
+      return NCascader;
     default:
       return NInput;
   }

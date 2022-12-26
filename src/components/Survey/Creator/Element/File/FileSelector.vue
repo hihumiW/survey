@@ -1,18 +1,13 @@
 <template>
-  <div
-    class="border-dashed border p-3 h-[200px] flex items-center justify-center"
-  >
-    <NButton quaternary strong :disabled="props.disabeld">
-      Choose file
-    </NButton>
-  </div>
+  <NUpload disabled>
+    <NUploadDragger class="survey-upload">
+      <FileContainer :theme="osThemeRef" />
+    </NUploadDragger>
+  </NUpload>
 </template>
 
 <script setup>
-import { NButton } from "naive-ui";
-const props = defineProps({
-  disabeld: {
-    type: Boolean,
-  },
-});
+import { NUploadDragger, NUpload, useOsTheme } from "naive-ui";
+import FileContainer from "@survey/components/FileContainer";
+const osThemeRef = useOsTheme();
 </script>

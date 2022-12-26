@@ -10,7 +10,7 @@ const ReadOnlySurvey = defineComponent({
     values: Object,
   },
   setup(props) {
-    // const { query, params } = useRoute();
+    const route = useRoute();
 
     return () => {
       return (
@@ -19,6 +19,7 @@ const ReadOnlySurvey = defineComponent({
             survey={props.survey}
             defaultValue={props.values.answerMap}
             readOnly
+            formId={route.params.formId}
           />
         </div>
       );

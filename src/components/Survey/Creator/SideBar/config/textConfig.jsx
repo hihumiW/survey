@@ -1,6 +1,7 @@
 import { unref } from "vue";
 import generateConditionComp from "./generateValueBinder";
 import InputBinder from "../components/ValueBinder/Input.vue";
+import ProvinceSelect from "../components/ProvinceSelect";
 import SelectBinder from "../components/ValueBinder/Select.vue";
 import RadioBinder from "../components/ValueBinder/Radio.vue";
 import { textTypeEnum } from "@survey/types/questionTypeEnum";
@@ -34,11 +35,15 @@ const isTextOrNumberInputType = generateVisibleInputConditon([
   textTypeEnum.number,
 ]);
 
+const isProvinceInputType = generateVisibleInputConditon([
+  textTypeEnum.provinceCity,
+]);
+
 //文本Placeholder的组件
 export const PlaceHolderEditor = generateConditionComp(
   InputBinder,
   {
-    title: "Input area placeholder",
+    title: "输入框占位符",
     bindName: "placeholder",
     defaultValue: "",
   },
@@ -66,7 +71,7 @@ const MinimumLengthEditor = generateConditionComp(
 export const MaximumLengthEditor = generateConditionComp(
   InputBinder,
   {
-    title: "Maximum length",
+    title: "输入的最大长度",
     bindName: "maxLength",
     type: "number",
     inputProps: {
@@ -83,28 +88,28 @@ export const MaximumLengthEditor = generateConditionComp(
 export const InputTypeEditor = (
   <SelectBinder
     {...{
-      title: "Input type",
+      title: "输入类型",
       bindName: "inputType",
       emptySelectedValue: "text",
       options: [
         {
-          label: "text",
+          label: "文本",
           value: textTypeEnum.text,
         },
         {
-          label: "number",
+          label: "数字",
           value: textTypeEnum.number,
         },
         {
-          label: "date",
+          label: "日期",
           value: textTypeEnum.date,
         },
         {
-          label: "time",
+          label: "时间",
           value: textTypeEnum.time,
         },
         {
-          label: "provinceCity",
+          label: "省市选择",
           value: textTypeEnum.provinceCity,
         },
       ],
@@ -115,15 +120,15 @@ export const InputTypeEditor = (
 const InputVariantEditor = (
   <RadioBinder
     {...{
-      title: "Input variant",
+      title: "输入框变体",
       bindName: "inputVariant",
       options: [
         {
-          label: "Outlined",
+          label: "边框",
           value: "outlined",
         },
         {
-          label: "Standard",
+          label: "标准",
           value: "standard",
         },
       ],
@@ -134,27 +139,27 @@ const InputVariantEditor = (
 export const NumberPrecisionEditor = generateConditionComp(
   RadioBinder,
   {
-    title: "Precision of input value",
+    title: "输入的精度",
     bindName: "precision",
     options: [
       {
-        label: "Free",
+        label: "无限制",
         value: -1,
       },
       {
-        label: "Integrate",
+        label: "整数",
         value: 1,
       },
       {
-        label: "1",
+        label: "保留1位",
         value: 2,
       },
       {
-        label: "2",
+        label: "保留2位",
         value: 3,
       },
       {
-        label: "3",
+        label: "保留3位",
         value: 4,
       },
     ],
@@ -163,9 +168,18 @@ export const NumberPrecisionEditor = generateConditionComp(
   isNumberInputType
 );
 
+export const ProvinceSelector = generateConditionComp(
+  ProvinceSelect,
+  {
+    title: "可用的省市",
+  },
+  "ProvinceSelector",
+  isProvinceInputType
+);
+
 export default [
   {
-    categoryName: "General",
+    categoryName: "通用",
     categoryTitle: "General",
     components: [
       NameEditor,
@@ -177,10 +191,11 @@ export default [
       NumberPrecisionEditor,
       // MinimumLengthEditor,
       MaximumLengthEditor,
+      ProvinceSelector,
     ],
   },
   {
-    categoryName: "Layout",
+    categoryName: "布局",
     categoryTitle: "Layout",
     components: [
       TitleLocatioEditor,
@@ -190,7 +205,7 @@ export default [
     ],
   },
   {
-    categoryName: "Logic",
+    categoryName: "逻辑",
     categoryTitle: "Logic",
     components: [
       VisibleIfEditor,

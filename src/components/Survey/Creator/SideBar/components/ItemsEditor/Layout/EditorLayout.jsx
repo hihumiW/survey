@@ -27,7 +27,9 @@ const ItemEditor = (props, { slots }) => {
       </div>
     ),
     default: () => (
-      <div class="border-neutral-200 border bg-white">{slots.default()}</div>
+      <div class="border-neutral-200 border bg-white dark:bg-neutral-700 dark:border-neutral-800">
+        {slots.default()}
+      </div>
     ),
   };
 

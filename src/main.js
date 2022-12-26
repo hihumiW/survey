@@ -1,5 +1,11 @@
-import { createApp, h } from "vue";
-import { NMessageProvider } from "naive-ui";
+import { createApp, defineComponent, computed, h } from "vue";
+import {
+  NConfigProvider,
+  useOsTheme,
+  darkTheme,
+  NMessageProvider,
+  NDialogProvider,
+} from "naive-ui";
 import { VueQueryPlugin } from "vue-query";
 
 import "./style.css";
@@ -7,9 +13,18 @@ import router from "./router";
 import App from "./App.vue";
 import "vfonts/Lato.css";
 
-const AppWrapper = () => {
-  return h(NMessageProvider, () => [h(App)]);
-};
+const AppWrapper = defineComponent({
+  setup() {
+    const osThemeRef = useOsTheme();
+    const theme = computed(() =>
+      osThemeRef.value === "dark" ? darkTheme : null
+    );
+    return () =>
+      h(NConfigProvider, { theme: theme.value }, () =>
+        h(NMessageProvider, () => h(NDialogProvider, () => [h(App)]))
+      );
+  },
+});
 
 const render = (props = {}) => {
   const { container } = props;

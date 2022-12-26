@@ -28,7 +28,7 @@ const SurveyList = defineComponent({
     };
 
     const defaultQueryCondition = {
-      categoryId: "",
+      categoryId: undefined,
       creatorName: "",
       name: "",
       page: 0,
@@ -38,6 +38,7 @@ const SurveyList = defineComponent({
     const { originalValue, copyValue, syncValue } = useCopyValue(
       defaultQueryCondition
     );
+
     const { data: formTypes } = useFormTypes();
 
     const tableColumnDef = [
@@ -172,12 +173,10 @@ const SurveyList = defineComponent({
 
     return () => {
       return (
-        <div class="min-h-full bg bg-neutral-100 p-6 flex flex-col">
+        <div class="min-h-full bg bg-neutral-100 p-6 flex flex-col dark:bg-neutral-900">
           <div class="survey-list-page flex-1 min-w-[1360px] max-w-[1440px] mx-auto flex flex-col gap-y-4">
-            <div class="border border-neutral-300 bg-white rounded-md ">
-              <div class="px-3 py-3 border-b border-neutral-300 text-black font-bold">
-                数据筛选
-              </div>
+            <div class="survey-panel ">
+              <div class="survey-panel-title ">数据筛选</div>
               <div class="px-3 py-3 my-3 ">
                 <NForm inline label-placement="left" labelWidth={80}>
                   <NGrid cols={4} xGap={12} yGap={8}>
@@ -215,9 +214,9 @@ const SurveyList = defineComponent({
                 </NForm>
               </div>
             </div>
-            <div class="border border-neutral-300 flex-1 p-3 bg-white rounded-md">
+            <div class="survey-panel">
               <div class="flex items-center justify-between">
-                <p class="text-black font-bold">数据列表</p>
+                <p class="font-bold">数据列表</p>
                 <NButton onClick={handleNewCRFClick}>新建CRF</NButton>
               </div>
               <div class="p-3">

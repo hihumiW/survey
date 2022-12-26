@@ -38,3 +38,11 @@ export const queryFormAnswer = (data) =>
     method: "post",
     body: JSON.stringify(data),
   });
+
+export const queryProvinceCity = () =>
+  fetchQuery("/ctms/api/crf/dict/get/CrfDict", {
+    method: "post",
+    body: JSON.stringify({
+      type: 1,
+    }),
+  });

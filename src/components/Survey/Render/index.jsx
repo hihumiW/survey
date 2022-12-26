@@ -15,6 +15,7 @@ const SurveyRender = defineComponent({
       defaultValue,
       survey: { title, description, questions, categoryId },
       readOnly,
+      formId,
     } = props;
 
     useQuestionSequenceInit(questions);
@@ -55,6 +56,7 @@ const SurveyRender = defineComponent({
       return (
         <SurveyRenderElementDispatch
           questions={questions}
+          formId={formId}
           values={values}
           touched={touched}
           errors={errors}
@@ -76,7 +78,7 @@ const SurveyRender = defineComponent({
 
     return () => {
       return (
-        <div class="flex-grow bg-neutral-100 flex flex-col">
+        <div class="flex-grow bg-neutral-100 flex flex-col dark:bg-neutral-800">
           <SurveyContainer questions={questions}>
             {{
               title: renderTitle,
@@ -105,6 +107,9 @@ SurveyRender.props = {
   },
   onSurveySubmit: {
     type: Function,
+  },
+  formId: {
+    type: String,
   },
 };
 

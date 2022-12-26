@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col p-3 text-sm text-neutral-600">
+  <div class="flex flex-col p-3 text-sm text-neutral-600 dark:text-neutral-300">
     <div
-      class="flex items-center p-3 rounded-3xl cursor-pointer hover:bg-white"
+      class="flex items-center p-3 rounded-3xl cursor-pointer transition-colors hover:bg-white hover:dark:bg-black"
       v-for="{ name, type } in questionTypes"
       :key="type"
       @click="handleItemClick(type)"

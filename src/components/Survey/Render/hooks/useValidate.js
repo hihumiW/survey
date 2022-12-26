@@ -7,9 +7,12 @@ import QuestionTypeEnum, {
 const useValidate = (questions) => {
   const getTextScheme = (inputType) => {
     if (
-      [textTypeEnum.number, textTypeEnum.date, textTypeEnum.time].includes(
-        inputType
-      )
+      [
+        textTypeEnum.number,
+        textTypeEnum.date,
+        textTypeEnum.time,
+        textTypeEnum.provinceCity,
+      ].includes(inputType)
     ) {
       return getNumberSchema();
     }
@@ -87,6 +90,8 @@ const useValidate = (questions) => {
         return getMatrixSchema(question);
       case QuestionTypeEnum.grid:
         return getGridSchema(question);
+      case QuestionTypeEnum.file:
+        return getArraySchema();
       default:
         break;
     }
