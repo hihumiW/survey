@@ -73,7 +73,7 @@ const handleSave = () => {
       }
     })
     .catch((e) => {
-      window.$message.error(`保存失败${e.$message}`);
+      window.$message.error(`保存失败 ${e}`);
     });
 };
 const handleCancel = () => {

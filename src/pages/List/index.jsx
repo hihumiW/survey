@@ -13,7 +13,7 @@ import {
   NPopconfirm,
 } from "naive-ui";
 import { useMutation, useQuery, useQueryClient } from "vue-query";
-import { queryFormList, deleteForm, copyForm } from "@/api";
+import { queryFormList, deleteForm } from "@/api";
 import useFormTypes from "@survey/hooks/useFormTypes";
 import useCopyValue from "@/hooks/useCopyValue";
 import "./index.css";
