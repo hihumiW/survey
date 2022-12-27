@@ -41,7 +41,7 @@ const isControlled = computed(() => !!props.emptySelectedValue);
 const { binderValue, handleValueChange } = useBinder(props.bindName);
 
 const controlledValue = ref();
-const placeholder = computed(() => `Please select ${props.title}`);
+const placeholder = computed(() => `请选择${props.title}`);
 
 const selectValue = computed(() =>
   unref(isControlled) ? unref(controlledValue) : unref(binderValue)

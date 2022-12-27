@@ -15,7 +15,7 @@ import {
 const FileAcceptedTypesEditor = () => (
   <SelectBinder
     {...{
-      title: "Accepted file types",
+      title: "接受的文件类型",
       bindName: "acceptedTypes",
       options: fileTypeOptions,
       selectProps: {
@@ -29,7 +29,7 @@ const FileAcceptedTypesEditor = () => (
 const MaxFileCount = () => (
   <SelectBinder
     {...{
-      title: "Maximum number of file",
+      title: "最大文件数量",
       bindName: "maxNumber",
       options: Array(10)
         .fill(undefined)
@@ -47,7 +47,7 @@ const MaxFileCount = () => (
 const FileMaxSizeEditor = () => (
   <InputBinder
     {...{
-      title: "Maximum file size (in bytes)",
+      title: "最大文件总大小 (in bytes)",
       bindName: "maxSize",
       type: "number",
       inputProps: {
@@ -59,8 +59,8 @@ const FileMaxSizeEditor = () => (
 
 export default [
   {
+    categoryTitle: "通用",
     categoryName: "General",
-    categoryTitle: "General",
     components: [
       NameEditor,
       TitleEditor,
@@ -71,13 +71,13 @@ export default [
     ],
   },
   {
+    categoryTitle: "布局",
     categoryName: "Layout",
-    categoryTitle: "Layout",
     components: [TitleLocatioEditor, IndentEditor, ShowQuestionNumberEditor],
   },
   {
+    categoryTitle: "逻辑",
     categoryName: "Logic",
-    categoryTitle: "Logic",
     components: [VisibleIfEditor, EditableIfEditor],
   },
 ];

@@ -8,7 +8,7 @@ const getQuestionDefaultConfig = (questionType, isSubNode) => {
   switch (questionType) {
     case questionTypeEnum.text:
       return {
-        inputType: "time",
+        inputType: textTypeEnum.text,
         inputVariant: "outlined",
         precision: -1,
         ...getCommonDefault(isSubNode),

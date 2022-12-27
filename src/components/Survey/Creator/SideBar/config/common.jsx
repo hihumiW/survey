@@ -10,7 +10,7 @@ export { default as NameEditor } from "../components/Name/index.vue";
 export const TitleEditor = () => (
   <InputBinder
     {...{
-      title: "Title",
+      title: "题目标题",
       bindName: "title",
       type: "textarea",
     }}
@@ -21,7 +21,7 @@ export const TitleEditor = () => (
 export const DescriptionEditor = () => (
   <InputBinder
     {...{
-      title: "Description",
+      title: "描述",
       bindName: "description",
       type: "textarea",
     }}
@@ -31,7 +31,7 @@ export const DescriptionEditor = () => (
 export const IsRequiredEditor = () => (
   <BooleanBinder
     {...{
-      title: "Required",
+      title: "必填",
       bindName: "isRequired",
     }}
   />
@@ -41,7 +41,7 @@ export const IsRequiredEditor = () => (
 export const ReadOnlyEditor = () => (
   <BooleanBinder
     {...{
-      title: "Readonly",
+      title: "只读",
       bindName: "readOnly",
     }}
   />
@@ -50,7 +50,7 @@ export const ReadOnlyEditor = () => (
 export const ShowQuestionNumberEditor = () => (
   <BooleanBinder
     {...{
-      title: "Show question number",
+      title: "显示题目序号",
       bindName: "showQuestionNumber",
     }}
   />
@@ -62,22 +62,22 @@ export const TitleLocatioEditor = generateValueBinder(
     const isSubNode = unref(currentActivePath).split(".")?.length > 1;
     const options = [
       {
-        label: "Top",
+        label: "顶部",
         value: "top",
       },
       {
-        label: "Left",
+        label: "左侧",
         value: "left",
       },
     ];
     if (isSubNode) {
       options.unshift({
-        label: "Inherit",
+        label: "继承自父级",
         value: "inherit",
       });
     }
     return {
-      title: "Title location",
+      title: "标题位置",
       bindName: "titleLocation",
       options,
       emptySelectedValue: "top",
@@ -89,7 +89,7 @@ export const TitleLocatioEditor = generateValueBinder(
 export const IndentEditor = () => (
   <RadioBinder
     {...{
-      title: "Add indent",
+      title: "题目缩进",
       bindName: "indent",
       options: [
         {
@@ -117,7 +117,7 @@ export const IndentEditor = () => (
 export const VisibleIfEditor = () => (
   <InputBinder
     {...{
-      title: "Visible if",
+      title: "显示条件",
       bindName: "visibleIf",
       type: "textarea",
     }}
@@ -127,7 +127,7 @@ export const VisibleIfEditor = () => (
 export const EditableIfEditor = () => (
   <InputBinder
     {...{
-      title: "Editable if",
+      title: "可编辑条件",
       bindName: "editableIf",
       type: "textarea",
     }}
@@ -137,7 +137,7 @@ export const EditableIfEditor = () => (
 export const RequiredIfEditor = () => (
   <InputBinder
     {...{
-      title: "Required if",
+      title: "必填条件",
       bindName: "requiredIf",
       type: "textarea",
     }}
@@ -147,7 +147,7 @@ export const RequiredIfEditor = () => (
 export const DefaultValueExpressionEditor = () => (
   <InputBinder
     {...{
-      title: "Default value expression",
+      title: "默认值表达式",
       bindName: "defaultExpression",
       type: "textarea",
     }}

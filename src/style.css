@@ -30,8 +30,12 @@ body,
 .n-config-provider {
   height: 100%;
 }
+.survey-app {
+  overflow-y: auto;
+}
 
-.survey-app input .survey-app select {
+.survey-app input,
+.survey-app select {
   border: none !important;
 }
 

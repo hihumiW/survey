@@ -1,5 +1,5 @@
 <template>
-  <Vertical title="name">
+  <Vertical title="Name">
     <NInput v-model:value="nameValue" @blur="handleBlur" size="large" />
   </Vertical>
 </template>

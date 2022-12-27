@@ -1,14 +1,17 @@
 import { useRoute } from "vue-router";
 import { useQuery } from "vue-query";
 import { queryFormDetail } from "@/api";
-import { computed } from "vue";
+import { computed, unref } from "vue";
 
 const usePageSurvey = () => {
   const route = useRoute();
+  const formId = computed(() => {
+    return route.params.formId || route.query.copyFormId;
+  });
   return useQuery({
-    queryKey: ["formDetail", route.params.formId],
-    queryFn: () => queryFormDetail(route.params.formId),
-    enabled: computed(() => !!route.params.formId),
+    queryKey: ["formDetail", formId],
+    queryFn: () => queryFormDetail(unref(formId)),
+    enabled: computed(() => !!unref(formId)),
     cacheTime: 0,
   });
 };

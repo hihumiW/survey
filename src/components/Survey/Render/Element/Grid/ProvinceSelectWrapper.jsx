@@ -1,21 +1,28 @@
 import { defineComponent } from "vue";
 import { useAvaliableProvinceCity } from "@/hooks/useProvinceCity";
 
-const ProvinceWrapper = defineComponent({
-  props: ["avaliableProvinceOptions ", "provinceData"],
+const ProvinceSelectWrapper = defineComponent({
+  props: {
+    avaliableProvinceOptions: {
+      type: Array,
+    },
+    provinceData: {
+      type: Array,
+    },
+  },
   setup(props, { slots }) {
     const avaliableProvinceData = useAvaliableProvinceCity(
       props.provinceData,
       props.avaliableProvinceOptions
     );
     return () => (
-      <template>
+      <div class="survey-grid-province-wrapper">
         {{
           default: () => slots.default && slots.default(avaliableProvinceData),
         }}
-      </template>
+      </div>
     );
   },
 });
 
-export default ProvinceWrapper;
+export default ProvinceSelectWrapper;

@@ -2,47 +2,47 @@ import QuestionTypeEnum from "@survey/types/questionTypeEnum";
 
 export default [
   {
-    name: "Radio Group",
+    name: "单选",
     type: QuestionTypeEnum.radiogroup,
   },
   {
-    name: "Single Text",
+    name: "输入框",
     type: QuestionTypeEnum.text,
   },
   {
-    name: "Checkbox",
+    name: "多选",
     type: QuestionTypeEnum.checkbox,
   },
   {
-    name: "Dropdown",
+    name: "下拉选择",
     type: QuestionTypeEnum.dropdown,
   },
   {
-    name: "File",
+    name: "文件上传",
     type: QuestionTypeEnum.file,
   },
   {
-    name: "Panel",
+    name: "面板",
     type: QuestionTypeEnum.panel,
   },
   {
-    name: "MatrixRadio",
+    name: "矩阵单选",
     type: QuestionTypeEnum.matrixradio,
   },
   {
-    name: "MatrixCheckbox",
+    name: "矩阵多选",
     type: QuestionTypeEnum.matrixcheckbox,
   },
   {
-    name: "MatrixDropdown",
+    name: "矩阵下拉选择",
     type: QuestionTypeEnum.matrixdropdown,
   },
   {
-    name: "MatrixInput",
+    name: "矩阵输入",
     type: QuestionTypeEnum.matrixinput,
   },
   {
-    name: "Grid",
+    name: "表格",
     type: QuestionTypeEnum.grid,
   },
 ];

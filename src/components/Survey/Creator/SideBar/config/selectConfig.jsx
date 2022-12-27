@@ -22,15 +22,15 @@ import {
 const ChoicesOrientationEditor = () => (
   <RadioBinder
     {...{
-      title: "Choice orientation",
+      title: "选项方向",
       bindName: "orientation",
       options: [
         {
-          label: "Vertical",
+          label: "垂直",
           value: "vertical",
         },
         {
-          label: "Horizontal",
+          label: "水平",
           value: "horizontal",
         },
       ],
@@ -41,7 +41,7 @@ const ChoicesOrientationEditor = () => (
 const EnableOtherOptionEditor = () => (
   <BooleanBinder
     {...{
-      title: "Enable other option (describe)",
+      title: "启用其他选项 (描述)",
       bindName: "showOtherItem",
     }}
   />
@@ -50,7 +50,7 @@ const EnableOtherOptionEditor = () => (
 const OtherOptionTextEditor = generateValueBinder(
   InputBinder,
   {
-    title: "Other option text",
+    title: "其他选项文本",
     bindName: "otherText",
   },
   "OtherOptionTextEditor",
@@ -60,7 +60,7 @@ const OtherOptionTextEditor = generateValueBinder(
 const OtherOptionPlaceholder = generateValueBinder(
   InputBinder,
   {
-    title: "Other placeholder",
+    title: "其他选项描述占位符",
     bindName: "otherPlaceholder",
   },
   "OtherOptionPlaceholder",
@@ -83,13 +83,13 @@ const DropDownPlaceholderEditor = generateConditionComp(
 
 export default [
   {
+    categoryTitle: "通用",
     categoryName: "General",
-    categoryTitle: "General",
     components: [NameEditor, TitleEditor, IsRequiredEditor, ReadOnlyEditor],
   },
   {
+    categoryTitle: "选项",
     categoryName: "Choices",
-    categoryTitle: "Choices",
     components: [
       () => <ChoicesEditor showScore />,
       DropDownPlaceholderEditor,
@@ -99,8 +99,8 @@ export default [
     ],
   },
   {
+    categoryTitle: "布局",
     categoryName: "Layout",
-    categoryTitle: "Layout",
     components: [
       TitleLocatioEditor,
       IndentEditor,
@@ -109,8 +109,8 @@ export default [
     ],
   },
   {
+    categoryTitle: "逻辑",
     categoryName: "Logic",
-    categoryTitle: "Logic",
     components: [
       VisibleIfEditor,
       EditableIfEditor,

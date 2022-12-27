@@ -3,7 +3,6 @@ import {
   NInputNumber,
   NTimePicker,
   NDatePicker,
-  NSelect,
   NCascader,
 } from "naive-ui";
 import { textTypeEnum } from "@survey/types/questionTypeEnum";
@@ -13,9 +12,9 @@ export const getPlaceholder = (inputType, defaultPlaceholder) => {
     case "time":
       return "--:--:--";
     case "date":
-      return "year/month/day";
+      return "年/月/日";
     case "provinceCity":
-      return "Please select province";
+      return "请选择省市";
     default:
       return defaultPlaceholder;
   }

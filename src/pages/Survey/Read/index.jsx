@@ -1,7 +1,7 @@
 import { defineComponent } from "vue";
 import { useRoute } from "vue-router";
-import LoadSurvey from "../Layout/LoadSurvey";
-import LoadSurveyAnswer from "../Layout/LoadSurveyAnswer.jsx";
+import LoadSurvey from "@/Layout/LoadSurvey";
+import LoadSurveyAnswer from "@/Layout/LoadSurveyAnswer.jsx";
 import RenderSurvey from "@/components//Survey/Render";
 
 const ReadOnlySurvey = defineComponent({

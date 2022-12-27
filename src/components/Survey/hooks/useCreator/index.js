@@ -2,6 +2,7 @@ import { ref, unref, provide, inject } from "vue";
 import objectPath from "object-path";
 import getQuestionDefaultConfig, { getItem } from "./questionDefaultConfig";
 import questionTypeEnum from "../../types/questionTypeEnum";
+import { forEachCellRows } from "@survey/utils";
 import { cloneDeep } from "lodash-es";
 
 export const CREATOR_KEY = Symbol("creator");
@@ -185,26 +186,7 @@ const useCreator = (defaultData = {}) => {
       }
       return itemGenerator(newValue);
     },
-    /**
-     * 便利cells的行，并将便利到的行作为参数传给rowFn中
-     * @param {Cells} cells 需要便利的cell
-     * @param {(rowData) => void} rowFn
-     * @returns
-     */
-    forEachCellRows: (cells, rowFn) => {
-      if (!cells) return;
-      for (const rowKey in cells) {
-        if (Object.hasOwnProperty.call(cells, rowKey)) {
-          const rowInfo = cells[rowKey];
-          if (!rowInfo) continue;
-          rowFn **
-            rowFn({
-              rowKey,
-              rowInfo,
-            });
-        }
-      }
-    },
+
     /**
      * 对于grid类型的题目： 当列的name变化时 cells中对应的列名也应该一起变化
      * @param {string} cells
@@ -212,7 +194,7 @@ const useCreator = (defaultData = {}) => {
      * @param {string} nowColumnValue  变化的列， 变化之后的值
      */
     syncCellColumnPathChange: (cells, prevColumnValue, nowColumnValue) => {
-      creator.forEachCellRows(cells, ({ rowInfo }) => {
+      forEachCellRows(cells, ({ rowInfo }) => {
         if (prevColumnValue in rowInfo) {
           rowInfo[nowColumnValue] = rowInfo[prevColumnValue];
           delete rowInfo[prevColumnValue];
@@ -225,7 +207,7 @@ const useCreator = (defaultData = {}) => {
      * @param {string} removeColumnValue 被移除的列name值
      */
     syncCellColumnPathRemove: (cells, removeColumnValue) => {
-      creator.forEachCellRows(cells, ({ rowInfo }) => {
+      forEachCellRows(cells, ({ rowInfo }) => {
         if (removeColumnValue in rowInfo) {
           delete rowInfo[removeColumnValue];
         }
@@ -251,7 +233,7 @@ const useCreator = (defaultData = {}) => {
     },
     filterCellEmptyRows: (cellsPath, cells) => {
       const cellsValue = cells || creator.getModelV(cellsPath);
-      creator.forEachCellRows(cellsValue, ({ rowInfo, rowKey }) => {
+      forEachCellRows(cellsValue, ({ rowInfo, rowKey }) => {
         if (Object.keys(rowInfo).length === 0) {
           delete cellsValue[rowKey];
         }

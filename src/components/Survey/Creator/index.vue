@@ -21,9 +21,9 @@
     </Teleport>
     <div class="absolute -top-11 right-2 flex gap-x-4">
       <NButton type="primary" @click="handleSave" :loading="isSaving">
-        Confirm
+        保存
       </NButton>
-      <NButton @click="handleCancel"> Cancel </NButton>
+      <NButton @click="handleCancel"> 返回 </NButton>
       <NButton text title="collapse side bar" @click="toggleSideBarShow">
         <template #icon>
           <NIcon size="20">

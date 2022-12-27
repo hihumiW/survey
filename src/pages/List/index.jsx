@@ -146,17 +146,8 @@ const SurveyList = defineComponent({
       mutateDeleteForm(rowData.formId);
     };
 
-    const { mutateAsync: mutateCopyForm } = useMutation(copyForm, {
-      onSuccess() {
-        window.$message.error("复制成功");
-        queryClient.invalidateQueries(["formList"]);
-      },
-      onError() {
-        window.$message.error("复制失败");
-      },
-    });
     const handleCopy = (rowData) => {
-      mutateCopyForm(rowData.formId);
+      router.push(`/creator?copyFormId=${rowData.formId}`);
     };
 
     const handleSearch = () => {
@@ -174,7 +165,7 @@ const SurveyList = defineComponent({
     return () => {
       return (
         <div class="min-h-full bg bg-neutral-100 p-6 flex flex-col dark:bg-neutral-900">
-          <div class="survey-list-page flex-1 min-w-[1360px] max-w-[1440px] mx-auto flex flex-col gap-y-4">
+          <div class="survey-list-page flex-1 min-w-[1024px] max-w-[1440px] mx-auto flex flex-col gap-y-4">
             <div class="survey-panel ">
               <div class="survey-panel-title ">数据筛选</div>
               <div class="px-3 py-3 my-3 ">

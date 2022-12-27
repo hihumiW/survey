@@ -32,28 +32,28 @@ import { DropdownPlaceholder } from "./selectConfig";
 
 export const gridConfig = [
   {
+    categoryTitle: "通用",
     categoryName: "General",
-    categoryTitle: "General",
     components: [NameEditor, TitleEditor, IsRequiredEditor, ReadOnlyEditor],
   },
   {
+    categoryTitle: "列",
     categoryName: "Columns",
-    categoryTitle: "Columns",
     components: [GridColumnEditor],
   },
   {
+    categoryTitle: "行",
     categoryName: "Rows",
-    categoryTitle: "Rows",
     components: [GridRowEditor],
   },
   {
+    categoryTitle: "布局",
     categoryName: "Layout",
-    categoryTitle: "Layout",
     components: [IndentEditor, ShowQuestionNumberEditor],
   },
   {
+    categoryTitle: "逻辑",
     categoryName: "Logic",
-    categoryTitle: "Logic",
     components: [VisibleIfEditor, EditableIfEditor],
   },
 ];
@@ -108,7 +108,7 @@ const isTextCell = ({ currentActiveItem }) => {
 const CellTextContentEditor = generateConditionComp(
   InputValueBinder,
   {
-    title: "Cell text",
+    title: "单元格文本内容",
     bindName: "cellText",
     type: "textarea",
   },
@@ -123,7 +123,7 @@ const CellTextContentEditor = generateConditionComp(
 const DropdownMuitipleEditor = () => (
   <BooleanValueBinader
     {...{
-      title: "Multiple choice",
+      title: "启用多选",
       bindName: "multipleChoice",
     }}
   />
@@ -132,15 +132,15 @@ const DropdownMuitipleEditor = () => (
 /**------------------------------- */
 
 const GridColumnCellTypeEditor = () => (
-  <GridCellType title="Colum cell type" type={questionTypeEnum.gridColumn} />
+  <GridCellType title="列单元格类型" type={questionTypeEnum.gridColumn} />
 );
 
 const GridCellTypeEditor = () => (
-  <GridCellType title="Cell type" type={questionTypeEnum.gridCell} />
+  <GridCellType title="单元格类型" type={questionTypeEnum.gridCell} />
 );
 
 export const GridColumnTitleEditor = () => (
-  <InputValueBinder title="Column title" bindName="text" />
+  <InputValueBinder title="列标题" bindName="text" />
 );
 
 export const gridCellConfig = ({
@@ -172,7 +172,7 @@ export const gridCellConfig = ({
   }
   if (isDropdownType) {
     config.push({
-      categoryTitle: "Choice",
+      categoryTitle: "选项",
       categoryName: "gridChoice",
       components: [ChoicesEditor, DropdownPlaceholder, DropdownMuitipleEditor],
     });

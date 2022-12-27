@@ -45,7 +45,7 @@ const { binderValue, handleValueChange } = useBinder(
   defaultValue
 );
 
-const placeholder = computed(() => `Please input ${props.title.toLowerCase()}`);
+const placeholder = computed(() => `请输入${props.title.toLowerCase()}`);
 
 const RenderComponent = computed(() =>
   props.type === "number" ? NInputNumber : NInput

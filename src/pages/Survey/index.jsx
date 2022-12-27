@@ -2,7 +2,7 @@ import { defineComponent } from "vue";
 import RenderSurvey from "@/components//Survey/Render";
 import { useRoute, useRouter } from "vue-router";
 import { NButton } from "naive-ui";
-import LoadSurvey from "./Layout/LoadSurvey";
+import LoadSurvey from "@/Layout/LoadSurvey";
 
 const Survey = defineComponent({
   props: {
@@ -18,7 +18,7 @@ const Survey = defineComponent({
       }
       return (
         <div class="bg-neutral-100 p-4 dark:bg-neutral-800">
-          <NButton onClick={() => router.back()}>Back</NButton>
+          <NButton onClick={() => router.back()}>返回</NButton>
         </div>
       );
     };
