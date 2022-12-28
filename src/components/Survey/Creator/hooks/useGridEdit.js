@@ -42,6 +42,10 @@ const useGridEdit = (gridPathRef) => {
   };
 
   const handleColumnRemove = (removeIndex, item) => {
+    const columns = getModelV(columnPath());
+    if (columns.length === 1) {
+      return window.$message.warning(`请至少保留一列`);
+    }
     const cells = getCells();
     removeItem(columnPath(removeIndex));
     syncCellColumnPathRemove(cells, item.value);
@@ -52,10 +56,20 @@ const useGridEdit = (gridPathRef) => {
   const handleColumnMove = (index, direction) => {
     moveItemIndex(columnPath(), index, direction);
   };
-  const handleColumnAdd = () =>
+  const handleColumnAdd = () => {
+    const columns = getModelV(columnPath());
+    const maxLengthOfColumn = 10;
+    if (columns.length >= maxLengthOfColumn) {
+      return window.$message.warning(`表格列最多添加${maxLengthOfColumn}项`);
+    }
     addNewItem(`${columnPath()}`, "column", GridColumnGenerator);
+  };
 
   const handleRowRemove = (columnIndex, rowValue) => {
+    const rows = getModelV(rowPath());
+    if (rows.length === 1) {
+      return window.$message.warning(`请至少保留一行`);
+    }
     removeItem(rowPath(columnIndex));
     const cells = getCells();
     syncCellRowPathRemove(cells, rowValue);
@@ -66,14 +80,19 @@ const useGridEdit = (gridPathRef) => {
     moveItemIndex(rowPath(), index, direction);
   };
 
-  const handleRowAdd = () =>
+  const handleRowAdd = () => {
+    const rows = getModelV(rowPath());
+    const maxLengthOfRows = 15;
+    if (rows.length >= maxLengthOfRows) {
+      return window.$message.warning(`表格列最多添加${maxLengthOfRows}项`);
+    }
     addNewItem(
       `${rowPath()}`,
       "row",
       (value) => value,
       (value) => value
     );
-
+  };
   const cellEditor = {
     updateCellText(cellPath, text) {
       updateQuestionFieldValueByPath(`${cellPath}.cellText`, text);

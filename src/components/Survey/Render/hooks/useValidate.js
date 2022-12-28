@@ -5,6 +5,19 @@ import QuestionTypeEnum, {
 } from "@survey/types/questionTypeEnum";
 
 const useValidate = (questions) => {
+  yup.setLocale({
+    mixed: {
+      required: (params) => {
+        const { path } = params;
+        const paths = path.split(".");
+        if (paths.length === 1) {
+          return `题目为必填项目`;
+        }
+        paths[0] = "题目";
+        return `${paths.join("的")} 为必填项目`;
+      },
+    },
+  });
   const getTextScheme = (inputType) => {
     if (
       [
@@ -68,6 +81,7 @@ const useValidate = (questions) => {
     return yup.object().shape(shape);
   };
 
+  const requiredMsg = "题目是必填项目";
   const getStringSchema = () => yup.string().required();
   const getArraySchema = () => yup.array().required().min(1);
   const getNumberSchema = () => yup.number().required();

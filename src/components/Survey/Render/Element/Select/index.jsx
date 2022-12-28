@@ -97,9 +97,13 @@ const Select = defineComponent({
       );
     };
 
-    const showOther = computed(
-      () => unref(selectValue) === otherOptionDefaultValue
-    );
+    const showOther = computed(() => {
+      const val = unref(selectValue);
+      if (Array.isArray(val)) {
+        return val.includes(otherOptionDefaultValue);
+      }
+      return val === otherOptionDefaultValue;
+    });
     const renderOther = () => {
       if (!unref(showOther)) return null;
       const { otherPlaceholder } = question;

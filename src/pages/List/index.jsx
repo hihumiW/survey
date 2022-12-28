@@ -139,8 +139,8 @@ const SurveyList = defineComponent({
         window.$message.success("删除成功");
         queryClient.invalidateQueries(["formList"]);
       },
-      onError() {
-        window.$message.error("删除失败");
+      onError(e) {
+        window.$message.error(`删除失败 ${e}`);
       },
     });
     const handleDelete = (rowData) => {

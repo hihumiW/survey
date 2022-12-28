@@ -1,5 +1,4 @@
 import { computed, defineComponent, unref } from "vue";
-import { capitalize } from "lodash-es";
 import EditorLayout from "../ItemsEditor/Layout/EditorLayout";
 import ItemRow from "../ItemsEditor/ItemRow";
 import { useInjectCreator } from "@survey/hooks/useCreator";
@@ -8,8 +7,9 @@ import { getMatrixColumnType } from "@survey/Creator/hooks/useMatrixEdit";
 
 const MatrixColumnRowsItemEditor = defineComponent({
   setup(props) {
-    const titleName = props.type === "columns" ? "列设置" : "行设置";
-    const templateName = props.type === "columns" ? "column" : "row";
+    const isColumnEdit = props.type === "columns";
+    const titleName = isColumnEdit ? "列设置" : "行设置";
+    const templateName = isColumnEdit ? "column" : "row";
     const { currentActiveItem, currentActivePath, onQuestionItemClick } =
       useInjectCreator();
 
@@ -22,6 +22,8 @@ const MatrixColumnRowsItemEditor = defineComponent({
     } = useItemEdit({
       itemsPathRef: `${unref(currentActivePath)}.${props.type}`,
       itemValueTemplate: templateName,
+      itemTitle: isColumnEdit ? "矩阵列" : "矩阵行",
+      maxItemCount: isColumnEdit ? 10 : 15,
     });
 
     const handleItemEdit = computed(() => {
