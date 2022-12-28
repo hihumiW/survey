@@ -18,6 +18,7 @@
         <component :is="ItemComponent" />
         <Title
           :value="props.chioceText"
+          :maxlength="30"
           @update:value="handleTitleChange"
           editable
         />

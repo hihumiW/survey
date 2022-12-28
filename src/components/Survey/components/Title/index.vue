@@ -21,6 +21,7 @@ const props = defineProps({
   placeholder: String,
   value: String,
   editable: Boolean,
+  maxlength: Number,
 });
 
 const editable = ref(false);
@@ -34,9 +35,15 @@ const handleClick = (e) => {
 };
 
 const handleTitleBlur = (e) => {
-  const inputText = e.target.innerText;
-  editable.value = false;
+  let inputText = e.target.innerText;
   if (inputText === props.value) return;
+  if (props.maxlength && inputText.length > props.maxlength) {
+    inputText = inputText.substring(0, props.maxlength);
+  }
   emit("update:value", inputText);
+  nextTick(() => {
+    e.target.innerText = props.value;
+    editable.value = false;
+  });
 };
 </script>

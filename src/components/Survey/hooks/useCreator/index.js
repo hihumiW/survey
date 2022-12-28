@@ -248,6 +248,7 @@ const useCreator = (defaultData = {}) => {
       const temp = questions[index2];
       questions[index2] = questions[index];
       questions[index] = temp;
+      return index2;
     },
     moveQuestionIndex: (name, forward, panelPath) => {
       let index = -1;

@@ -1,4 +1,4 @@
-import { defineComponent, unref } from "vue";
+import { defineComponent, onUnmounted, unref } from "vue";
 import { useRouter } from "vue-router";
 import {
   NForm,
@@ -19,6 +19,7 @@ import useCopyValue from "@/hooks/useCopyValue";
 import "./index.css";
 
 const SurveyList = defineComponent({
+  name: "SurveyList",
   setup() {
     const router = useRouter();
     const queryClient = useQueryClient();

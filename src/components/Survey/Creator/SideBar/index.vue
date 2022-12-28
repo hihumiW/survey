@@ -2,7 +2,10 @@
   <div class="side-bar_container h-full flex flex-col">
     <div class="side-bar_title p-3 border-primary-main border-b-2">
       <p
-        :class="['text-right text-base', !haveActiveItem && 'text-neutral-500']"
+        :class="[
+          'text-right text-base',
+          !haveActiveItem && 'text-neutral-500 dark:text-neutral-300',
+        ]"
       >
         {{ sideBarTitle }}
       </p>
@@ -61,7 +64,7 @@ const sideBarTitle = computed(() => {
     return unref(currentActivePath).split("cells.")[1];
   }
 
-  return item?.name || "No question selected";
+  return item?.name || "没有选中的题目";
 });
 
 const activeConfig = computed(() => {

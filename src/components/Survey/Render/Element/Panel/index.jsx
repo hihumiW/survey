@@ -27,10 +27,10 @@ const Panel = defineComponent({
             <NEmpty />
           </div>
         );
-
+      const { question: _question, ...passProps } = props;
       return (
         <SurveyRenderElementDispatch
-          {...props}
+          {...passProps}
           questions={question.questions}
         />
       );

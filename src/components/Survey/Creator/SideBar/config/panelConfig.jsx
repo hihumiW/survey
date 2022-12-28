@@ -10,7 +10,7 @@ import {
 const InnerIndentEditor = () => (
   <RadioBinder
     {...{
-      title: "Add inner indent",
+      title: "内边距",
       bindName: "innerIndent",
       options: [
         {
@@ -37,13 +37,13 @@ const InnerIndentEditor = () => (
 
 export default [
   {
+    categoryTitle: "通用",
     categoryName: "General",
-    categoryTitle: "General",
     components: [TitleEditor],
   },
   {
+    categoryTitle: "布局",
     categoryName: "Layout",
-    categoryTitle: "Layout",
     components: [
       TitleLocatioEditor,
       IndentEditor,
@@ -52,8 +52,8 @@ export default [
     ],
   },
   {
+    categoryTitle: "逻辑",
     categoryName: "Logic",
-    categoryTitle: "Logic",
     components: [VisibleIfEditor],
   },
 ];

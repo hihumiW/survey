@@ -5,7 +5,7 @@
         class="h-[52px] flex-shrink-0 bg-white border-b border-neutral-300 flex survey-top-bar dark:bg-black dark:border-neutral-700"
       >
         <NTabs type="bar" size="large" v-model:value="tabValue">
-          <NTabPane name="designer" tab="量表设计" />
+          <NTabPane name="designer" tab="问卷设计" />
           <NTabPane name="json" tab="JSON" />
           <NTabPane name="preview" tab="预览" />
         </NTabs>

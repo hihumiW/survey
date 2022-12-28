@@ -1,5 +1,5 @@
 <template>
-  <EditorLayout title="Rows" :onItemAdd="handleRowAdd">
+  <EditorLayout title="行设置" :onItemAdd="handleRowAdd">
     <RowItem
       v-for="(row, index) in items"
       :key="row"

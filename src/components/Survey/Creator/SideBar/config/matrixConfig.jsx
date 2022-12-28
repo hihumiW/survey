@@ -20,34 +20,34 @@ const RowsEditor = () => <MatrixItemEditor type="rows" />;
 export default [
   {
     categoryName: "General",
-    categoryTitle: "General",
+    categoryTitle: "通用",
     components: [NameEditor, TitleEditor, IsRequiredEditor, ReadOnlyEditor],
   },
   {
     categoryName: "Columns",
-    categoryTitle: "Columns",
+    categoryTitle: "列设置",
     components: [ColumnsEditor],
   },
   {
     categoryName: "Rows",
-    categoryTitle: "Rows",
+    categoryTitle: "行设置",
     components: [RowsEditor],
   },
   {
     categoryName: "Layout",
-    categoryTitle: "Layout",
+    categoryTitle: "布局",
     components: [IndentEditor, ShowQuestionNumberEditor],
   },
   {
     categoryName: "Logic",
-    categoryTitle: "Logic",
+    categoryTitle: "逻辑",
     components: [VisibleIfEditor, EditableIfEditor],
   },
 ];
 
 const ScoreValueBinder = () => (
   <InputValueBinder
-    title="Score"
+    title="分数"
     type="number"
     bindName="score"
     inputProps={{ min: 0 }}
@@ -57,7 +57,7 @@ const ScoreValueBinder = () => (
 
 export const matrixSelectColumnConfig = [
   {
-    categoryTitle: "Column",
+    categoryTitle: "列设置",
     categoryName: "matrixSelectColumn",
     components: [GridColumnTitleEditor, ScoreValueBinder],
   },
@@ -65,7 +65,7 @@ export const matrixSelectColumnConfig = [
 
 export const matrixInputColumnConfig = [
   {
-    categoryTitle: "Column",
+    categoryTitle: "列设置",
     categoryName: "matrixInputColumn",
     components: [GridColumnTitleEditor],
   },
@@ -73,12 +73,12 @@ export const matrixInputColumnConfig = [
 
 export const matrixDropdownColumnConfig = [
   {
-    categoryTitle: "Column",
+    categoryTitle: "列设置",
     categoryName: "matrixDropdownColumn",
     components: [GridColumnTitleEditor],
   },
   {
-    categoryTitle: "Choices",
+    categoryTitle: "选项",
     categoryName: "matrixDropdownColumnChoices",
     components: [() => <ChoicesEditor showScore />],
   },

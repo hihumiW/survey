@@ -37,12 +37,12 @@ export const gridConfig = [
     components: [NameEditor, TitleEditor, IsRequiredEditor, ReadOnlyEditor],
   },
   {
-    categoryTitle: "列",
+    categoryTitle: "表格列",
     categoryName: "Columns",
     components: [GridColumnEditor],
   },
   {
-    categoryTitle: "行",
+    categoryTitle: "表格行",
     categoryName: "Rows",
     components: [GridRowEditor],
   },
@@ -140,7 +140,12 @@ const GridCellTypeEditor = () => (
 );
 
 export const GridColumnTitleEditor = () => (
-  <InputValueBinder title="列标题" bindName="text" />
+  <InputValueBinder
+    title="列标题"
+    bindName="text"
+    type="textarea"
+    inputProps={{ maxlength: 30, showCount: true }}
+  />
 );
 
 export const gridCellConfig = ({
@@ -154,7 +159,7 @@ export const gridCellConfig = ({
 
   const config = [
     {
-      categoryTitle: isGridColumn ? "Column" : "Cell",
+      categoryTitle: isGridColumn ? "列" : "单元格",
       categoryName: isGridColumn ? "gridColumn" : "gridCell",
       components: [
         isGridColumn ? GridColumnCellTypeEditor : GridCellTypeEditor,

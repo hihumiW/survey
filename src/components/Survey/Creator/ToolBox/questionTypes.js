@@ -22,7 +22,7 @@ export default [
     type: QuestionTypeEnum.file,
   },
   {
-    name: "面板",
+    name: "多项",
     type: QuestionTypeEnum.panel,
   },
   {

@@ -63,6 +63,8 @@ const Matrix = defineComponent({
         <Title
           value={rowData._title}
           editable
+          placeholder="请输入行标题"
+          maxlength={30}
           onUpdate:value={(text) => handleRowTitleChange(rowIndex, text)}
         />
       );
@@ -77,6 +79,7 @@ const Matrix = defineComponent({
           <Title
             value={column.originalColumn.text}
             editable
+            placeholder="请输入列标题"
             onUpdate:value={(text) =>
               handleColumnTitleChange(columnIndex - 1, text)
             }
@@ -85,7 +88,7 @@ const Matrix = defineComponent({
       );
     };
 
-    const renderCell = (ctx) => {
+    const renderCell = () => {
       const {
         question: { type },
       } = props;
@@ -101,14 +104,10 @@ const Matrix = defineComponent({
         element = <NCheckbox {...commonProps} />;
       }
       if (type === QuestionTypeEnum.matrixinput) {
-        element = (
-          <NInput placeholder="Input..." {...commonProps} class="text-left" />
-        );
+        element = <NInput {...commonProps} class="text-left" />;
       }
       if (type === QuestionTypeEnum.matrixdropdown) {
-        element = (
-          <NSelect placeholder="Select..." {...commonProps} class="text-left" />
-        );
+        element = <NSelect {...commonProps} class="text-left" />;
       }
       return (
         <div className="min-h-[40px] flex items-center justify-center">

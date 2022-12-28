@@ -8,7 +8,11 @@ window.$message = useMessage();
 
 <template>
   <div class="h-full survey-app">
-    <router-view></router-view>
+    <router-view v-slot="{ Component }">
+      <keep-alive :include="['SurveyList']">
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
   </div>
 </template>
 

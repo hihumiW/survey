@@ -2,8 +2,9 @@
   <SurveyTitleContainer>
     <template #title>
       <Title
-        placeholder="Survey Title"
+        placeholder="问卷标题"
         :value="survey.title"
+        :maxlength="100"
         editable
         @update:value="updateSurveyTitle"
       />
@@ -11,7 +12,8 @@
 
     <template #description>
       <Title
-        placeholder="Description"
+        placeholder="描述"
+        :maxlength="1000"
         :value="survey.description"
         editable
         @update:value="updateSurveyDescription"
@@ -19,7 +21,7 @@
     </template>
     <template #category>
       <NSelect
-        placeholder="FormTypes"
+        placeholder="分类"
         :value="survey.categoryId"
         :options="formTypes"
         label-field="name"

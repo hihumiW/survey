@@ -2,7 +2,7 @@ import { NCollapse, NCollapseItem, NEmpty } from "naive-ui";
 import "./index.css";
 const Category = (props) => {
   return (
-    <div class="side-bar-category_container mt-3">
+    <div class="side-bar-category_container ">
       <NCollapse
         accordion
         expandedNames={props.expandedName}
@@ -17,7 +17,7 @@ const Category = (props) => {
             >
               {components?.length ? (
                 <div class="bg-neutral-100 p-6 dark:bg-neutral-800">
-                  <div class="flex flex-col gap-y-6">
+                  <div class="flex flex-col gap-y-6 ">
                     {components.map((Comp) => {
                       return <Comp key={Comp.name} />;
                     })}

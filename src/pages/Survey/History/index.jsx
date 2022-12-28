@@ -4,7 +4,7 @@ import LoadSurvey from "@/Layout/LoadSurvey";
 import LoadSurveyAnswer from "@/Layout/LoadSurveyAnswer.jsx";
 import RenderSurvey from "@/components//Survey/Render";
 
-const ReadOnlySurvey = defineComponent({
+const HistorySurvey = defineComponent({
   props: {
     survey: Object,
     values: Object,
@@ -18,7 +18,7 @@ const ReadOnlySurvey = defineComponent({
           <RenderSurvey
             survey={props.survey}
             defaultValue={props.values.answerMap}
-            readOnly
+            readOnly={!!route.query.readOnly}
             formId={route.params.formId}
           />
         </div>
@@ -27,7 +27,7 @@ const ReadOnlySurvey = defineComponent({
   },
 });
 
-const ReadOnlySurveyWrapper = () => {
+const HistorySurveyWrapper = () => {
   return (
     <LoadSurvey>
       {{
@@ -36,7 +36,7 @@ const ReadOnlySurveyWrapper = () => {
             <LoadSurveyAnswer>
               {{
                 default: (answerProps) => (
-                  <ReadOnlySurvey
+                  <HistorySurvey
                     survey={surveyProps.data}
                     values={answerProps.data}
                   />
@@ -50,6 +50,6 @@ const ReadOnlySurveyWrapper = () => {
   );
 };
 
-export default ReadOnlySurveyWrapper;
+export default HistorySurveyWrapper;
 
-ReadOnlySurveyWrapper.displayName = "ReadOnlySurveyWrapper";
+HistorySurveyWrapper.displayName = "HistorySurveyWrapper";

@@ -71,7 +71,11 @@ const isDropDownType = ({ currentActiveItem }) =>
   unref(currentActiveItem).type === questionTypeEnum.dropdown;
 
 export const DropdownPlaceholder = () => (
-  <InputBinder title="Dropdown placeholder" bindName="dropdownPlaceholder" />
+  <InputBinder
+    title="下拉选择框占位符"
+    bindName="dropdownPlaceholder"
+    inputProps={{ maxlength: 30, showCount: true }}
+  />
 );
 
 const DropDownPlaceholderEditor = generateConditionComp(

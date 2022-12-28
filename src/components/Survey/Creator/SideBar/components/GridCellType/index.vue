@@ -53,19 +53,19 @@ watch(currentActivePath, setSelectValue);
 
 const CellTypeOptions = computed(() => {
   const options = [
-    { label: "Text", value: gridCellTypeEnum.text },
+    { label: "文本", value: gridCellTypeEnum.text },
     {
-      label: "Input",
+      label: "输入框",
       value: gridCellTypeEnum.input,
     },
     {
-      label: "Dropdown",
+      label: "下拉选择",
       value: gridCellTypeEnum.dropdown,
     },
   ];
   if (unref(isGridCell)) {
     options.unshift({
-      label: "Inherit",
+      label: "继承列",
       value: gridCellTypeEnum.inherit,
     });
   }

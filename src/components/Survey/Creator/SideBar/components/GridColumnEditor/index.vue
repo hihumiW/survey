@@ -1,5 +1,5 @@
 <template>
-  <EditorLayout title="Columns" :onItemAdd="handleColumnAdd">
+  <EditorLayout title="列设置" :onItemAdd="handleColumnAdd">
     <RowItem
       v-for="(column, index) in items"
       :key="column.value"

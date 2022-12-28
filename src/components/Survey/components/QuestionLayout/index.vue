@@ -13,7 +13,8 @@
 </template>
 
 <script setup>
-import { computed, unref, inject } from "vue";
+import { computed, unref } from "vue";
+import { usePanelConfigInject } from "@survey/hooks/Panel/useConfigInject";
 
 const props = defineProps({
   question: {
@@ -22,7 +23,7 @@ const props = defineProps({
   },
 });
 
-const parentConfig = inject("parentConfig", () => ({}));
+const parentConfig = usePanelConfigInject();
 
 const titleLocation = computed(
   () =>

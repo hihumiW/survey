@@ -9,6 +9,7 @@ const RowItem = (props) => {
       <input
         type="text"
         class="survey-sideBar-itemRow_input"
+        maxlength={30}
         value={props.rowValue}
         disabled
       />

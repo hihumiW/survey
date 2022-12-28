@@ -3,7 +3,7 @@ import { NAlert, NButton, NSpin } from "naive-ui";
 import usePageSurvey from "@/hooks/usePageSurvey";
 
 const LoadSurvey = defineComponent({
-  setup(props, { slots }) {
+  setup(_props, { slots }) {
     const { data, isLoading, error, refetch } = usePageSurvey();
 
     return () => {
@@ -11,7 +11,7 @@ const LoadSurvey = defineComponent({
         return (
           <NAlert type="info" title="加载中" class="m-3">
             {{
-              icon: () => <NSpin size="small" />,
+              icon: () => <NSpin size="small" class="mr-2" />,
               default: () => "加载问卷信息",
             }}
           </NAlert>

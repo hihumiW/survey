@@ -18,7 +18,7 @@ const SurveyContainer = (props, { slots }) => {
       <div
         class={[
           "mx-auto flex flex-col gap-y-10",
-          shouldFullWidth ? "mx-6" : " max-w-[700px]",
+          shouldFullWidth ? "mx-6" : " max-w-[800px]",
         ]}
       >
         {slots.title()}

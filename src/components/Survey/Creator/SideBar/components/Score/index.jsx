@@ -3,7 +3,7 @@ import Vertical from "../Layout/Vertical";
 
 const Score = (props) => {
   return (
-    <Vertical title="Score">
+    <Vertical title="分数">
       <NInputNumber
         size="large"
         value={props.value || 0}

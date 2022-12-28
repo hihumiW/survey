@@ -5,6 +5,8 @@ import {
   darkTheme,
   NMessageProvider,
   NDialogProvider,
+  zhCN,
+  dateZhCN,
 } from "naive-ui";
 import { VueQueryPlugin } from "vue-query";
 
@@ -20,8 +22,10 @@ const AppWrapper = defineComponent({
       osThemeRef.value === "dark" ? darkTheme : null
     );
     return () =>
-      h(NConfigProvider, { theme: theme.value }, () =>
-        h(NMessageProvider, () => h(NDialogProvider, () => [h(App)]))
+      h(
+        NConfigProvider,
+        { theme: theme.value, locale: zhCN, dateLocale: dateZhCN },
+        () => h(NMessageProvider, () => h(NDialogProvider, () => [h(App)]))
       );
   },
 });

@@ -46,6 +46,10 @@ export const PlaceHolderEditor = generateConditionComp(
     title: "输入框占位符",
     bindName: "placeholder",
     defaultValue: "",
+    inputProps: {
+      maxlength: 30,
+      showCount: true,
+    },
   },
   "PlaceHolderEditor",
   // 只会在inputType 为默认值(text) 和 number时显示
@@ -179,8 +183,8 @@ export const ProvinceSelector = generateConditionComp(
 
 export default [
   {
-    categoryName: "通用",
-    categoryTitle: "General",
+    categoryTitle: "通用",
+    categoryName: "General",
     components: [
       NameEditor,
       TitleEditor,
@@ -195,8 +199,8 @@ export default [
     ],
   },
   {
-    categoryName: "布局",
-    categoryTitle: "Layout",
+    categoryTitle: "布局",
+    categoryName: "Layout",
     components: [
       TitleLocatioEditor,
       IndentEditor,
@@ -205,8 +209,8 @@ export default [
     ],
   },
   {
-    categoryName: "逻辑",
-    categoryTitle: "Logic",
+    categoryTitle: "逻辑",
+    categoryName: "Logic",
     components: [
       VisibleIfEditor,
       EditableIfEditor,

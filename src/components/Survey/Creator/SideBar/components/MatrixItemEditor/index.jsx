@@ -8,7 +8,7 @@ import { getMatrixColumnType } from "@survey/Creator/hooks/useMatrixEdit";
 
 const MatrixColumnRowsItemEditor = defineComponent({
   setup(props) {
-    const titleName = capitalize(props.type);
+    const titleName = props.type === "columns" ? "列设置" : "行设置";
     const templateName = props.type === "columns" ? "column" : "row";
     const { currentActiveItem, currentActivePath, onQuestionItemClick } =
       useInjectCreator();

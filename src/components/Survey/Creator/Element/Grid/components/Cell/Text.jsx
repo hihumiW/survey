@@ -12,9 +12,9 @@ const Text = (props) => {
     <div className="p-2">
       <Title
         value={cellConfig.cellText}
-        placeholder={isInherit ? "" : "Please input"}
+        placeholder={isInherit ? "" : "请输入文本"}
         editable={!isInherit}
-        update:value={(text) => updateCellText(cellPath, text)}
+        onUpdate:value={(text) => updateCellText(cellPath, text)}
       />
     </div>
   );

@@ -45,7 +45,8 @@ const Grid = defineComponent({
               <Title
                 value={column.originalColumn.text}
                 editable
-                placeholder="Please enter column text"
+                placeholder="请输入列标题"
+                maxlength={30}
                 onUpdate:value={(text) =>
                   handleColumnTitleChange(columnIndex, text)
                 }

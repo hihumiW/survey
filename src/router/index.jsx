@@ -1,7 +1,7 @@
 import CreateSurvey from "@/pages/Create";
 import EditSurvey from "@/pages/Create/Edit";
 import RenderSurvey from "@/pages/Survey";
-import RenderReadOnlySurvey from "@/pages/Survey/Read";
+import RenderHistorySurvey from "@/pages/Survey/History";
 import SurveyList from "@/pages/List";
 import { createRouter, createWebHashHistory } from "vue-router";
 const routes = [
@@ -21,17 +21,14 @@ const routes = [
     component: RenderSurvey,
   },
   {
-    path: "/survey/readOnly/:formId",
-    name: "renderReadOnlySurvey",
-    component: RenderReadOnlySurvey,
+    path: "/survey/history/:formId",
+    name: "renderHistorySurvey",
+    component: RenderHistorySurvey,
   },
   {
     path: "/",
-    name: "list",
+    name: "surveyList",
     component: SurveyList,
-    meta: {
-      keepAlive: true,
-    },
   },
 ];
 

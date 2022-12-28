@@ -24,7 +24,7 @@
         @select="handlePanelQuestionAdd"
       >
         <NButton quaternary type="primary" strong round size="large"
-          >Add question</NButton
+          >添加子项</NButton
         >
       </NDropdown>
     </div>

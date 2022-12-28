@@ -1,4 +1,4 @@
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, unref } from "vue";
 import { NEmpty } from "naive-ui";
 import EditorLayout from "../ItemsEditor/Layout/EditorLayout";
 import ItemDetailContainer from "../ItemsEditor/Layout/ItemDetailContainer";
@@ -42,38 +42,45 @@ const ChoicesEditor = defineComponent({
       return choices.map(renderItem);
     };
 
-    const renderItem = (choice, choiceIndex) => (
-      <ItemDetailContainer
-        key={choice.value}
-        showDetail={choiceIndex === showDetailIndex.value}
-      >
-        {{
-          default: () => (
-            <ItemRow
-              item={choice}
-              itemIndex={choiceIndex}
-              onItemTitleChange={handleTitleChange}
-              onItemValueChange={handleItemValueChange}
-              onItemRemove={handleItemRemove}
-              onEditClick={props.showScore ? handleItemEdit : undefined}
-              onItemMove={(direction) => handleItemMove(choiceIndex, direction)}
-            />
-          ),
-          detail: props.showScore
-            ? () => (
-                <Score
-                  value={choice.score}
-                  onUpdate={handleScoreUpdate(choiceIndex)}
-                />
-              )
-            : undefined,
-        }}
-      </ItemDetailContainer>
-    );
+    const renderItem = (choice, choiceIndex) => {
+      return (
+        <ItemDetailContainer
+          key={choice.value}
+          showDetail={choiceIndex === showDetailIndex.value}
+        >
+          {{
+            default: () => (
+              <ItemRow
+                item={choice}
+                itemIndex={choiceIndex}
+                onItemTitleChange={handleTitleChange}
+                onItemValueChange={handleItemValueChange}
+                onItemRemove={handleItemRemove}
+                onEditClick={props.showScore ? handleItemEdit : undefined}
+                onItemMove={(direction) => {
+                  const newIndex = handleItemMove(choiceIndex, direction);
+                  if (choiceIndex === unref(showDetailIndex)) {
+                    showDetailIndex.value = newIndex;
+                  }
+                }}
+              />
+            ),
+            detail: props.showScore
+              ? () => (
+                  <Score
+                    value={choice.score}
+                    onUpdate={handleScoreUpdate(choiceIndex)}
+                  />
+                )
+              : undefined,
+          }}
+        </ItemDetailContainer>
+      );
+    };
 
     return () => {
       return (
-        <EditorLayout title="Choices" onItemAdd={handleItemAdd}>
+        <EditorLayout title="选项设置" onItemAdd={handleItemAdd}>
           {renderItems(currentActiveItem.value.choices)}
         </EditorLayout>
       );

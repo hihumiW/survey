@@ -13,6 +13,10 @@ export const TitleEditor = () => (
       title: "题目标题",
       bindName: "title",
       type: "textarea",
+      inputProps: {
+        maxlength: 50,
+        showCount: true,
+      },
     }}
   />
 );

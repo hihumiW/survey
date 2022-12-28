@@ -43,7 +43,7 @@ import SurveyElement from "./Element/index.vue";
 import SideBar from "./SideBar/index.vue";
 import { Teleport } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { useMutation } from "vue-query";
+import { useMutation, useQueryClient } from "vue-query";
 import { saveForm } from "@/api";
 import SurveyContainer from "../components/SurveyContainer";
 import { NButton, NIcon } from "naive-ui";
@@ -55,6 +55,7 @@ const { surveyQuestions, showSideBar, toggleSideBarShow } = creator;
 const { mutateAsync, isLoading: isSaving } = useMutation(saveForm);
 const route = useRoute();
 const router = useRouter();
+const queryClient = useQueryClient();
 
 const handleSave = () => {
   const form = creator.JSON();
@@ -68,6 +69,7 @@ const handleSave = () => {
   mutateAsync(form)
     .then((formId) => {
       window.$message.success("保存成功");
+      queryClient.invalidateQueries(["formList"]);
       if (formId && route.name === "creator") {
         router.replace(`/creator/${formId}`);
       }

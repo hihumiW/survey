@@ -53,7 +53,7 @@ const SelectBase = defineComponent({
             ))}
             <OptionItem
               type="add"
-              chioceText="New item"
+              chioceText="新增选项"
               questionType={props.question.type}
               onAddItem={handleItemAdd}
             />
@@ -84,8 +84,7 @@ const SelectBase = defineComponent({
 
     const renderSelect = () => {
       if (props.question.type !== "dropdown") return null;
-      const selectPlaceholder =
-        props.question.dropdownPlaceholder || "Select...";
+      const selectPlaceholder = props.question.dropdownPlaceholder;
       return <NSelect placeholder={selectPlaceholder} disabled size="large" />;
     };
 

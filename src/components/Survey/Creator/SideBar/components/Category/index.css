@@ -4,8 +4,17 @@
 .side-bar-category_container .n-collapse-item {
   margin: 0px !important;
 }
+.side-bar-category_container
+  .n-collapse-item.n-collapse-item--left-arrow-placement {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.side-bar-category_container .n-collapse-item__header {
+  padding: 0px !important;
+}
 
 .side-bar-category_container .n-collapse-item__header-main {
-  padding-bottom: 0.75rem;
-  padding-inline: 0.75rem;
+  padding: 0.68rem;
+  @apply dark:font-bold !important;
 }

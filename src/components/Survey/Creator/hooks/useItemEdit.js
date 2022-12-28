@@ -34,9 +34,8 @@ const useItemEdit = (eidtConfig) => {
     updateQuestionFieldValueByPath(scorePath, value);
   };
 
-  const handleItemMove = (itemIndex, direction) => {
+  const handleItemMove = (itemIndex, direction) =>
     moveItemIndex(unref(itemsPathRef), itemIndex, direction);
-  };
 
   return {
     handleTitleChange,
