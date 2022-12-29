@@ -31,3 +31,13 @@ export const forEachCell = (cells, fn) => {
     }
   });
 };
+
+export const forEachQuestion = (questions, fn) => {
+  if (!questions?.length || !fn) return;
+  questions.forEach((question) => {
+    fn(question);
+    if (question.questions?.length) {
+      forEachQuestion(question.questions, fn);
+    }
+  });
+};

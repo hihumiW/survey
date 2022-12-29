@@ -59,12 +59,15 @@ const queryClient = useQueryClient();
 
 const handleSave = () => {
   const form = creator.JSON();
-  const { title = "", categoryId } = form;
+  const { title = "", categoryId, questions } = form;
   if (title.trim() === "") {
     return window.$message.error("请输入问卷名称");
   }
   if (!categoryId) {
     return window.$message.error("请选择问卷分类");
+  }
+  if (!questions.length) {
+    return window.$message.error("请至少添加一道题目");
   }
   mutateAsync(form)
     .then((formId) => {

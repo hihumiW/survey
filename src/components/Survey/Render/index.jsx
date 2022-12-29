@@ -70,7 +70,7 @@ const SurveyRender = defineComponent({
       return (
         <div class="text-center mb-8">
           <NButton size="large" type="primary" onClick={handleSubmit}>
-            Submit
+            提交
           </NButton>
         </div>
       );

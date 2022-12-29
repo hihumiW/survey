@@ -17,7 +17,14 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  defaultValue: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const { binderValue, handleValueChange } = useBinder(props.bindName);
+const { binderValue, handleValueChange } = useBinder(
+  props.bindName,
+  props.defaultValue
+);
 </script>

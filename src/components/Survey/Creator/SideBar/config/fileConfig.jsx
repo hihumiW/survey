@@ -47,7 +47,7 @@ const MaxFileCount = () => (
 const FileMaxSizeEditor = () => (
   <InputBinder
     {...{
-      title: "最大文件总大小 (in bytes)",
+      title: "最大文件总大小 (单位字节B)",
       bindName: "maxSize",
       type: "number",
       inputProps: {

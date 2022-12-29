@@ -2,25 +2,38 @@ import { ref, unref, provide, inject } from "vue";
 import objectPath from "object-path";
 import getQuestionDefaultConfig, { getItem } from "./questionDefaultConfig";
 import questionTypeEnum from "../../types/questionTypeEnum";
-import { forEachCellRows } from "@survey/utils";
+import { forEachCellRows, forEachQuestion } from "@survey/utils";
 import { cloneDeep } from "lodash-es";
 
 export const CREATOR_KEY = Symbol("creator");
 
 const useCreator = (defaultData = {}) => {
-  const surveyQuestions = defaultData.questions
-    ? ref(cloneDeep(defaultData.questions))
+  const {
+    questions: defaultQuestions,
+    title: defaultTitle,
+    formId: defaultFormId,
+    categoryId: defaultCategoryId,
+    description: defaultDescription,
+  } = defaultData;
+  const surveyQuestions = defaultQuestions
+    ? ref(cloneDeep(defaultQuestions))
     : ref([]);
   const questionModel = objectPath(surveyQuestions.value);
-  const surveyQuestionsNameSet = new Set();
+  const defaultNameSet = [];
+  forEachQuestion(defaultQuestions, (ques) => {
+    if (ques.name) {
+      defaultNameSet.push(ques.name);
+    }
+  });
+  const surveyQuestionsNameSet = new Set(defaultNameSet);
 
   const showSideBar = ref(true);
 
   const surveyDef = ref({
-    title: defaultData.title,
-    description: defaultData.description,
-    formId: defaultData.formId,
-    categoryId: defaultData.categoryId,
+    title: defaultTitle,
+    description: defaultDescription,
+    formId: defaultFormId,
+    categoryId: defaultCategoryId,
     questions: surveyQuestions,
   });
 
