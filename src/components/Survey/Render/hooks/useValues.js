@@ -1,12 +1,12 @@
 import { inject, provide, ref, watch, onUnmounted, unref } from "vue";
+import { cloneDeep } from "lodash-es";
 import objectPath from "object-path";
 
 const valuesInjectionKey = Symbol("values");
 
 export const useValuesInit = (config) => {
-  const values = ref({
-    ...(config.defaultValue || {}),
-  });
+  const { defaultValue = {}, schema, onSubmit } = config;
+  const values = ref(cloneDeep(defaultValue));
 
   window.cc = values;
   const errors = ref(null);
@@ -42,7 +42,7 @@ export const useValuesInit = (config) => {
   provide(valuesInjectionKey, provideData);
 
   const validateValue = () => {
-    return config.schema
+    return schema
       .validate(values.value, {
         abortEarly: false,
       })
@@ -65,7 +65,7 @@ export const useValuesInit = (config) => {
       });
   };
   const validateField = (questionName) => {
-    return config.schema
+    return schema
       .validateAt(questionName, values.value, {
         abortEarly: false,
       })
@@ -84,7 +84,7 @@ export const useValuesInit = (config) => {
   };
 
   const watchRequiredValueChange = () => {
-    return config.schema._nodes.map((questionName) => {
+    return schema._nodes.map((questionName) => {
       return watch(
         () => values.value[questionName],
         () => validateField(questionName),
@@ -100,7 +100,7 @@ export const useValuesInit = (config) => {
   let isAllTouchedSeted = false;
   const setAllTouched = () => {
     if (isAllTouchedSeted) return;
-    config.schema._nodes.map((questionName) => {
+    schema._nodes.map((questionName) => {
       touched.value[questionName] = true;
     });
     isAllTouchedSeted = true;
@@ -109,7 +109,7 @@ export const useValuesInit = (config) => {
   const handleSubmit = () => {
     setAllTouched();
     validateValue().then(() => {
-      !errors.value && config.onSubmit && config.onSubmit(values.value);
+      !errors.value && onSubmit && onSubmit(values.value);
     });
   };
 

@@ -146,7 +146,7 @@ const Matrix = defineComponent({
               class="text-left"
               labelField="text"
               value={rowValue?.[columnName]}
-              options={originalColumn.choices}
+              options={originalColumn.choices || []}
               filterable
               clearable
               onUpdate:value={(value) =>
