@@ -1,4 +1,4 @@
-import { defineComponent } from "vue";
+import { defineComponent, toRef } from "vue";
 import { NInput, NRadioGroup, NCheckboxGroup, NSelect } from "naive-ui";
 
 import QuestionContainer from "@survey/Creator/components/QuestionContainer/index.vue";
@@ -17,7 +17,7 @@ const SelectBase = defineComponent({
     const getIsInline = () => props.question.orientation === "horizontal";
 
     const { handleTitleChange, handleItemRemove, handleItemAdd } = useChoices(
-      props.path
+      toRef(props, "path")
     );
 
     const getOhterOptionText = () =>
