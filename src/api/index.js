@@ -2,40 +2,40 @@ import fetchBaseQuery from "../util/fetchBaseQuery";
 const fetchQuery = fetchBaseQuery();
 
 export const queryFormTypes = () =>
-  fetchQuery("/ctms/api/form/getFormType", {
+  fetchQuery("/form/getFormType", {
     method: "post",
   });
 
 export const saveForm = (formData) =>
-  fetchQuery("/ctms/api/form/saveForm", {
+  fetchQuery("/form/saveForm", {
     method: "post",
     body: JSON.stringify(formData),
   });
 
 export const queryFormDetail = (formId) =>
-  fetchQuery(`/ctms/api/form/getForm/${formId}`, {
+  fetchQuery(`/form/getForm/${formId}`, {
     method: "post",
   });
 
 export const queryFormList = (data) =>
-  fetchQuery("/ctms/api/form/getFormPageList", {
+  fetchQuery("/form/getFormPageList", {
     method: "post",
     body: JSON.stringify(data),
   });
 
 export const deleteForm = (formId) =>
-  fetchQuery(`/ctms/api/form/deleteForm/${formId}`, {
+  fetchQuery(`/form/deleteForm/${formId}`, {
     method: "post",
   });
 
 export const queryFormAnswer = (data) =>
-  fetchQuery("/ctms/api/project/subjects/get/formRecord", {
+  fetchQuery("/project/subjects/get/formRecord", {
     method: "post",
     body: JSON.stringify(data),
   });
 
 export const queryProvinceCity = () =>
-  fetchQuery("/ctms/api/crf/dict/get/CrfDict", {
+  fetchQuery("/crf/dict/get/CrfDict", {
     method: "post",
     body: JSON.stringify({
       type: 1,

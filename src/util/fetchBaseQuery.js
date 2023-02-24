@@ -3,8 +3,8 @@ const fetchBaseQuery = () => (url, config) => {
   if (!headers.has("Content-Type")) {
     headers.append("Content-Type", "application/json");
   }
-
-  return fetch(url, {
+  const fetchUrl = import.meta.env.VITE_REQUEST_BASE_URL + url;
+  return fetch(fetchUrl, {
     headers,
     ...restConfig,
   }).then((resp) =>
