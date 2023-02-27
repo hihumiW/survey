@@ -11,7 +11,6 @@ const HistorySurvey = defineComponent({
   },
   setup(props) {
     const route = useRoute();
-
     return () => {
       return (
         <div class="h-full flex flex-col">

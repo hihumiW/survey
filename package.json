@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
+    "devForRemoteSupervise": "vite --host --mode remoteSupervise",
     "build": "vite build",
     "buildForRemoteSupervise": "vite build --mode remoteSupervise",
     "preview": "vite preview"

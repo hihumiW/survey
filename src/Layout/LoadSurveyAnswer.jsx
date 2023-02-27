@@ -7,26 +7,18 @@ import { NAlert, NSpin, NButton } from "naive-ui";
 const LoadSurveyAnswer = defineComponent({
   setup(_props, { slots }) {
     const route = useRoute();
-    const queryEnable = computed(
-      () => !!route.query.idCard && !!route.query.projectPackageStageId
-    );
 
     const { data, isLoading, error, refetch } = useQuery(
       ["formAnswer", route.query],
       () => queryFormAnswer(route.query),
       {
-        enabled: queryEnable,
+        onSuccess(data) {
+          console.log(data);
+        },
       }
     );
 
     return () => {
-      if (!unref(queryEnable)) {
-        return (
-          <NAlert title="缺少参数" type="error" class="m-3">
-            缺少参数idCard或者projectPackageStageId
-          </NAlert>
-        );
-      }
       if (unref(isLoading)) {
         return (
           <NAlert type="info" title="加载中" class="m-3">

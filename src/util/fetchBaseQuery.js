@@ -4,12 +4,13 @@ const fetchBaseQuery = () => (url, config) => {
     headers.append("Content-Type", "application/json");
   }
   const fetchUrl = import.meta.env.VITE_REQUEST_BASE_URL + url;
+
   return fetch(fetchUrl, {
     headers,
     ...restConfig,
   }).then((resp) =>
     resp.json().then((resp) => {
-      if (resp.success) {
+      if (resp.success || resp.code === 200) {
         return resp?.data;
       } else {
         throw Error(resp.errMsg);

@@ -22,6 +22,10 @@ export default defineConfig({
         target: "http://192.168.0.185:8907",
         changeOrigin: true,
       },
+      "^/rbqm/api/.*": {
+        target: "http://192.168.0.185:9999",
+        changeOrigin: true,
+      },
     },
   },
 });
