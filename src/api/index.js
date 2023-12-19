@@ -28,11 +28,17 @@ export const deleteForm = (formId) =>
     method: "post",
   });
 
-export const queryFormAnswer = (data) =>
-  fetchQuery("/project/subjects/get/formRecord", {
+export const queryFormAnswer = (data) => {
+  if (import.meta.env.VITE_PROJECT_TYPE === "ethics") {
+    return fetchQuery(`/project/ethical/getFormRecord/${data.applyId}`, {
+      method: "get",
+    });
+  }
+  return fetchQuery("/project/subjects/get/formRecord", {
     method: "post",
     body: JSON.stringify(data),
   });
+};
 
 export const queryProvinceCity = () =>
   fetchQuery("/crf/dict/get/CrfDict", {

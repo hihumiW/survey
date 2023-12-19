@@ -66,7 +66,8 @@ const SurveyRender = defineComponent({
     };
 
     const renderFooter = () => {
-      if (props.readOnly || !questions?.length) return null;
+      console.log("cc", props.hideSubmit);
+      if (props.readOnly || !questions?.length || props.hideSubmit) return null;
       return (
         <div class="text-center mb-8">
           <NButton size="large" type="primary" onClick={handleSubmit}>
@@ -93,6 +94,10 @@ const SurveyRender = defineComponent({
 });
 
 SurveyRender.props = {
+  hideSubmit: {
+    type: Boolean,
+    default: () => false,
+  },
   readOnly: {
     type: Boolean,
     default: () => false,

@@ -16,9 +16,10 @@ const HistorySurvey = defineComponent({
         <div class="h-full flex flex-col">
           <RenderSurvey
             survey={props.survey}
+            formId={route.params.formId}
             defaultValue={props.values.answerMap}
             readOnly={!!route.query.readOnly}
-            formId={route.params.formId}
+            hideSubmit={!!route.query.hideSubmit}
           />
         </div>
       );

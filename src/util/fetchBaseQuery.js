@@ -11,6 +11,9 @@ const fetchBaseQuery = () => (url, config) => {
   }).then((resp) =>
     resp.json().then((resp) => {
       if (resp.success || resp.code === 200) {
+        if (import.meta.env.VITE_PROJECT_TYPE === "ethics") {
+          return resp?.data?.data;
+        }
         return resp?.data;
       } else {
         throw Error(resp.errMsg);

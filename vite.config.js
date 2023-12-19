@@ -19,7 +19,7 @@ export default defineConfig({
   server: {
     proxy: {
       "^/ctms/.*": {
-        target: "http://192.168.0.185:8907",
+        target: "http://192.168.1.185:8907",
         changeOrigin: true,
       },
       "^/rbqm/api/.*": {

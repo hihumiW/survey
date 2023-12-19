@@ -1,4 +1,12 @@
-import { inject, provide, ref, watch, onUnmounted, unref } from "vue";
+import {
+  inject,
+  provide,
+  ref,
+  watch,
+  onUnmounted,
+  unref,
+  onMounted,
+} from "vue";
 import { cloneDeep } from "lodash-es";
 import objectPath from "object-path";
 
@@ -112,6 +120,18 @@ export const useValuesInit = (config) => {
       !errors.value && onSubmit && onSubmit(values.value);
     });
   };
+
+  onMounted(() => {
+    window.triggerSubmit = (cb) => {
+      setAllTouched();
+      validateValue().then(() => {
+        cb(unref(errors), unref(values));
+      });
+    };
+  });
+  onUnmounted(() => {
+    window.triggerSubmit = null;
+  });
 
   return {
     ...provideData,

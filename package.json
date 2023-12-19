@@ -7,8 +7,10 @@
   "scripts": {
     "dev": "vite --host",
     "devForRemoteSupervise": "vite --host --mode remoteSupervise",
+    "devForEthics": "vite --host --mode ethics",
     "build": "vite build",
     "buildForRemoteSupervise": "vite build --mode remoteSupervise",
+    "buildForEthics": "vite build --mode Ethics",
     "preview": "vite preview"
   },
   "dependencies": {

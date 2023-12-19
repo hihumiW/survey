@@ -30,12 +30,12 @@ const Survey = defineComponent({
       return (
         <div class="h-full flex flex-col">
           {renderBackButton()}
-
           <RenderSurvey
             key={key}
             survey={props.data}
             formId={formId}
             readOnly={!!route.query.readOnly}
+            hideSubmit={!!route.query.hideSubmit}
           />
         </div>
       );
