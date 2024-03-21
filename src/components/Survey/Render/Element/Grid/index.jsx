@@ -87,15 +87,20 @@ const Grid = defineComponent({
       const cellConfig = cells?.[rowName]?.[columnName] || originalColumn;
       const cellValue = unref(questionValue)?.[rowName]?.[columnName];
       const cellType = cellConfig?.cellType;
+
+      const handleValueChange = (val) => {
+        handleSelectOrInputValueChange(val, rowName, columnName);
+      };
       const CommonProps = {
+        value: cellValue,
+        "onUpdate:value": handleValueChange,
         disabled: unref(readOnly) || !unref(editableIf),
         size: "large",
         filterable: true,
         clearable: true,
         class: cellType !== gridCellTypeEnum.text ? "text-left" : undefined,
       };
-      const handleValueChange = (val) =>
-        handleSelectOrInputValueChange(val, rowName, columnName);
+
       switch (cellType) {
         case gridCellTypeEnum.input:
           const InputProps = getInputProps(cellConfig);
@@ -114,7 +119,6 @@ const Grid = defineComponent({
                         options={unref(avaliableProvinceData)}
                         valueField="dictId"
                         labelField="name"
-                        onUpdate:value={handleValueChange}
                         {...InputProps}
                         {...CommonProps}
                       />
@@ -129,7 +133,7 @@ const Grid = defineComponent({
               cellConfig.inputType
             )
           ) {
-            InputProps.onBlur = (e) =>
+            InputProps.onBlur = (e) => {
               handleSelectOrInputValueChange(
                 cellConfig.inputType === "number"
                   ? Number(e.target.value)
@@ -137,8 +141,7 @@ const Grid = defineComponent({
                 rowName,
                 columnName
               );
-          } else {
-            InputProps["onUpdate:value"] = handleValueChange;
+            };
           }
           return <RenderInput {...InputProps} {...CommonProps} />;
         case gridCellTypeEnum.dropdown:
@@ -148,9 +151,7 @@ const Grid = defineComponent({
               multiple={cellConfig.multipleChoice}
               placeholder={cellConfig.dropdownPlaceholder}
               consistentMenuWidth={false}
-              value={cellValue}
               options={cellConfig.choices}
-              onUpdate:value={handleValueChange}
               {...CommonProps}
             />
           );
@@ -185,7 +186,6 @@ const Grid = defineComponent({
 
     return () => {
       if (!unref(visibleIf)) return null;
-
       return (
         <QuestionContainer
           question={question}

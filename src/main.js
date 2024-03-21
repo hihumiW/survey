@@ -13,6 +13,7 @@ import { VueQueryPlugin } from "vue-query";
 import "./style.css";
 import router from "./router";
 import App from "./App.vue";
+// import Test from "./pages/Test";
 import "vfonts/Lato.css";
 
 const AppWrapper = defineComponent({

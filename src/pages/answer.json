@@ -1,0 +1,111 @@
+{
+  "answerMap": {
+    "question6": {
+      "row1": {
+        "column1": "1"
+      },
+      "row2": {
+        "column1": "1"
+      }
+    },
+    "question3": {
+      "row1": {
+        "column1": "1",
+        "column5": 1,
+        "column4": 1,
+        "column3": 1,
+        "column2": 1710864000000,
+        "column6": 1
+      },
+      "row3": {
+        "column1": "1",
+        "column5": 1,
+        "column4": 1,
+        "column3": 1,
+        "column2": 1710864000000,
+        "column6": 1
+      },
+      "row2": {
+        "column1": "1",
+        "column5": 1,
+        "column4": 1,
+        "column3": 1,
+        "column2": 1710864000000,
+        "column6": 1
+      },
+      "row5": {
+        "column1": "1",
+        "column5": 1,
+        "column4": 1,
+        "column3": 1,
+        "column2": 1710864000000,
+        "column6": 1
+      },
+      "row4": {
+        "column1": "1",
+        "column5": 1,
+        "column4": 1,
+        "column3": 1,
+        "column2": 1710864000000,
+        "column6": 1
+      }
+    },
+    "question2": {
+      "row1": {
+        "column1": "2",
+        "column5": 1,
+        "column4": 1,
+        "column3": 1,
+        "column2": 1710864000000,
+        "column6": 1
+      },
+      "row6": {
+        "column1": "1",
+        "column5": 1,
+        "column4": 1,
+        "column3": 1,
+        "column2": 1710864000000,
+        "column6": 1
+      },
+      "row3": {
+        "column1": "2",
+        "column5": 1,
+        "column4": 1,
+        "column3": 11,
+        "column2": 1710864000000,
+        "column6": 1
+      },
+      "row2": {
+        "column1": "3",
+        "column5": 1,
+        "column4": 1,
+        "column3": 1,
+        "column2": 1710864000000,
+        "column6": 1
+      },
+      "row5": {
+        "column1": "1",
+        "column5": 1,
+        "column4": 1,
+        "column3": 1,
+        "column2": 1710864000000,
+        "column6": 1
+      },
+      "row4": {
+        "column1": "2",
+        "column5": 1,
+        "column4": 1,
+        "column3": 1,
+        "column2": 1710864000000,
+        "column6": 1
+      }
+    },
+    "question5": "item2",
+    "question4": {
+      "row1": {
+        "column1": 1710864000000,
+        "column2": 1710875040000
+      }
+    }
+  }
+}
