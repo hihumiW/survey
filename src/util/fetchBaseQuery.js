@@ -12,7 +12,7 @@ const fetchBaseQuery = () => (url, config) => {
   return fetch(fetchUrl, {
     headers,
     ...restConfig,
-    credentials: "omit",
+    credentials: Authorization ? "omit" : "same-origin",
   }).then((resp) =>
     resp.json().then((resp) => {
       if (resp.success || resp.code === 200) {
