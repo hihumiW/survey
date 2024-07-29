@@ -18,7 +18,6 @@
         </template>
       </div>
     </div>
-
     <div
       id="sideBar"
       v-show="tabValue === 'designer' && showSideBar"
@@ -38,6 +37,8 @@ import useCreator from "./hooks/useCreator";
 import { useQuestionSequenceInit } from "./hooks/useQuestionIndex";
 import { useRoute } from "vue-router";
 
+import fakeData from "@/result.js";
+
 const props = defineProps({
   editSurveyData: {
     type: Object,
@@ -51,13 +52,15 @@ const props = defineProps({
 
 const route = useRoute();
 const creator = useCreator(props.editSurveyData, props.readOnly);
+console.log(props.editSurveyData);
+// const creator = useCreator(fakeData);
 const { showSideBar } = creator;
 useQuestionSequenceInit(creator.surveyQuestions);
 
 const isMounted = useMounted();
 if (route.name === "creator") {
   onMounted(() => {
-    creator.addQuestion("dropdown");
+    // creator.addQuestion(QuestionTypeEnum.grid);
   });
 }
 

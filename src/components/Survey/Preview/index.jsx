@@ -3,6 +3,7 @@ import { NButton } from "naive-ui";
 import VueJsonPretty from "vue-json-pretty";
 import "vue-json-pretty/lib/styles.css";
 import SurveyRender from "../Render/index";
+import previewDefaultValue from "@/result2.json";
 
 const Preview = defineComponent({
   props: {
@@ -30,6 +31,7 @@ const Preview = defineComponent({
       return (
         <SurveyRender
           survey={props.creator.JSON()}
+          defaultValue={previewDefaultValue}
           onSurveySubmit={handleSurveySubmit}
         />
       );

@@ -1,0 +1,312 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .m-w-half {
+    max-width: 50%;
+  }
+}
+
+:root {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+:root,
+body,
+#app,
+.n-config-provider {
+  height: 100%;
+}
+.survey-app {
+  overflow-y: auto;
+}
+
+.survey-app input,
+.survey-app select {
+  border: none !important;
+}
+
+.n-button {
+  background-color: var(--n-color);
+}
+.n-tabs-nav-scroll-wrapper {
+  height: 52px !important;
+}
+.survey-question-cell-container {
+  min-height: calc(var(--cellRowSpan) * 48px);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    @apply bg-white;
+  }
+  #app {
+    @apply text-black;
+  }
+  .survey-question-wrapper {
+    @apply bg-white;
+  }
+  .survey-title:empty::before {
+    @apply text-neutral-400;
+  }
+  .survey-title:focus {
+    @apply text-neutral-900;
+  }
+  .survey-creator-container .survey-question-cell-container:hover,
+  .survey-creator-container .survey-question-wrapper:hover {
+    box-shadow: 0 0 0 2px rgba(255, 152, 20, 0.2);
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    @apply bg-black;
+  }
+  #app {
+    @apply text-white;
+  }
+  .survey-question-wrapper {
+    @apply bg-black;
+  }
+  .survey-title:empty::before {
+    @apply text-neutral-400;
+  }
+  .survey-title:focus {
+    @apply text-neutral-50;
+  }
+  .survey-creator-container .survey-question-cell-container:hover,
+  .survey-creator-container .survey-question-wrapper:hover {
+    box-shadow: 0 0 0 2px rgba(255, 152, 20, 0.4);
+  }
+}
+
+/* survey title styles */
+.survey-title:empty::before {
+  content: attr(aria-placeholder);
+}
+.survey-title:focus {
+  outline-color: #18a058;
+}
+.survey-title.editable:not(:focus):hover {
+  background-color: rgba(24, 160, 88, 0.12);
+}
+
+.survey-question-title:empty {
+  display: none;
+}
+
+.survey-question_text.variant-standard .n-input__border,
+.survey-question_text.variant-standard .n-input__state-border {
+  border-top: transparent !important;
+  border-left: transparent !important;
+  border-right: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0px;
+  @apply dark:border-neutral-800;
+}
+
+.survey-question_text.variant-standard .n-input {
+  background-color: transparent;
+}
+
+.survey-table.n-table {
+  overflow: visible !important;
+}
+.survey-table thead .survey-table-cell {
+  padding: 8px;
+  text-align: center;
+  font-weight: 600;
+}
+.survey-table thead .survey-title {
+  margin: 6px;
+}
+
+.survey-table-cell {
+  white-space: normal !important;
+  text-align: center;
+  font-weight: 600;
+}
+.survey-table-cell-rowTitle {
+  position: sticky;
+  left: 0px;
+  z-index: 99;
+  text-align: left;
+}
+.survey-sideBar-itemRow_input {
+  border: 2px solid transparent;
+  align-self: stretch;
+  outline: none;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  padding: 0.6rem;
+  padding-left: 0px;
+  box-sizing: border-box;
+  flex: 1;
+  min-width: 0;
+}
+.survey-sideBar-itemRow_input:focus {
+  border-color: #18a058;
+}
+
+.survey-question-wrapper {
+  padding: 1.5rem;
+
+  border-radius: 0.125rem;
+}
+.survey-question-panel-container .survey-question-wrapper {
+  padding: 0;
+}
+
+.survey-question-wrapper_footer {
+  visibility: hidden;
+}
+.survey-question-wrapper.active .survey-question-wrapper_footer,
+.survey-question-wrapper:hover .survey-question-wrapper_footer {
+  visibility: visible;
+}
+.survey-creator-container .survey-question-cell-container.active,
+.survey-creator-container .survey-question-wrapper.active {
+  box-shadow: 0 0 0 2px rgba(255, 152, 20);
+}
+
+/* select */
+.survey-question-select-options-container {
+  margin-top: 0.375rem;
+  width: 100%;
+  display: flex;
+  row-gap: 1.5rem;
+  flex-direction: column;
+}
+.survey-question-select-options-container.inline {
+  flex-wrap: wrap;
+  column-gap: 1.5rem;
+  flex-direction: row;
+}
+.survey-question-select-otherText {
+  margin-top: 0.6rem;
+}
+.survey-question-select-otherText.indent {
+  --ml: 2rem;
+  margin-left: var(--ml);
+  width: calc(100% - var(--ml)) !important;
+}
+
+.survey-grid-checkbox-group {
+  @apply flex flex-wrap items-center min-h-[28px];
+}
+
+.survey-grid-checkbox-other {
+  @apply flex flex-wrap items-center;
+}
+
+.survey-grid-checkbox-other .n-checkbox {
+  @apply break-all;
+}
+.survey-grid-checkbox-other .other-input-wrapper {
+  @apply max-w-[80px];
+}
+.survey-grid-checkbox-other .other-input-wrapper.disabled {
+  @apply opacity-50;
+}
+.survey-app .survey-grid-checkbox-other-text {
+  width: 100%;
+  outline: none;
+  border: 0px solid #999 !important;
+  border-bottom-width: 1px !important;
+}
+
+.align-left {
+  @apply text-left;
+}
+.align-center {
+  @apply text-center;
+}
+.align-right {
+  @apply text-right;
+}
+.text-small {
+  @apply text-sm;
+}
+.text-medium {
+  @apply text-base;
+}
+.text-large {
+  @apply text-xl;
+}
+.text-xlarge {
+  @apply text-2xl;
+}
+.text-bold {
+  @apply font-extrabold;
+}
+.blankLine {
+  @apply min-h-[1rem] leading-4;
+}
+
+span.fillBlank {
+  position: relative;
+  display: inline-block;
+  counter-increment: blankCounter;
+  @apply min-w-[50px] mx-1.5 inline-block leading-10 align-middle;
+}
+.survey-blanks-editor:focus span.fillBlank.hightLight {
+  outline: 1px solid orange;
+}
+span.fillBlank::before {
+  content: "__________";
+}
+
+.survey-blanks-editor span.fillBlank::after {
+  content: "填空" counter(blankCounter);
+  position: absolute;
+  bottom: -14px;
+  text-align: center;
+  font-size: 8px;
+  @apply inset-x-0;
+}
+
+.survey-blanks-editor {
+  @apply text-sm border border-neutral-200 border-solid rounded-sm;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  display: inline-block;
+  width: 100%;
+  min-height: 50px;
+  counter-reset: blankCounter;
+}
+.survey-blanks-editor:focus.hightBlank {
+  caret-color: transparent;
+}
+.survey-blanks-editor:empty::before {
+  @apply text-neutral-200;
+  content: "输入编辑填空";
+}
+
+.survey-creator-collapse {
+  @apply border-neutral-200 border bg-white dark:bg-neutral-700 dark:border-neutral-800;
+}
+
+.survey-creator-collapse .n-collapse-item {
+  border-top: none !important;
+}
+
+.survey-creator-collapse .n-collapse-item__header-main {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+}
+.survey-creator-collapse .n-collapse-item__content-wrapper {
+  @apply p-4 bg-neutral-100 flex flex-col gap-y-4 dark:bg-neutral-900;
+}

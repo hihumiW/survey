@@ -8,8 +8,9 @@ const Text = (props) => {
     isInherit,
     cellConfig,
   } = props;
+  const { textAlign = "left" } = cellConfig;
   return (
-    <div className="p-2">
+    <div className="p-2" style={{ textAlign }}>
       <Title
         value={cellConfig.cellText}
         placeholder={isInherit ? "" : "请输入文本"}

@@ -2,6 +2,10 @@ import QuestionTypeEnum from "@survey/types/questionTypeEnum";
 
 export default [
   {
+    name: "段落",
+    type: QuestionTypeEnum.paragraph,
+  },
+  {
     name: "单选",
     type: QuestionTypeEnum.radiogroup,
   },

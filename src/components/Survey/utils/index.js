@@ -20,12 +20,12 @@ export const forEachCellRows = (cells, rowFn) => {
 };
 
 export const forEachCell = (cells, fn) => {
-  forEachCellRows(cells, ({ rowInfo }) => {
+  forEachCellRows(cells, ({ rowInfo, rowKey }) => {
     for (const columnKey in rowInfo) {
       if (Object.hasOwnProperty.call(rowInfo, columnKey)) {
         const cell = rowInfo[columnKey];
         if (cell && fn) {
-          fn(cell);
+          fn(cell, rowKey, columnKey);
         }
       }
     }
@@ -40,4 +40,8 @@ export const forEachQuestion = (questions, fn) => {
       forEachQuestion(question.questions, fn);
     }
   });
+};
+
+export const getRandomId = () => {
+  return Math.random().toString(36).split(".")[1];
 };

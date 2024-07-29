@@ -6,6 +6,7 @@ import Panel from "./Panel";
 import Matrix from "./Grid/Matrix";
 import Grid from "./Grid";
 import File from "./File";
+import Paragraph from "./Paragraph";
 
 const SurveyRenderElementDispatch = (props) => {
   return props.questions.map((question) => (
@@ -63,6 +64,8 @@ const SurveyElement = (props) => {
       return <Grid {...props} />;
     case QuestionTypeEnum.file:
       return <File {...props} />;
+    case QuestionTypeEnum.paragraph:
+      return <Paragraph {...props} />;
     default:
       return null;
   }

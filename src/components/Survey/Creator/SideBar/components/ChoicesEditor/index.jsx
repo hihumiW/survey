@@ -10,6 +10,7 @@ import useChoices from "@survey/Creator/hooks/useChoices";
 const ChoicesEditor = defineComponent({
   setup(props) {
     const { currentActiveItem, currentActivePath } = useInjectCreator();
+
     const {
       handleTitleChange,
       handleItemValueChange,
@@ -79,6 +80,7 @@ const ChoicesEditor = defineComponent({
     };
 
     return () => {
+      if (unref(currentActiveItem).enableExternalLoadOptions) return null;
       return (
         <EditorLayout title="选项设置" onItemAdd={handleItemAdd}>
           {renderItems(currentActiveItem.value.choices)}

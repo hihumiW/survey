@@ -56,6 +56,7 @@ const includeTypes = [
   QuestionTypeEnum.radiogroup,
   QuestionTypeEnum.checkbox,
   QuestionTypeEnum.dropdown,
+  QuestionTypeEnum.paragraph,
 ];
 const panelQuestionTypeOptions = questionTypes
   .filter((item) => includeTypes.includes(item.type))

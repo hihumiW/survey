@@ -82,7 +82,7 @@ const useGridEdit = (gridPathRef) => {
 
   const handleRowAdd = () => {
     const rows = getModelV(rowPath());
-    const maxLengthOfRows = 15;
+    const maxLengthOfRows = 30;
     if (rows.length >= maxLengthOfRows) {
       return window.$message.warning(`表格列最多添加${maxLengthOfRows}项`);
     }

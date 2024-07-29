@@ -6,6 +6,8 @@ import generateConditionComp from "./generateValueBinder";
 import InputValueBinder from "../components/ValueBinder/Input.vue";
 import BooleanValueBinader from "../components/ValueBinder/Boolean.vue";
 import ChoicesEditor from "../components/ChoicesEditor";
+import BlanksSetting from "../components/BlanksSetting";
+
 import questionTypeEnum, {
   gridCellTypeEnum,
 } from "@survey/types/questionTypeEnum";
@@ -28,7 +30,26 @@ import {
   ProvinceSelector,
 } from "./textConfig";
 
-import { DropdownPlaceholder } from "./selectConfig";
+import {
+  DropdownPlaceholder,
+  EnableOtherOptionEditor,
+  OtherOptionTextEditor,
+  OtherOptionPlaceholder,
+  ChoicesOrientationEditor,
+  EnableExternalLoadOptionsEditor,
+  ExternalLoadOptionsName,
+} from "./selectConfig";
+
+import { AlignSelect } from "./paragraphConfig";
+
+export const HideTableHeader = () => (
+  <BooleanValueBinader
+    {...{
+      title: "隐藏表头",
+      bindName: "hideTableHeader",
+    }}
+  />
+);
 
 export const gridConfig = [
   {
@@ -49,7 +70,7 @@ export const gridConfig = [
   {
     categoryTitle: "布局",
     categoryName: "Layout",
-    components: [IndentEditor, ShowQuestionNumberEditor],
+    components: [IndentEditor, ShowQuestionNumberEditor, HideTableHeader],
   },
   {
     categoryTitle: "逻辑",
@@ -139,6 +160,34 @@ const GridCellTypeEditor = () => (
   <GridCellType title="单元格类型" type={questionTypeEnum.gridCell} />
 );
 
+const GridCellRowSpanEditor = () => {
+  return (
+    <InputValueBinder
+      type="number"
+      defaultValue={1}
+      title="单元格行合并"
+      bindName="rowSpan"
+      inputProps={{ min: 1, max: 10, clearable: true }}
+    />
+  );
+};
+
+const GridCellColSpanEditor = () => {
+  return (
+    <InputValueBinder
+      title="单元格列合并"
+      bindName="colSpan"
+      defaultValue={1}
+      type="number"
+      inputProps={{
+        min: 1,
+        max: 10,
+        clearable: true,
+      }}
+    />
+  );
+};
+
 export const GridColumnTitleEditor = () => (
   <InputValueBinder
     title="列标题"
@@ -148,15 +197,32 @@ export const GridColumnTitleEditor = () => (
   />
 );
 
+export const GridCollumnWidthInput = () => (
+  <InputValueBinder
+    title="列宽度"
+    type="number"
+    bindName="colWidth"
+    defaultValue={250}
+    inputProps={{ min: 100, max: 500, precision: 0 }}
+  />
+);
+
+const GridCellAliasInput = () => (
+  <InputValueBinder title="单元格别名" bindName="cellAlias" />
+);
+
 export const gridCellConfig = ({
   currentActiveItem,
   currentActiveItemType,
 }) => {
+  const cellType = unref(currentActiveItem)?.cellType;
   const isGridColumn =
     unref(currentActiveItemType) === questionTypeEnum.gridColumn;
-  const isDropdownType =
-    unref(currentActiveItem)?.cellType === gridCellTypeEnum.dropdown;
-
+  const isDropdownType = cellType === gridCellTypeEnum.dropdown;
+  const isCheckboxType = cellType === gridCellTypeEnum.checkbox;
+  const isRadioType = cellType === gridCellTypeEnum.radio;
+  const isBlanksType = cellType === gridCellTypeEnum.blanks;
+  const isTextType = cellType === gridCellTypeEnum.text;
   const config = [
     {
       categoryTitle: isGridColumn ? "列" : "单元格",
@@ -174,12 +240,46 @@ export const gridCellConfig = ({
   ];
   if (isGridColumn) {
     config[0].components.unshift(GridColumnTitleEditor);
+    config[0].components.push(GridCollumnWidthInput);
+  } else {
+    config[0].components.unshift(GridCellAliasInput);
+    config[0].components.push(GridCellColSpanEditor);
+    config[0].components.push(GridCellRowSpanEditor);
   }
   if (isDropdownType) {
     config.push({
       categoryTitle: "选项",
-      categoryName: "gridChoice",
+      categoryName: "gridDropdownChoice",
       components: [ChoicesEditor, DropdownPlaceholder, DropdownMuitipleEditor],
+    });
+  }
+  if (isCheckboxType || isRadioType) {
+    config.push({
+      categoryTitle: "选项",
+      categoryName: isCheckboxType ? "gridCheckChoices" : "gridRadioChoices",
+      components: [
+        EnableExternalLoadOptionsEditor,
+        ExternalLoadOptionsName,
+        ChoicesEditor,
+        EnableOtherOptionEditor,
+        OtherOptionTextEditor,
+        OtherOptionPlaceholder,
+        ChoicesOrientationEditor,
+      ],
+    });
+  }
+  if (isBlanksType) {
+    config.push({
+      categoryTitle: "填空",
+      categoryName: "gridBlanks",
+      components: [BlanksSetting],
+    });
+  }
+  if (isTextType) {
+    config.push({
+      categoryTitle: "布局",
+      categoryName: "gridLayout",
+      components: [AlignSelect],
     });
   }
 

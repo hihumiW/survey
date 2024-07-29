@@ -19,7 +19,7 @@ import {
   DefaultValueExpressionEditor,
 } from "./common";
 
-const ChoicesOrientationEditor = () => (
+export const ChoicesOrientationEditor = () => (
   <RadioBinder
     {...{
       title: "选项方向",
@@ -38,7 +38,7 @@ const ChoicesOrientationEditor = () => (
   />
 );
 
-const EnableOtherOptionEditor = () => (
+export const EnableOtherOptionEditor = () => (
   <BooleanBinder
     {...{
       title: "启用其他选项 (描述)",
@@ -47,7 +47,7 @@ const EnableOtherOptionEditor = () => (
   />
 );
 
-const OtherOptionTextEditor = generateValueBinder(
+export const OtherOptionTextEditor = generateValueBinder(
   InputBinder,
   {
     title: "其他选项文本",
@@ -57,7 +57,7 @@ const OtherOptionTextEditor = generateValueBinder(
   ({ currentActiveItem }) => unref(currentActiveItem).showOtherItem
 );
 
-const OtherOptionPlaceholder = generateValueBinder(
+export const OtherOptionPlaceholder = generateValueBinder(
   InputBinder,
   {
     title: "其他选项描述占位符",
@@ -78,6 +78,33 @@ export const DropdownPlaceholder = () => (
   />
 );
 
+export const EnableExternalLoadOptionsEditor = () => (
+  <BooleanBinder
+    {...{
+      title: "选项通过外部加载",
+      bindName: "enableExternalLoadOptions",
+      options: [
+        {
+          label: "否",
+          value: 0,
+        },
+        {
+          label: "是",
+          value: 1,
+        },
+      ],
+    }}
+  />
+);
+export const ExternalLoadOptionsName = generateConditionComp(
+  () => (
+    <InputBinder title="外部加载字段名" bindName="externalLoadOptionsName" />
+  ),
+  {},
+  "ExternalLoadOptionsName",
+  ({ currentActiveItem }) =>
+    Boolean(unref(currentActiveItem).enableExternalLoadOptions)
+);
 const DropDownPlaceholderEditor = generateConditionComp(
   DropdownPlaceholder,
   {},

@@ -13,7 +13,7 @@ import objectPath from "object-path";
 const valuesInjectionKey = Symbol("values");
 
 export const useValuesInit = (config) => {
-  const { defaultValue = {}, schema, onSubmit } = config;
+  const { defaultValue = {}, schema, onSubmit, externalOptions } = config;
   const values = ref(cloneDeep(defaultValue));
 
   window.cc = values;
@@ -22,7 +22,7 @@ export const useValuesInit = (config) => {
 
   const setFieldValue = (field, value) => {
     touched.value[field] = true;
-    if (value) {
+    if (typeof value !== "undefined") {
       values.value[field] = value;
     } else {
       delete values.value[field];
@@ -43,6 +43,7 @@ export const useValuesInit = (config) => {
 
   const provideData = {
     values,
+    externalOptions,
     setFieldValue,
     setNestedObjectValue,
     removeValuesProperty,

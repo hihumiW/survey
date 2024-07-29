@@ -60,6 +60,7 @@ const queryClient = useQueryClient();
 const handleSave = () => {
   const form = creator.JSON();
   const { title = "", categoryId, questions } = form;
+  console.log("questions", questions);
   if (title.trim() === "") {
     return window.$message.error("请输入问卷名称");
   }
@@ -69,6 +70,7 @@ const handleSave = () => {
   if (!questions.length) {
     return window.$message.error("请至少添加一道题目");
   }
+
   mutateAsync(form)
     .then((formId) => {
       window.$message.success("保存成功");

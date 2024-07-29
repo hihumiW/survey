@@ -36,6 +36,7 @@ const {
   removeItem,
   filterCellsEmpty,
   filterCellEmptyRows,
+  getCurrentActivePathConfig,
 } = useInjectCreator();
 
 const isGridCell = computed(() => props.type === questionTypeEnum.gridCell);
@@ -68,16 +69,34 @@ const CellTypeOptions = computed(() => {
       label: "继承列",
       value: gridCellTypeEnum.inherit,
     });
+    options.push({
+      label: "单选框",
+      value: gridCellTypeEnum.radio,
+    });
+    options.push({
+      label: "复选框",
+      value: gridCellTypeEnum.checkbox,
+    });
+    options.push({
+      label: "多项填空",
+      value: gridCellTypeEnum.blanks,
+    });
   }
   return options;
 });
 
 const handleCellTypeChange = (value) => {
-  const activeCell = unref(currentActiveItem);
-
+  const activeCell = getCurrentActivePathConfig();
   const unRefIsGridCell = unref(isGridCell);
   if (value === gridCellTypeEnum.inherit) {
     if (unRefIsGridCell) {
+      const { colSpan, rowSpan } = activeCell || {};
+      if (colSpan > 1 || rowSpan > 1) {
+        const updateConfig = { colSpan, rowSpan };
+        updateQuestionFieldValueByPath(unref(currentActivePath), updateConfig);
+        currentActiveItem.value = updateConfig;
+        return;
+      }
       currentActiveItem.value = null;
       removeItem(unref(currentActivePath));
       const cellsPath = unref(currentActivePath).split(".cells")[0] + ".cells";
@@ -91,6 +110,12 @@ const handleCellTypeChange = (value) => {
       mergedConfig = {
         value,
         text,
+      };
+    } else if (activeCell) {
+      const { colSpan, rowSpan } = activeCell;
+      mergedConfig = {
+        colSpan,
+        rowSpan,
       };
     }
     const cellConfig = getGridCellDefaultConfig(value);

@@ -16,8 +16,9 @@ const SurveyRender = defineComponent({
       survey: { title, description, questions, categoryId },
       readOnly,
       formId,
+      externalOptions,
     } = props;
-
+    console.log("externalOptions", externalOptions);
     useQuestionSequenceInit(questions);
     const { data: formTypes } = useFormTypes();
     const valuesSchema = useValidate(questions);
@@ -25,6 +26,7 @@ const SurveyRender = defineComponent({
     const { values, touched, errors, handleSubmit } = useValuesInit({
       defaultValue,
       schema: valuesSchema,
+      externalOptions,
       onSubmit: (values) => {
         const unrefValues = unref(values);
         if (props.onSurveySubmit) {
@@ -66,7 +68,6 @@ const SurveyRender = defineComponent({
     };
 
     const renderFooter = () => {
-      console.log("cc", props.hideSubmit);
       if (props.readOnly || !questions?.length || props.hideSubmit) return null;
       return (
         <div class="text-center mb-8">
@@ -115,6 +116,9 @@ SurveyRender.props = {
   },
   formId: {
     type: String,
+  },
+  externalOptions: {
+    type: Object,
   },
 };
 

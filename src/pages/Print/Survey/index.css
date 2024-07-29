@@ -1,0 +1,66 @@
+.survey-print-table {
+  --borderColor: #333;
+  width: 100%;
+  border: 1px solid var(--borderColor);
+  table-layout: fixed;
+}
+
+.survey-print-table.hideTableHeader thead {
+  display: none;
+}
+
+.survey-print-table th,
+.survey-print-table td {
+  border-bottom: 1px solid var(--borderColor);
+  border-right: 1px solid var(--borderColor);
+  padding: 2px;
+}
+
+.survey-print-table th {
+  text-align: left;
+}
+
+.survey-print-table th:last-child,
+.survey-print-table td:last-child {
+  border-right: 0px solid var(--borderColor);
+}
+.cell-layout {
+  min-height: 20px;
+}
+.cell-layout.left {
+  text-align: left;
+}
+
+.cell-layout.center {
+  text-align: center;
+}
+
+.cell-layout.right {
+  text-align: right;
+}
+
+@page {
+  size: A4;
+}
+
+.survey-print {
+  margin-block: 2rem;
+  width: 755px;
+  margin-inline: auto;
+}
+@media print {
+  #app,
+  .n-config-provider,
+  .survey-app {
+    height: unset;
+  }
+
+  .survey-print {
+    margin-inline: 0;
+    margin-block: 0;
+    width: auto;
+  }
+  .survey-print-notice {
+    display: none;
+  }
+}

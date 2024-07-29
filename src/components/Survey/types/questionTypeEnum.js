@@ -17,6 +17,7 @@ export default {
   grid: "grid",
   gridColumn: "gridColumn",
   gridCell: "gridCell",
+  paragraph: "paragraph",
 };
 
 export const gridCellTypeEnum = {
@@ -24,6 +25,9 @@ export const gridCellTypeEnum = {
   input: "input",
   dropdown: "dropdown",
   inherit: "inherit",
+  checkbox: "checkbox",
+  radio: "radio",
+  blanks: "blanks",
 };
 
 export const textTypeEnum = {
@@ -32,4 +36,5 @@ export const textTypeEnum = {
   date: "date",
   time: "time",
   provinceCity: "provinceCity",
+  daterange: "daterange",
 };

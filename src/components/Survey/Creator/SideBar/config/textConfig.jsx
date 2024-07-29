@@ -113,6 +113,10 @@ export const InputTypeEditor = (
           value: textTypeEnum.time,
         },
         {
+          label: "日期范围",
+          value: textTypeEnum.daterange,
+        },
+        {
           label: "省市选择",
           value: textTypeEnum.provinceCity,
         },

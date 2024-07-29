@@ -46,7 +46,7 @@ const ItemRow = (props) => {
         placeholder="Choice text"
         value={props.item.text}
         onInput={handleTextChange}
-        maxlength={30}
+        maxlength={80}
       />
     </ItemLayout>
   );

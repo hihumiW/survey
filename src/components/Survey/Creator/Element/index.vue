@@ -55,6 +55,7 @@ import File from "./File/index.vue";
 import Panel from "./Panel/index.vue";
 import Matrix from "./Grid/Matrix";
 import Grid from "./Grid";
+import Paragraph from "./Paragraph";
 
 import { useInjectCreator } from "@survey/hooks/useCreator";
 import questionTypes from "../ToolBox/questionTypes";
@@ -107,6 +108,8 @@ const RenderComponent = computed(() => {
       return Matrix;
     case QuestionTypeEnum.grid:
       return Grid;
+    case QuestionTypeEnum.paragraph:
+      return Paragraph;
   }
 });
 </script>

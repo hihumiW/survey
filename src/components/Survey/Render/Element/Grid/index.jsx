@@ -12,15 +12,19 @@ import { getInputProps, getRenderInput } from "@survey/hooks/Element/Text";
 import useReadOnly from "@survey/Render/hooks/useReadOnly";
 import useProvinceCity from "@/hooks/useProvinceCity";
 import ProvinceSelectWrapper from "./ProvinceSelectWrapper";
+import Checkbox from "./Checkbox";
 import { forEachCell } from "@survey/utils";
+import { getOtherTextValueFieldName } from "@survey/Render/Element/Select";
+import Blanks from "./Blanks";
+import Radio from "./Radio";
 
 const Grid = defineComponent({
   props: questionCommonProps,
   setup(props) {
     const { question, values, touched, errors } = props;
-
-    const { name, cells } = question;
-    const { setNestedObjectValue, removeValuesProperty } = useValues();
+    const { name, cells, hideTableHeader } = question;
+    const { setNestedObjectValue, removeValuesProperty, externalOptions } =
+      useValues();
     const editableIf = useEditableIf(question, values);
     const visibleIf = useVisibleIf(question, values);
     const questionIndex = useQuestionIndex(question);
@@ -57,6 +61,7 @@ const Grid = defineComponent({
 
     const getColumns = () => {
       const { columns } = question;
+
       return columns.map((column) => ({
         id: column.value,
         className: "survey-table-cell",
@@ -68,10 +73,27 @@ const Grid = defineComponent({
       }));
     };
 
+    const mergedCells = computed(() => {
+      const cells = {};
+      forEachCell(props?.question?.cells, (cell, rowKey, columnKey) => {
+        if (cell.colSpan || cell.rowSpan) {
+          const cellKey = `${rowKey}_${columnKey}`;
+          cells[cellKey] = cell;
+        }
+      });
+      return cells;
+    });
     const renderColumnHeader = ({ column }) => (
       <span class="inline-block py-3">{column.originalColumn.text}</span>
     );
 
+    const handleAliasCellValueChange = (val, alias) => {
+      if (val) {
+        setNestedObjectValue(alias, val);
+      } else {
+        removeValuesProperty(alias);
+      }
+    };
     const handleSelectOrInputValueChange = (val, rowName, columnName) => {
       const setPath = `${name}.${rowName}.${columnName}`;
       if (val) {
@@ -84,20 +106,27 @@ const Grid = defineComponent({
     const renderColumnCell = ({ column, rowData }) => {
       const { key: rowName } = rowData;
       const { id: columnName, originalColumn } = column;
-      const cellConfig = cells?.[rowName]?.[columnName] || originalColumn;
-      const cellValue = unref(questionValue)?.[rowName]?.[columnName];
-      const cellType = cellConfig?.cellType;
-
+      const cellInfo = cells?.[rowName]?.[columnName] || {};
+      const cellConfig = { ...originalColumn, ...cellInfo };
+      const { cellAlias } = cellConfig;
+      const cellValue = cellAlias
+        ? unref(values)?.[cellAlias]
+        : unref(questionValue)?.[rowName]?.[columnName];
+      const cellType = cellConfig.cellType;
       const handleValueChange = (val) => {
-        handleSelectOrInputValueChange(val, rowName, columnName);
+        if (cellAlias) {
+          handleAliasCellValueChange(val, cellAlias);
+        } else {
+          handleSelectOrInputValueChange(val, rowName, columnName);
+        }
       };
       const CommonProps = {
         value: cellValue,
         "onUpdate:value": handleValueChange,
         disabled: unref(readOnly) || !unref(editableIf),
         size: "large",
-        filterable: true,
         clearable: true,
+        filterable: true,
         class: cellType !== gridCellTypeEnum.text ? "text-left" : undefined,
       };
 
@@ -134,13 +163,9 @@ const Grid = defineComponent({
             )
           ) {
             InputProps.onBlur = (e) => {
-              handleSelectOrInputValueChange(
-                cellConfig.inputType === "number"
-                  ? Number(e.target.value)
-                  : e.target.value,
-                rowName,
-                columnName
-              );
+              if (cellConfig.inputType === "number") {
+                handleValueChange(Number(e.target.value));
+              }
             };
           }
           return <RenderInput {...InputProps} {...CommonProps} />;
@@ -156,8 +181,61 @@ const Grid = defineComponent({
             />
           );
         case gridCellTypeEnum.text:
-          return <span class="inline-block py-3">{cellConfig.cellText}</span>;
+          return (
+            <p style={{ textAlign: cellConfig.textAlign || "left" }}>
+              <span class="inline-block py-3">{cellConfig.cellText}</span>
+            </p>
+          );
+        case gridCellTypeEnum.checkbox:
+        case gridCellTypeEnum.radio:
+          const otherTextField = cellAlias
+            ? getOtherTextValueFieldName(cellAlias)
+            : getOtherTextValueFieldName(columnName);
+          const otherTextValue = cellAlias
+            ? unref(values)?.[otherTextField]
+            : unref(questionValue)?.[rowName]?.[otherTextField];
+          const onOtherTextValueChange = (val) => {
+            if (cellAlias) {
+              handleAliasCellValueChange(val, otherTextField);
+            } else {
+              handleSelectOrInputValueChange(val, rowName, otherTextField);
+            }
+          };
+
+          const PassPrpos = {
+            ...CommonProps,
+            cellConfig,
+            otherTextValue,
+            externalOptions,
+            onOtherTextValueChange: onOtherTextValueChange,
+          };
+          return cellType === gridCellTypeEnum.checkbox ? (
+            <Checkbox {...PassPrpos} />
+          ) : (
+            <Radio {...PassPrpos} />
+          );
+        case gridCellTypeEnum.blanks:
+          const onBlankValueChange = (blankId, value) => {
+            if (cellAlias) {
+              handleAliasCellValueChange(value, `${cellAlias}.${blankId}`);
+            } else {
+              handleSelectOrInputValueChange(
+                value,
+                rowName,
+                `${columnName}.${blankId}`
+              );
+            }
+          };
+          return (
+            <Blanks
+              cellInfo={cellInfo}
+              cellValue={cellValue}
+              disabled={CommonProps.disabled}
+              onBlankValueChange={onBlankValueChange}
+            />
+          );
       }
+      return <p>unknow grid cell type</p>;
     };
 
     const renderTableContent = () => {
@@ -174,9 +252,19 @@ const Grid = defineComponent({
       if (unref(shouldLoadProvinceData) && !unref(province)?.length) {
         return <div>没有省市数据</div>;
       }
+
       return (
         <div className="overflow-auto">
-          <Table class="survey-table" columns={columns} data={data} />
+          <Table
+            class={
+              hideTableHeader
+                ? "survey-table render hideTableHeader"
+                : "survey-table"
+            }
+            columns={columns}
+            data={data}
+            mergedCells={unref(mergedCells)}
+          />
         </div>
       );
     };

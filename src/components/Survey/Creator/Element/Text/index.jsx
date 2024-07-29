@@ -2,19 +2,20 @@ import questionCommonProps from "@survey/Creator/util/questionCommonProps";
 import QuestionContainer from "@survey/Creator/components/QuestionContainer/index.vue";
 
 import {
-  getPlaceholder,
+  getInputProps,
   getRenderInput,
   getInputVariantClassName,
 } from "@survey/hooks/Element/Text";
 const Text = (props) => {
   const {
-    question: { inputVariant, inputType, placeholder },
+    question: { inputVariant, inputType },
   } = props;
 
   const InputProps = {
-    size: "large",
+    ...getInputProps(props.question),
+    readonly: true,
+    clearable: false,
     disabled: true,
-    placeholder: getPlaceholder(inputType, placeholder),
   };
 
   const Input = getRenderInput(inputType);

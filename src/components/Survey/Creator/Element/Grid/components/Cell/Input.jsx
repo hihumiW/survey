@@ -1,12 +1,13 @@
 import cellProps from "./cellProps";
-import { getPlaceholder, getRenderInput } from "@survey/hooks/Element/Text";
+import { getInputProps, getRenderInput } from "@survey/hooks/Element/Text";
 const Input = (props) => {
   const { cellConfig } = props;
-  const { inputType, placeholder } = cellConfig;
+  const { inputType } = cellConfig;
   const InputProps = {
-    size: "large",
+    ...getInputProps(cellConfig),
+    readonly: true,
+    clearable: false,
     disabled: true,
-    placeholder: getPlaceholder(inputType, placeholder),
   };
 
   const Input = getRenderInput(inputType);

@@ -18,8 +18,10 @@ import {
   NSelect,
 } from "naive-ui";
 
-const otherOptionDefaultValue = "__select__item__other__";
-const getOtherTextValueFieldName = (fieldName) => `${fieldName}__Comment`;
+export const otherOptionDefaultValue = "__select__item__other__";
+export const getOtherTextValueFieldName = (fieldName) => {
+  return `${fieldName}__Comment`;
+};
 
 const Select = defineComponent({
   props: questionCommonProps,
@@ -52,14 +54,16 @@ const Select = defineComponent({
       : choices;
 
     const isDropdown = type === QuestionTypeEnum.dropdown;
+    const isRadio = type === QuestionTypeEnum.radiogroup;
     const isInline = orientation === "horizontal";
     const OptionsComp = !isDropdown && {
-      Container:
-        type === QuestionTypeEnum.radiogroup ? NRadioGroup : NCheckboxGroup,
-      Item: type === QuestionTypeEnum.radiogroup ? NRadio : NCheckbox,
+      Container: isRadio ? NRadioGroup : NCheckboxGroup,
+      Item: isRadio ? NRadio : NCheckbox,
     };
+
     const renderOptions = () => {
       if (!OptionsComp) return null;
+
       return (
         <OptionsComp.Container
           size="large"
@@ -74,7 +78,17 @@ const Select = defineComponent({
             ]}
           >
             {optionsForRender.map(({ value, text }) => (
-              <OptionsComp.Item key={value} value={value} label={text} />
+              <OptionsComp.Item
+                key={value}
+                value={value}
+                label={text}
+                onClick={() => {
+                  if (!isRadio) return;
+                  if (selectValue.value === value) {
+                    selectValue.value = "";
+                  }
+                }}
+              />
             ))}
           </div>
         </OptionsComp.Container>

@@ -24,7 +24,7 @@ const CellWrapper = defineComponent({
     return () => (
       <div
         class={[
-          "survey-question-cell-container rounded-sm cursor-pointer p-1",
+          "survey-question-cell-container rounded-sm cursor-pointer p-1 h-full",
           isActive.value && "active",
         ]}
         onClick={handleContainerClick}

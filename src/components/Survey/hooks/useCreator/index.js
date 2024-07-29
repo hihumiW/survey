@@ -54,11 +54,16 @@ const useCreator = (defaultData = {}) => {
      * @param {string} questionType question的type；默认情况下question会包含type；当点击表格的单元格时，并没有type属性，所以需要单独传入；
      */
     onQuestionItemClick: (questionPath, questionType) => {
+      console.log(questionPath, questionType);
       const item = creator.getModelV(questionPath);
       if (!item && questionType !== questionTypeEnum.gridCell) return;
       currentActivePath.value = questionPath;
       currentActiveItem.value = item;
       currentActiveItemType.value = questionType || item.type;
+    },
+    getCurrentActivePathConfig: () => {
+      const path = unref(currentActivePath);
+      return creator.getModelV(path);
     },
     /**
      * 更改问卷的标题

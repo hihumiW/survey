@@ -9,11 +9,11 @@ import { textTypeEnum } from "@survey/types/questionTypeEnum";
 
 export const getPlaceholder = (inputType, defaultPlaceholder) => {
   switch (inputType) {
-    case "time":
+    case textTypeEnum.time:
       return "--:--:--";
-    case "date":
+    case textTypeEnum.date:
       return "年/月/日";
-    case "provinceCity":
+    case textTypeEnum.provinceCity:
       return "请选择省市";
     default:
       return defaultPlaceholder;
@@ -22,13 +22,14 @@ export const getPlaceholder = (inputType, defaultPlaceholder) => {
 
 export const getRenderInput = (inputType) => {
   switch (inputType) {
-    case "number":
+    case textTypeEnum.number:
       return NInputNumber;
-    case "time":
+    case textTypeEnum.time:
       return NTimePicker;
-    case "date":
+    case textTypeEnum.date:
+    case textTypeEnum.daterange:
       return NDatePicker;
-    case "provinceCity":
+    case textTypeEnum.provinceCity:
       return NCascader;
     default:
       return NInput;
@@ -64,6 +65,9 @@ export const getInputProps = (props) => {
     case textTypeEnum.date:
       Props.format = "yyyy/MM/dd";
       return Props;
+    case textTypeEnum.daterange:
+      Props.format = "yyyy/MM/dd";
+      Props.type = "daterange";
   }
   return Props;
 };

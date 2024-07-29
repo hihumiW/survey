@@ -36,8 +36,16 @@ const getQuestionDefaultConfig = (questionType, isSubNode) => {
       return {
         indent: 0,
         showQuestionNumber: true,
+        hideTableHeader: false,
         gridRows: ["row1", "row2", "row3"],
         columns: getItemsByValues(["column1", "column2"], GridColumnGenerator),
+      };
+    case questionTypeEnum.paragraph:
+      return {
+        title: "paragraph",
+        fontSize: "medium",
+        textAlign: "left",
+        bold: false,
       };
   }
 };
@@ -98,8 +106,19 @@ export const getGridCellDefaultConfig = (cellType) => {
     case gridCellTypeEnum.input:
       config.inputType = textTypeEnum.text;
       break;
+    case gridCellTypeEnum.text:
+      config.cellText = "";
+      break;
     case gridCellTypeEnum.dropdown:
       config.choices = getItemsByValues(["item1", "item2", "item3"]);
+      break;
+    case gridCellTypeEnum.checkbox:
+    case gridCellTypeEnum.radio:
+      config.choices = getItemsByValues(["item1", "item2", "item3"]);
+      config.orientation = "horizontal";
+      break;
+    case gridCellTypeEnum.blanks:
+      config.blankSettings = [];
       break;
   }
   return config;

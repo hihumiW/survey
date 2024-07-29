@@ -7,6 +7,7 @@ import useGridEdit from "@survey/Creator/hooks/useGridEdit";
 import questionCommonProps from "@survey/Creator/util/questionCommonProps";
 import QuestionContainer from "@survey/Creator/components/QuestionContainer/index.vue";
 import questionTypeEnum from "@survey/types/questionTypeEnum";
+import { forEachCell } from "@survey/utils";
 
 const Grid = defineComponent({
   props: questionCommonProps,
@@ -31,11 +32,12 @@ const Grid = defineComponent({
       const {
         question: { columns },
       } = props;
+
       return columns.map((column) => ({
         id: column.value,
         className: "survey-table-cell",
         originalColumn: column,
-        minWidth: 250,
+        width: column.colWidth || 250,
         header: ({ column, columnIndex }) => {
           return (
             <CellWrapper
@@ -62,8 +64,8 @@ const Grid = defineComponent({
               cellType={questionTypeEnum.gridCell}
             >
               <Cell
-                cellPath={cellPath}
                 column={column}
+                cellPath={cellPath}
                 rowName={rowData.key}
                 cells={props.question.cells}
                 cellEditor={cellEditor}
@@ -74,17 +76,36 @@ const Grid = defineComponent({
       }));
     });
 
-    return () => (
-      <QuestionContainer {...props} editable>
-        <div className="overflow-auto">
-          <Table
-            data={datas.value}
-            columns={columnsDef.value}
-            class="survey-table"
-          />
-        </div>
-      </QuestionContainer>
-    );
+    const mergedCells = computed(() => {
+      const cells = {};
+      forEachCell(props?.question?.cells, (cell, rowKey, columnKey) => {
+        if (cell.colSpan || cell.rowSpan) {
+          const cellKey = `${rowKey}_${columnKey}`;
+          cells[cellKey] = cell;
+        }
+      });
+      return cells;
+    });
+
+    return () => {
+      return (
+        <QuestionContainer {...props} editable>
+          <div
+            className={
+              props.question.hideTableHeader
+                ? "overflow-auto hideTableHeader config"
+                : "overflow-auto"
+            }
+          >
+            <Table
+              data={datas.value}
+              columns={columnsDef.value}
+              mergedCells={unref(mergedCells)}
+            />
+          </div>
+        </QuestionContainer>
+      );
+    };
   },
 });
 
