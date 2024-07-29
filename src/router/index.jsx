@@ -1,9 +1,10 @@
 import CreateSurvey from "@/pages/Create";
 import EditSurvey from "@/pages/Create/Edit";
-import RenderSurvey from "@/pages/Survey";
+import RenderSurvey from "@/pages/Survey/index.jsx";
 import RenderHistorySurvey from "@/pages/Survey/History";
 import SurveyList from "@/pages/List";
 import { createRouter, createWebHashHistory } from "vue-router";
+
 const routes = [
   {
     path: "/creator",
