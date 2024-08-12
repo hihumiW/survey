@@ -30,7 +30,6 @@ const Blanks = defineComponent({
       ]);
     };
     const saveJson = (editorState) => {
-      console.log("save", JSON.stringify(editorState.toJSON()));
       updateQuestionFieldValueByPath(
         unref(contentPath),
         JSON.stringify(editorState.toJSON())
@@ -38,8 +37,7 @@ const Blanks = defineComponent({
     };
 
     const state = getModelV(unref(contentPath));
-    // console.log("state", state);
-    // console.log(state);
+
     const editorConfig = {
       namespace: "blankContent",
       theme: {
@@ -49,27 +47,7 @@ const Blanks = defineComponent({
         },
       },
       nodes: [BlankNode],
-      editorState: JSON.stringify({
-        root: {
-          children: [
-            {
-              children: [],
-              direction: null,
-              format: "",
-              indent: 0,
-              type: "paragraph",
-              version: 1,
-              textFormat: 0,
-              textStyle: "",
-            },
-          ],
-          direction: null,
-          format: "",
-          indent: 0,
-          type: "root",
-          version: 1,
-        },
-      }),
+      editorState: typeof state === "object" ? JSON.stringify(state) : state,
     };
 
     const onBlankDestory = (blankId) => {
@@ -80,6 +58,7 @@ const Blanks = defineComponent({
     };
 
     return () => {
+      // return null;
       return (
         <LexicalComposer initialConfig={editorConfig} onError={console.error}>
           <div className="survey-blanks-editor ">

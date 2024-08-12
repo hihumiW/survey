@@ -303,7 +303,7 @@ body,
   @apply min-w-[50px] mx-1.5 my-1 inline-block leading-10 align-middle;
 }
 .editor-blank.print {
-  @apply inline-block px-1 mx-0.5  relative;
+  @apply inline-block px-2 mx-0.5  relative;
 }
 .editor-blank.print::after {
   content: "";

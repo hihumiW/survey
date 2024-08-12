@@ -20,7 +20,7 @@ const EthicalSurvey = defineComponent({
       window.loadEthicalSurvey = undefined;
     });
     return () => {
-      if (!unref(shouldRenderSurveyData)) return <div>cnm</div>;
+      if (!unref(shouldRenderSurveyData)) return null;
       return <RenderSurvey {...unref(SurveyProps)} />;
     };
   },

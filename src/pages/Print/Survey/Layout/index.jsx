@@ -12,20 +12,22 @@ const Layout = defineComponent({
     return () => {
       return (
         <div
-          className="flex flex-col gap-y-1 text-sm text-black"
+          className="flex flex-col gap-y-1 text-xs text-black"
           style={{
             "--indentWidth": "1rem",
             marginLeft: `calc(var(--indentWidth) * ${indent})`,
           }}
         >
           {quesTitle && <p>{quesTitle}</p>}
-          <div
-            style={{
-              marginLeft: `calc(var(--indentWidth) * ${innerIndent})`,
-            }}
-          >
-            {slots.default && slots.default()}
-          </div>
+          {slots.default && (
+            <div
+              style={{
+                marginLeft: `calc(var(--indentWidth) * ${innerIndent})`,
+              }}
+            >
+              {slots.default()}
+            </div>
+          )}
         </div>
       );
     };

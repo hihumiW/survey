@@ -39,7 +39,7 @@ const routes = [
     component: SurveyList,
   },
   {
-    path: "/print/survey",
+    path: "/printSurvey",
     name: "printSurvey",
     component: PrintSurvey,
   },

@@ -16,4 +16,7 @@ export default {
   readOnly: {
     type: Boolean,
   },
+  formId: {
+    type: String,
+  },
 };

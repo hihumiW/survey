@@ -26,6 +26,10 @@ export default defineConfig({
         target: "http://192.168.0.185:9999",
         changeOrigin: true,
       },
+      "^/ethical/.*": {
+        target: "http://192.168.1.185:8916",
+        changeOrigin: true,
+      },
     },
   },
 });

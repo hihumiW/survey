@@ -171,7 +171,7 @@ const BlankPrint = defineComponent({
   setup(props) {
     const { blankId } = props;
     const value = inject("value");
-    const v = value[blankId];
+    const v = value?.[blankId];
     return () => v;
   },
 });

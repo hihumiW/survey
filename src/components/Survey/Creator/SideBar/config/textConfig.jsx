@@ -101,6 +101,10 @@ export const InputTypeEditor = (
           value: textTypeEnum.text,
         },
         {
+          label: "文本域",
+          value: textTypeEnum.textarea,
+        },
+        {
           label: "数字",
           value: textTypeEnum.number,
         },

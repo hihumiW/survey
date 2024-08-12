@@ -27,7 +27,6 @@ const Blanks = defineComponent({
           : JSON.stringify(blankContent),
       editable: false,
     };
-    console.log("editorConfig", editorConfig);
 
     return () => (
       <LexicalComposer initialConfig={editorConfig} onError={console.error}>

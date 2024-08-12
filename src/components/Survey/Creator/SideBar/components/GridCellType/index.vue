@@ -56,6 +56,10 @@ const CellTypeOptions = computed(() => {
   const options = [
     { label: "文本", value: gridCellTypeEnum.text },
     {
+      label: "值文本",
+      value: gridCellTypeEnum.valueText,
+    },
+    {
       label: "输入框",
       value: gridCellTypeEnum.input,
     },
@@ -80,6 +84,10 @@ const CellTypeOptions = computed(() => {
     options.push({
       label: "多项填空",
       value: gridCellTypeEnum.blanks,
+    });
+    options.push({
+      label: "图片上传",
+      value: gridCellTypeEnum.imageUpload,
     });
   }
   return options;

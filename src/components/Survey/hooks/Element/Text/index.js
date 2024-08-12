@@ -9,6 +9,8 @@ import { textTypeEnum } from "@survey/types/questionTypeEnum";
 
 export const getPlaceholder = (inputType, defaultPlaceholder) => {
   switch (inputType) {
+    case textTypeEnum.text:
+      return "请输入";
     case textTypeEnum.time:
       return "--:--:--";
     case textTypeEnum.date:
@@ -57,9 +59,13 @@ export const getInputProps = (props) => {
       }
       return Props;
     case textTypeEnum.text:
+    case textTypeEnum.textarea:
       if (maxLength > 0) {
         Props.maxlength = maxLength;
         Props.showCount = !!maxLength;
+      }
+      if (inputType === textTypeEnum.textarea) {
+        Props.type = "textarea";
       }
       return Props;
     case textTypeEnum.date:

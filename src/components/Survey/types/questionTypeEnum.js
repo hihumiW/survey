@@ -22,16 +22,19 @@ export default {
 
 export const gridCellTypeEnum = {
   text: "text",
+  valueText: "valueText",
   input: "input",
   dropdown: "dropdown",
   inherit: "inherit",
   checkbox: "checkbox",
   radio: "radio",
   blanks: "blanks",
+  imageUpload: "imageUpload",
 };
 
 export const textTypeEnum = {
   text: "text",
+  textarea: "textarea",
   number: "number",
   date: "date",
   time: "time",

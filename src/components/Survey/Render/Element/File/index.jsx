@@ -135,7 +135,10 @@ const File = defineComponent({
       if (!formId || !name) return;
       window.open(`/ctms/api/form/download/${formId}/${name}`);
     };
-
+    const Authorization = localStorage.getItem("gcp-portal-token");
+    const headers = {
+      Authorization,
+    };
     return () => {
       return (
         <QuestionContainer
@@ -146,6 +149,7 @@ const File = defineComponent({
         >
           <NUpload
             class="survey-upload"
+            headers={headers}
             disabled={unref(uploadDisabled)}
             action={unref(uploadAction)}
             name="files"

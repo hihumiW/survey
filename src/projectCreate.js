@@ -1,6 +1,6 @@
 export default {
-  title: "测测",
-  description: "测测你",
+  title: "长治医学院附属和平医院药物临床试验机构药物临床试验申请表",
+  description: "项目立项",
   questions: [
     {
       title: "长治医学院附属和平医院药物临床试验机构",
@@ -115,11 +115,12 @@ export default {
           column1: {
             cellType: "text",
             cellText: "项目名称",
+            textAlign: "center",
           },
           column2: {
-            cellType: "input",
-            inputType: "text",
             colSpan: 5,
+            rowSpan: undefined,
+            cellType: "valueText",
             cellAlias: "projectName",
           },
         },
@@ -127,11 +128,12 @@ export default {
           column1: {
             cellType: "text",
             cellText: "申办单位",
+            textAlign: "center",
           },
           column2: {
-            cellType: "input",
-            inputType: "text",
             colSpan: 5,
+            rowSpan: undefined,
+            cellType: "valueText",
             cellAlias: "bidPartyCro",
           },
         },
@@ -139,6 +141,7 @@ export default {
           column1: {
             cellType: "text",
             cellText: "通信地址",
+            textAlign: "center",
           },
           column2: {
             colSpan: 1,
@@ -150,6 +153,7 @@ export default {
           column3: {
             cellType: "text",
             cellText: "联系人",
+            textAlign: "center",
           },
           column4: {
             cellType: "input",
@@ -159,6 +163,7 @@ export default {
           column5: {
             cellType: "text",
             cellText: "固定电话",
+            textAlign: "center",
           },
           column6: {
             cellType: "input",
@@ -170,6 +175,7 @@ export default {
           column1: {
             cellType: "text",
             cellText: "CRO名称",
+            textAlign: "center",
           },
           column2: {
             cellType: "input",
@@ -181,7 +187,8 @@ export default {
         row5: {
           column1: {
             cellType: "text",
-            cellText: "通信地址",
+            cellText: "通信地址(CRO)",
+            textAlign: "center",
           },
           column2: {
             cellType: "input",
@@ -190,7 +197,8 @@ export default {
           },
           column3: {
             cellType: "text",
-            cellText: "联系人",
+            cellText: "联系人(CRO)",
+            textAlign: "center",
           },
           column4: {
             cellType: "input",
@@ -199,7 +207,8 @@ export default {
           },
           column5: {
             cellType: "text",
-            cellText: "固定电话",
+            cellText: "固定电话(CRO)",
+            textAlign: "center",
           },
           column6: {
             cellType: "input",
@@ -211,6 +220,7 @@ export default {
           column1: {
             cellType: "text",
             cellText: "药物名称",
+            textAlign: "center",
           },
           column2: {
             cellType: "input",
@@ -220,15 +230,17 @@ export default {
           column3: {
             cellType: "text",
             cellText: "批件号",
+            textAlign: "center",
           },
           column4: {
             cellType: "input",
-            inputType: "text",
+            inputType: "textarea",
             cellAlias: "batchNo",
           },
           column5: {
             cellType: "text",
             cellText: "类别",
+            textAlign: "center",
           },
           column6: {
             cellType: "input",
@@ -240,6 +252,7 @@ export default {
           column1: {
             cellType: "text",
             cellText: "国际多中心",
+            textAlign: "center",
           },
           column2: {
             cellType: "radio",
@@ -258,19 +271,22 @@ export default {
           column3: {
             cellType: "text",
             cellText: "拟展开科室",
+            textAlign: "center",
           },
           column4: {
-            cellType: "input",
-            inputType: "text",
+            colSpan: undefined,
+            rowSpan: undefined,
+            cellType: "valueText",
             cellAlias: "deptCode",
           },
           column5: {
             cellType: "text",
             cellText: "我院拟承担例数",
+            textAlign: "center",
           },
           column6: {
             cellType: "input",
-            inputType: "text",
+            inputType: "number",
             cellAlias: "expectedSubjectsNum",
           },
         },
@@ -278,6 +294,7 @@ export default {
           column1: {
             cellType: "text",
             cellText: "牵头单位",
+            textAlign: "center",
           },
           column2: {
             colSpan: 2,
@@ -290,10 +307,11 @@ export default {
             cellType: "text",
             cellText: "试验计划起止时间",
             cellAlias: "",
+            textAlign: "center",
           },
           column5: {
             cellType: "input",
-            inputType: "time",
+            inputType: "daterange",
             colSpan: 2,
             cellAlias: "planStartEndTime",
           },
@@ -302,6 +320,7 @@ export default {
           column1: {
             cellType: "text",
             cellText: "临床试验阶段",
+            textAlign: "center",
           },
           column2: {
             colSpan: 5,
@@ -309,15 +328,39 @@ export default {
             cellType: "radio",
             choices: [
               {
-                text: "item1",
+                text: "Ⅰ期临床试验",
                 value: "item1",
               },
+              {
+                text: "ⅠⅠ期临床试验",
+                value: "item2",
+              },
+              {
+                text: "ⅠⅠⅠ期临床试验",
+                value: "item3",
+              },
+              {
+                text: "ⅠV期临床试验",
+                value: "item4",
+              },
+              {
+                text: "上市后验证",
+                value: "item5",
+              },
+              {
+                text: "生物等效性试验",
+                value: "item6",
+              },
+              {
+                text: "耐受性试验",
+                value: "item7",
+              },
             ],
-            showOtherItem: false,
+            showOtherItem: true,
             otherText: "其他",
             cellAlias: "stage",
-            enableExternalLoadOptions: true,
-            externalLoadOptionsName: "STAGE_OPTIONS",
+            enableExternalLoadOptions: false,
+            externalLoadOptionsName: "",
           },
         },
         row10: {
@@ -325,13 +368,14 @@ export default {
             cellType: "text",
             cellText: "基本信息",
             rowSpan: 9,
+            textAlign: "center",
           },
           column2: {
             colSpan: 1,
             rowSpan: 1,
             cellType: "text",
-            cellText: "试验状态：",
-            textAlign: "right",
+            cellText: "试验状态",
+            textAlign: "center",
           },
           column3: {
             colSpan: 4,
@@ -339,78 +383,24 @@ export default {
             cellType: "radio",
             choices: [
               {
-                text: "item1",
+                text: "全国已启动(增加单位)",
                 value: "item1",
+              },
+              {
+                text: "全国未启动",
+                value: "item2",
               },
             ],
             cellAlias: "status",
-            enableExternalLoadOptions: true,
-            externalLoadOptionsName: "STATUS_OPTIONS",
+            enableExternalLoadOptions: false,
+            externalLoadOptionsName: "",
           },
         },
         row11: {
           column2: {
             cellType: "text",
-            cellText: "标本外送：",
-            textAlign: "right",
-          },
-          column3: {
-            colSpan: 2,
-            rowSpan: 1,
-            cellType: "radio",
-            choices: [
-              {
-                text: "item1",
-                value: "item1",
-              },
-            ],
-            cellAlias: "isBookmarkDeliver",
-            enableExternalLoadOptions: true,
-            externalLoadOptionsName: "BOOLEAN_OPTIONS",
-          },
-          column5: {
-            cellType: "text",
-            cellText: "外送类型：",
-            textAlign: "right",
-          },
-          column6: {
-            cellType: "radio",
-            choices: [
-              {
-                text: "item1",
-                value: "item1",
-              },
-            ],
-            cellAlias: "bookmarkDeliverType",
-            enableExternalLoadOptions: true,
-            externalLoadOptionsName: "BOOKMARK_DELIVER_TYPE_OPTIONS",
-          },
-        },
-        row12: {
-          column2: {
-            cellType: "text",
-            cellText: "标本外送区域：",
-            textAlign: "right",
-          },
-          column3: {
-            cellType: "radio",
-            choices: [
-              {
-                text: "item1",
-                value: "item1",
-              },
-            ],
-            colSpan: 4,
-            cellAlias: "bookmarkDeliverAreaType",
-            enableExternalLoadOptions: true,
-            externalLoadOptionsName: "BOOKMARK_DELIVER_AREA_TYPE_OPTIONS",
-          },
-        },
-        row13: {
-          column2: {
-            cellType: "text",
-            cellText: "药物是否免费：",
-            textAlign: "right",
+            cellText: "标本外送",
+            textAlign: "center",
           },
           column3: {
             colSpan: 1,
@@ -418,75 +408,172 @@ export default {
             cellType: "radio",
             choices: [
               {
-                text: "item1",
+                text: "否",
                 value: "item1",
               },
+              {
+                text: "是",
+                value: "item2",
+              },
             ],
-            cellAlias: "isFreeDrug",
-            enableExternalLoadOptions: true,
-            externalLoadOptionsName: "BOOLEAN_OPTIONS",
+            cellAlias: "isBookmarkDeliver",
+            enableExternalLoadOptions: false,
+            externalLoadOptionsName: "",
+          },
+          column5: {
+            colSpan: 2,
+            rowSpan: undefined,
+            cellType: "radio",
+            choices: [
+              {
+                text: "病理",
+                value: "item1",
+              },
+              {
+                text: "血液",
+                value: "item2",
+              },
+              {
+                text: "其他",
+                value: "item3",
+              },
+            ],
+            orientation: "horizontal",
+            cellAlias: "bookmarkDeliverType",
+            enableExternalLoadOptions: false,
+            externalLoadOptionsName: "",
           },
           column4: {
             cellType: "text",
-            cellText: "免费形式：",
-            textAlign: "right",
+            cellText: "外送类型",
+            textAlign: "center",
+          },
+        },
+        row12: {
+          column2: {
+            cellType: "text",
+            cellText: "标本外送区域",
+            textAlign: "center",
+          },
+          column3: {
+            cellType: "radio",
+            choices: [
+              {
+                text: "国内",
+                value: "item1",
+              },
+              {
+                text: "国外(包括境内外资企业)",
+                value: "item2",
+              },
+            ],
+            colSpan: 4,
+            cellAlias: "bookmarkDeliverAreaType",
+            enableExternalLoadOptions: false,
+            externalLoadOptionsName: "",
+          },
+        },
+        row13: {
+          column2: {
+            cellType: "text",
+            cellText: "药物是否免费",
+            textAlign: "center",
+          },
+          column3: {
+            colSpan: 1,
+            rowSpan: 1,
+            cellType: "radio",
+            choices: [
+              {
+                text: "否",
+                value: "item1",
+              },
+              {
+                text: "是",
+                value: "item2",
+              },
+            ],
+            cellAlias: "isFreeDrug",
+            enableExternalLoadOptions: false,
+            externalLoadOptionsName: "",
+          },
+          column4: {
+            cellType: "text",
+            cellText: "免费形式",
+            textAlign: "center",
           },
           column5: {
             cellType: "radio",
             choices: [
               {
-                text: "item1",
+                text: "申办者提供药物",
                 value: "item1",
+              },
+              {
+                text: "提供费用",
+                value: "item2",
               },
             ],
             colSpan: 2,
             cellAlias: "freeDrugStyle",
-            enableExternalLoadOptions: true,
-            externalLoadOptionsName: "FREE_DRUG_STYLE_OPTIONS",
+            enableExternalLoadOptions: false,
+            externalLoadOptionsName: "",
           },
         },
         row14: {
           column2: {
             cellType: "text",
-            cellText: "检查是否免费：",
-            textAlign: "right",
+            cellText: "检查是否免费",
+            textAlign: "center",
           },
           column3: {
             cellType: "radio",
             choices: [
               {
-                text: "item1",
+                text: "否",
                 value: "item1",
+              },
+              {
+                text: "是",
+                value: "item2",
+              },
+              {
+                text: "部分减免",
+                value: "item3",
               },
             ],
             colSpan: 4,
             cellAlias: "isFreeCheck",
-            enableExternalLoadOptions: true,
-            externalLoadOptionsName: "IS_FREE_OPTIONS",
+            enableExternalLoadOptions: false,
+            externalLoadOptionsName: "",
           },
         },
         row15: {
           column2: {
             cellType: "text",
-            cellText: "受试者补助：",
-            textAlign: "right",
+            cellText: "受试者补助",
+            textAlign: "center",
           },
           column3: {
             cellType: "radio",
             choices: [
               {
-                text: "item1",
+                text: "否",
                 value: "item1",
+              },
+              {
+                text: "是",
+                value: "item2",
               },
             ],
             cellAlias: "isExamineeSubsidy",
-            enableExternalLoadOptions: true,
-            externalLoadOptionsName: "BOOLEAN_OPTIONS",
+            enableExternalLoadOptions: false,
+            externalLoadOptionsName: "",
           },
           column4: {
             cellType: "text",
-            cellText: "补助类型：",
-            textAlign: "right",
+            cellText: "补助类型",
+            textAlign: "center",
           },
           column5: {
             cellType: "radio",
@@ -495,62 +582,70 @@ export default {
                 text: "交通补助",
                 value: "item1",
               },
+              {
+                text: "采血补偿",
+                value: "item2",
+              },
             ],
             showOtherItem: false,
             otherText: "其他",
             colSpan: 2,
             cellAlias: "examineeSubsidyType",
-            enableExternalLoadOptions: true,
-            externalLoadOptionsName: "EXAMINEE_SUBSIDY_TYPE_OPTIONS",
+            enableExternalLoadOptions: false,
+            externalLoadOptionsName: "",
           },
         },
         row16: {
           column2: {
             cellType: "text",
-            cellText: "资料存放年限：",
-            textAlign: "right",
+            cellText: "资料存放年限",
+            textAlign: "center",
           },
           column3: {
             cellType: "radio",
             choices: [
               {
-                text: "item1",
+                text: "试验结束后5年",
                 value: "item1",
               },
             ],
             colSpan: 4,
-            showOtherItem: false,
-            otherText: "其他（（具体年限）",
+            showOtherItem: true,
+            otherText: "其他（具体年限）",
             cellAlias: "dataSaveYearsType",
-            enableExternalLoadOptions: true,
-            externalLoadOptionsName: "DATA_SAVE_YEARS_TYPE_OPTIONS",
+            enableExternalLoadOptions: false,
+            externalLoadOptionsName: "",
           },
         },
         row17: {
           column2: {
             cellType: "text",
-            cellText: "数据处理人员：",
-            textAlign: "right",
+            cellText: "数据处理人员",
+            textAlign: "center",
           },
           column3: {
             cellType: "radio",
             choices: [
               {
-                text: "item1",
+                text: "委托专业医学统计人员统计",
                 value: "item1",
+              },
+              {
+                text: "由经过统计培训的研究者统计",
+                value: "item2",
               },
             ],
             colSpan: 4,
             cellAlias: "dataHandlePersonType",
-            enableExternalLoadOptions: true,
-            externalLoadOptionsName: "DATA_HANDLE_PERSON_TYPE_OPTIONS",
+            enableExternalLoadOptions: false,
+            externalLoadOptionsName: "",
           },
         },
         row18: {
           column2: {
             cellType: "text",
-            cellText: "数据统计单位：",
-            textAlign: "right",
+            cellText: "数据统计单位",
+            textAlign: "center",
           },
           column3: {
             cellType: "input",
@@ -564,31 +659,34 @@ export default {
             cellType: "text",
             cellText: "提交材料清单",
             rowSpan: 2,
+            textAlign: "center",
           },
           column2: {
             colSpan: 5,
             rowSpan: undefined,
             cellType: "input",
-            inputType: "text",
+            inputType: "textarea",
             cellAlias: "submitDataList",
           },
         },
         row20: {
           column2: {
             cellType: "text",
-            cellText: "机构办公室秘书审核签字：",
-            textAlign: "right",
+            cellText: "机构办公室秘书审核签字",
+            textAlign: "center",
           },
           column3: {
-            cellType: "input",
-            inputType: "text",
             colSpan: 2,
+            rowSpan: undefined,
+            cellType: "imageUpload",
+            cellAlias: "institutionalOfficeSign",
           },
           column5: {
             colSpan: 2,
             rowSpan: 1,
             cellType: "input",
             inputType: "date",
+            cellAlias: "institutionalOfficeSignDate",
           },
         },
         row21: {
@@ -596,6 +694,7 @@ export default {
             cellType: "text",
             cellText: "专业负责任及主要研究者（PI）意见",
             rowSpan: 4,
+            textAlign: "center",
           },
           column2: {
             colSpan: 5,
@@ -603,193 +702,95 @@ export default {
             cellType: "blanks",
             blankSettings: [
               {
-                id: "g5tpqz94nkd",
+                id: "blank1",
                 type: "text",
               },
               {
-                id: "xcs9kia8w8",
+                id: "blank2",
                 type: "text",
               },
               {
-                id: "driaaogovpm",
+                id: "blank3",
                 type: "text",
               },
               {
-                id: "zk8h1l3f5m",
+                id: "blank4",
                 type: "text",
               },
               {
-                id: "rtkj3cp2cwc",
+                id: "blank5",
                 type: "text",
               },
             ],
-            blankContent: {
-              root: {
-                children: [
-                  {
-                    children: [
-                      {
-                        detail: 0,
-                        format: 0,
-                        mode: "normal",
-                        style: "",
-                        text: "专业目前承担在研项目",
-                        type: "text",
-                        version: 1,
-                      },
-                      { type: "blankNode", blankId: "g5tpqz94nkd", version: 1 },
-                      {
-                        detail: 0,
-                        format: 0,
-                        mode: "normal",
-                        style: "",
-                        text: " 项,在研入组",
-                        type: "text",
-                        version: 1,
-                      },
-                      { type: "blankNode", blankId: "xcs9kia8w8", version: 1 },
-                      {
-                        detail: 0,
-                        format: 0,
-                        mode: "normal",
-                        style: "",
-                        text: " 项, 本适应症在研入组阶段",
-                        type: "text",
-                        version: 1,
-                      },
-                      { type: "blankNode", blankId: "driaaogovpm", version: 1 },
-                      {
-                        detail: 0,
-                        format: 0,
-                        mode: "normal",
-                        style: "",
-                        text: " 项，专业具备资质",
-                        type: "text",
-                        version: 1,
-                      },
-                      { type: "blankNode", blankId: "zk8h1l3f5m", version: 1 },
-                      {
-                        detail: 0,
-                        format: 0,
-                        mode: "normal",
-                        style: "",
-                        text: " 人，研究者资质",
-                        type: "text",
-                        version: 1,
-                      },
-                      { type: "blankNode", blankId: "rtkj3cp2cwc", version: 1 },
-                      {
-                        detail: 0,
-                        format: 0,
-                        mode: "normal",
-                        style: "",
-                        text: " 人。",
-                        type: "text",
-                        version: 1,
-                      },
-                    ],
-                    direction: "ltr",
-                    format: "",
-                    indent: 0,
-                    type: "paragraph",
-                    version: 1,
-                  },
-                ],
-                direction: "ltr",
-                format: "",
-                indent: 0,
-                type: "root",
-                version: 1,
-              },
-            },
-            cellAlias: "PIAdvice",
+            blankContent:
+              '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"专业目前承担在研项目","type":"text","version":1},{"type":"blankNode","blankId":"blank1","version":1},{"detail":0,"format":0,"mode":"normal","style":"","text":" 项,在研入组","type":"text","version":1},{"type":"blankNode","blankId":"blank2","version":1},{"detail":0,"format":0,"mode":"normal","style":"","text":" 项, 本适应症在研入组阶段","type":"text","version":1},{"type":"blankNode","blankId":"blank3","version":1},{"detail":0,"format":0,"mode":"normal","style":"","text":" 项，专业具备资质","type":"text","version":1},{"type":"blankNode","blankId":"blank4","version":1},{"detail":0,"format":0,"mode":"normal","style":"","text":" 人，研究者资质","type":"text","version":1},{"type":"blankNode","blankId":"blank5","version":1},{"detail":0,"format":0,"mode":"normal","style":"","text":" 人。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}',
+            cellAlias: "expersStatus",
           },
         },
         row22: {
           column2: {
-            cellType: "blanks",
-            blankSettings: [
+            colSpan: 2,
+            rowSpan: undefined,
+            cellType: "text",
+            cellText: "我是否同意承担该临床研究",
+            textAlign: "center",
+          },
+          column4: {
+            colSpan: 3,
+            rowSpan: undefined,
+            cellType: "radio",
+            choices: [
               {
-                id: "ghersmmzm8g",
-                type: "text",
+                text: "同意",
+                value: "item1",
+              },
+              {
+                text: "不同意",
+                value: "item2",
               },
             ],
-            colSpan: 5,
-            blankContent: {
-              root: {
-                children: [
-                  {
-                    children: [
-                      {
-                        detail: 0,
-                        format: 0,
-                        mode: "normal",
-                        style: "",
-                        text: "我",
-                        type: "text",
-                        version: 1,
-                      },
-                      { type: "blankNode", blankId: "ghersmmzm8g", version: 1 },
-                      {
-                        detail: 0,
-                        format: 0,
-                        mode: "normal",
-                        style: "",
-                        text: " 承担该临床研究。",
-                        type: "text",
-                        version: 1,
-                      },
-                    ],
-                    direction: "ltr",
-                    format: "",
-                    indent: 0,
-                    type: "paragraph",
-                    version: 1,
-                  },
-                ],
-                direction: "ltr",
-                format: "",
-                indent: 0,
-                type: "root",
-                version: 1,
-              },
-            },
-            cellAlias: "PIAdvice1",
+            orientation: "horizontal",
+            cellAlias: "agreeOptions",
           },
         },
         row23: {
           column2: {
             cellType: "text",
-            cellText: "PI签字：",
-            textAlign: "right",
+            cellText: "PI签字",
+            textAlign: "center",
           },
           column3: {
-            cellType: "input",
-            inputType: "text",
             colSpan: 2,
+            rowSpan: undefined,
+            cellType: "imageUpload",
+            cellAlias: "PISign",
           },
           column5: {
+            colSpan: 2,
+            rowSpan: undefined,
             cellType: "input",
             inputType: "date",
-            colSpan: 2,
+            cellAlias: "PISignDate",
           },
         },
         row24: {
           column2: {
             cellType: "text",
-            cellText: "专业负责人签字：",
-            textAlign: "right",
+            cellText: "专业负责人签字",
+            textAlign: "center",
           },
           column3: {
-            cellType: "input",
-            inputType: "text",
             colSpan: 2,
+            rowSpan: undefined,
+            cellType: "imageUpload",
+            cellAlias: "expertSign",
           },
           column5: {
             colSpan: 2,
             rowSpan: 1,
             cellType: "input",
             inputType: "date",
+            cellAlias: "expertSignDate",
           },
         },
         row25: {
@@ -797,28 +798,34 @@ export default {
             cellType: "text",
             cellText: "机构办公室审批意见",
             rowSpan: 2,
+            textAlign: "center",
           },
           column2: {
-            cellType: "text",
-            cellText: "",
             colSpan: 5,
+            rowSpan: undefined,
+            cellType: "input",
+            inputType: "text",
+            cellAlias: "officeAdvice",
           },
         },
         row26: {
           column2: {
             cellType: "text",
-            cellText: "办公室主任:",
-            textAlign: "right",
+            cellText: "办公室主任",
+            textAlign: "center",
           },
           column3: {
-            cellType: "input",
-            inputType: "text",
             colSpan: 2,
+            rowSpan: undefined,
+            cellType: "imageUpload",
+            cellAlias: "officeSign",
           },
           column5: {
+            colSpan: 2,
+            rowSpan: undefined,
             cellType: "input",
             inputType: "date",
-            colSpan: 2,
+            cellAlias: "officeSignDate",
           },
         },
       },

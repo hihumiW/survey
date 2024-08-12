@@ -2,6 +2,7 @@ import { defineComponent, unref, computed } from "vue";
 import Table from "@survey/components/Table";
 import { forEachCell } from "@survey/utils";
 import { gridCellTypeEnum } from "@survey/types/questionTypeEnum";
+import { mergeWith } from "lodash-es";
 
 import { getOtherTextValueFieldName } from "@survey/Render/Element/Select";
 
@@ -10,10 +11,15 @@ import Blanks from "../Blanks";
 import Text from "../Text";
 import Dropdown from "../Dropdown";
 
+const getDownloadUrl = (formId, fileName) => {
+  return `${import.meta.env.VITE_DOWNLOAD_URL}/${formId}/${fileName}`;
+};
+
 const Grid = defineComponent({
-  props: ["data", "value"],
+  props: ["data", "values", "value", "formId"],
   setup(props) {
-    const { data, value } = props;
+    const { data, values, value, formId } = props;
+
     const { columns, gridRows, cells, hideTableHeader } = data;
 
     const renderColumnHeader = ({ column }) => {
@@ -24,8 +30,17 @@ const Grid = defineComponent({
       const { key: rowName } = rowData;
       const { id: columnName, originalColumn } = column;
       const cellInfo = cells?.[rowName]?.[columnName] || {};
-      const cellConfig = { ...originalColumn, ...cellInfo };
-      const cellValue = value?.[rowName]?.[columnName];
+      const cellConfig = mergeWith(
+        { ...originalColumn },
+        { ...cellInfo },
+        (objectV, sourceV) => {
+          return sourceV || objectV;
+        }
+      );
+      const { cellAlias } = cellConfig;
+      const cellValue = cellAlias
+        ? values?.[cellAlias]
+        : value?.[rowName]?.[columnName];
       const cellType = cellConfig.cellType;
       let align = "left";
       let content = null;
@@ -71,6 +86,23 @@ const Grid = defineComponent({
               blankContent={cellConfig.blankContent}
               value={cellValue}
             />
+          );
+          break;
+        case gridCellTypeEnum.valueText:
+          content = cellValue;
+          break;
+        case gridCellTypeEnum.imageUpload:
+          content = (
+            <div style={{ minHeight: "32px" }}>
+              {cellValue && (
+                <img
+                  style={{
+                    maxHeight: "36px",
+                  }}
+                  src={getDownloadUrl(formId, cellValue)}
+                />
+              )}
+            </div>
           );
           break;
         default:

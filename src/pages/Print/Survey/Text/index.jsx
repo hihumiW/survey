@@ -37,6 +37,9 @@ const Text = defineComponent({
           )} ~ ${new Intl.DateTimeFormat("fr-CA").format(new Date(endDate))} 
         `;
       }
+      if (inputType === textTypeEnum.textarea) {
+        return <div className="whitespace-pre">{value}</div>;
+      }
       return value;
     };
   },

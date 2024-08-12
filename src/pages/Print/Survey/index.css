@@ -13,7 +13,7 @@
 .survey-print-table td {
   border-bottom: 1px solid var(--borderColor);
   border-right: 1px solid var(--borderColor);
-  padding: 2px;
+  padding: 2px 4px;
 }
 
 .survey-print-table th {
@@ -22,10 +22,10 @@
 
 .survey-print-table th:last-child,
 .survey-print-table td:last-child {
-  border-right: 0px solid var(--borderColor);
+  /* border-right: 0px solid var(--borderColor); */
 }
 .cell-layout {
-  min-height: 20px;
+  /* min-height: 20px; */
 }
 .cell-layout.left {
   text-align: left;

@@ -15,13 +15,15 @@ import ProvinceSelectWrapper from "./ProvinceSelectWrapper";
 import Checkbox from "./Checkbox";
 import { forEachCell } from "@survey/utils";
 import { getOtherTextValueFieldName } from "@survey/Render/Element/Select";
+import { mergeWith } from "lodash-es";
 import Blanks from "./Blanks";
 import Radio from "./Radio";
+import ImageUpload from "./ImageUpload";
 
 const Grid = defineComponent({
   props: questionCommonProps,
   setup(props) {
-    const { question, values, touched, errors } = props;
+    const { question, values, touched, errors, formId } = props;
     const { name, cells, hideTableHeader } = question;
     const { setNestedObjectValue, removeValuesProperty, externalOptions } =
       useValues();
@@ -107,7 +109,13 @@ const Grid = defineComponent({
       const { key: rowName } = rowData;
       const { id: columnName, originalColumn } = column;
       const cellInfo = cells?.[rowName]?.[columnName] || {};
-      const cellConfig = { ...originalColumn, ...cellInfo };
+      const cellConfig = mergeWith(
+        { ...originalColumn },
+        { ...cellInfo },
+        (objectV, sourceV) => {
+          return sourceV || objectV;
+        }
+      );
       const { cellAlias } = cellConfig;
       const cellValue = cellAlias
         ? unref(values)?.[cellAlias]
@@ -129,7 +137,6 @@ const Grid = defineComponent({
         filterable: true,
         class: cellType !== gridCellTypeEnum.text ? "text-left" : undefined,
       };
-
       switch (cellType) {
         case gridCellTypeEnum.input:
           const InputProps = getInputProps(cellConfig);
@@ -181,9 +188,14 @@ const Grid = defineComponent({
             />
           );
         case gridCellTypeEnum.text:
+        case gridCellTypeEnum.valueText:
           return (
             <p style={{ textAlign: cellConfig.textAlign || "left" }}>
-              <span class="inline-block py-3">{cellConfig.cellText}</span>
+              <span class="inline-block py-3">
+                {cellType === gridCellTypeEnum.valueText
+                  ? cellValue
+                  : cellConfig.cellText}
+              </span>
             </p>
           );
         case gridCellTypeEnum.checkbox:
@@ -232,6 +244,15 @@ const Grid = defineComponent({
               cellValue={cellValue}
               disabled={CommonProps.disabled}
               onBlankValueChange={onBlankValueChange}
+            />
+          );
+        case gridCellTypeEnum.imageUpload:
+          return (
+            <ImageUpload
+              formId={formId}
+              value={cellValue}
+              disabled={CommonProps.disabled}
+              onValueChange={handleValueChange}
             />
           );
       }

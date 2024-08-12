@@ -18,7 +18,6 @@ const SurveyRender = defineComponent({
       formId,
       externalOptions,
     } = props;
-    console.log("externalOptions", externalOptions);
     useQuestionSequenceInit(questions);
     const { data: formTypes } = useFormTypes();
     const valuesSchema = useValidate(questions);
@@ -115,7 +114,7 @@ SurveyRender.props = {
     type: Function,
   },
   formId: {
-    type: String,
+    type: [String, Number],
   },
   externalOptions: {
     type: Object,

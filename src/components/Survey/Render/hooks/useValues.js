@@ -16,7 +16,9 @@ export const useValuesInit = (config) => {
   const { defaultValue = {}, schema, onSubmit, externalOptions } = config;
   const values = ref(cloneDeep(defaultValue));
 
-  window.cc = values;
+  window.getSurveyValues = () => {
+    return unref(values);
+  };
   const errors = ref(null);
   const touched = ref({});
 
@@ -129,6 +131,7 @@ export const useValuesInit = (config) => {
         cb(unref(errors), unref(values));
       });
     };
+    window.setFieldValue = setFieldValue;
   });
   onUnmounted(() => {
     window.triggerSubmit = null;
