@@ -26,15 +26,18 @@ const Radio = (props) => {
     (enableExternalLoadOptions
       ? externalOptions?.[externalLoadOptionsName || "options"]
       : choices) || [];
-
+  const onRadioClick = (e) => {
+    const targetValue = e.target.value;
+    props["onUpdate:value"](targetValue === value ? null : targetValue);
+  };
   return (
-    <NRadioGroup
-      value={value}
-      class={`survey-grid-radio-group ${orientation || "horizontal"}`}
-      onUpdate:value={props["onUpdate:value"]}
-      disabled={disabled}
-    >
-      <RadioOptions choices={renderChoices} />
+    <div class={`flex flex-wrap gap-3 ${orientation || "horizontal"} `}>
+      <RadioOptions
+        choices={renderChoices}
+        radioValue={value}
+        disabled={disabled}
+        onRadioClick={onRadioClick}
+      />
       {showOtherItem && (
         <RadioOptionWithInput
           disabled={disabled}
@@ -43,14 +46,15 @@ const Radio = (props) => {
           otherPlaceholder={otherPlaceholder}
           otherTextValue={otherTextValue}
           onTextValueChange={onOtherTextValueChange}
+          onRadioClick={onRadioClick}
         />
       )}
-    </NRadioGroup>
+    </div>
   );
 };
 
 const RadioOptions = (props) => {
-  const { choices } = props;
+  const { choices, radioValue, disabled, onRadioClick } = props;
   if (!choices?.length) {
     return <p>no available option</p>;
   }
@@ -58,7 +62,13 @@ const RadioOptions = (props) => {
     <Fragment>
       {choices.map(({ value, text }) => {
         return (
-          <NRadio value={value} key={value}>
+          <NRadio
+            value={value}
+            key={value}
+            disabled={disabled}
+            checked={value === radioValue}
+            onClick={onRadioClick}
+          >
             {text}
           </NRadio>
         );
@@ -68,7 +78,7 @@ const RadioOptions = (props) => {
 };
 
 const RadioOptionWithInput = defineComponent({
-  emits: ["textValueChange"],
+  emits: ["textValueChange", "radioClick"],
   props: [
     "disabled",
     "otherText",
@@ -77,14 +87,20 @@ const RadioOptionWithInput = defineComponent({
     "selectValue",
   ],
   setup(props, { emit }) {
+    const { disabled } = props;
     const { showOther, inputValue } = useOtherText(props, emit);
 
     return () => {
       const inputDisabled = props.disabled || !unref(showOther);
-      const { otherText, otherPlaceholder } = props;
+      const { otherText, otherPlaceholder, selectValue } = props;
       return (
         <div className="survey-grid-checkbox-other">
-          <NRadio value={otherOptionDefaultValue}>
+          <NRadio
+            disabled={disabled}
+            value={otherOptionDefaultValue}
+            checked={otherOptionDefaultValue === selectValue}
+            onClick={(e) => emit("radioClick", e)}
+          >
             {otherText || "Other (describe)"}
           </NRadio>
           <div className="other-input-wrapper">
