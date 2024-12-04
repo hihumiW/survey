@@ -37,7 +37,7 @@ import useCreator from "./hooks/useCreator";
 import { useQuestionSequenceInit } from "./hooks/useQuestionIndex";
 import { useRoute } from "vue-router";
 
-import fakeData from "@/projectCreate.js";
+// import fakeData from "@/projectCreate.js";
 // import fakeData from "@/projectStart";
 
 const props = defineProps({
@@ -52,9 +52,9 @@ const props = defineProps({
 });
 
 const route = useRoute();
-// const creator = useCreator(props.editSurveyData, props.readOnly);
+const creator = useCreator(props.editSurveyData, props.readOnly);
 // console.log(props.editSurveyData);
-const creator = useCreator(fakeData);
+// const creator = useCreator(fakeData);
 const { showSideBar } = creator;
 useQuestionSequenceInit(creator.surveyQuestions);
 
